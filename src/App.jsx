@@ -1,7 +1,13 @@
 import Body from "./components/Body"
+import Header from "./components/Header";
 
 const App = () => {
-  return <Body/>;
+  return (
+    <><Header />
+    <Body />
+    </>
+  )
+
 }
 
 export default App
