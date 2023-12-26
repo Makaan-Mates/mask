@@ -15,7 +15,6 @@ const Header = () => {
     navigate('/login')
   }
 
-
   return (
     <div className="bg-zinc-800 sticky top-0 h-20 text-zinc-100 py-4 px-6  flex items-center justify-between  border-b-[1px] border-zinc-900">
       <div className="flex items-center justify-center space-x-4 gap-5">
