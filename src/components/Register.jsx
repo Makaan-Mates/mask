@@ -73,7 +73,7 @@ const Register = () => {
             Sign Up
           </button>
         </form>
-        <a className="mt-4 hover:underline" href="/">
+        <a className="mt-4 hover:underline" href="/login">
           Already on Mask! Login.
         </a>
       </div>

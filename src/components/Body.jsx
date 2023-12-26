@@ -6,7 +6,7 @@ import Home from "./Home";
 const Body = () => {
   const appRouter = createBrowserRouter([
     {
-        path: "/",
+        path: "/login",
         element: <Login />,
       },
       {
@@ -14,7 +14,7 @@ const Body = () => {
         element: <Register />,
       },
       {
-        path: "/home",
+        path: "/",
         element: <Home/>
       }
   ]);

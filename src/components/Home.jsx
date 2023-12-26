@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Asidebar from "./Asidebar";
 const Home = () => {
   useEffect(() => {
     const fetchPosts = async () => {
@@ -19,8 +20,9 @@ const Home = () => {
 
   return (
     <>
-      <div>
-        <h1 className="text-white">All Posts</h1>
+      <div className="flex ">
+        <Asidebar />
+        <h1 className="text-white px-5 py-10">All Posts Component</h1>
       </div>
     </>
   );
