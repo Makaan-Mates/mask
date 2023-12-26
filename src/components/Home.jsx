@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import Asidebar from "./Asidebar";
+import {useNavigate} from 'react-router-dom'
+
 const Home = () => {
+const navigate = useNavigate()
   useEffect(() => {
     const fetchPosts = async () => {
       const token = localStorage.getItem("token");
@@ -13,6 +16,10 @@ const Home = () => {
       });
       const json = await data.json();
       console.log(json);
+      if(json?.message==="invalid token" || json?.message==="token not found"){
+        navigate('/login')
+      } 
+
     };
 
     fetchPosts();
