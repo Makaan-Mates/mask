@@ -13,7 +13,11 @@ const Body = () => {
         element: <Register />,
       },
   ]);
-  return  <RouterProvider router={appRouter} />;
+  return  (
+    <div className="min-h-screen bg-zinc-800">
+        <RouterProvider router={appRouter} />
+    </div>
+  );
 };
 
 export default Body;

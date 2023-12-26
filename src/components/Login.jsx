@@ -1,10 +1,10 @@
 
 const Login = () => {
   return (
-    <div className=" min-h-screen bg-zinc-800 flex justify-center items-center">
-      <div className="bg-zinc-100 p-8 w-2/5 h-auto rounded shadow-md  text-zinc-900">
+    <div className=" min-h-[60vh] flex justify-center ">
+      <div className="bg-zinc-100 p-8 w-2/6 h-auto rounded shadow-md mt-10  text-zinc-900">
         <h2 className="text-3xl  font-semibold mb-4">Welcome back to Mask</h2>
-        <form className="space-y-4">
+        <form className="space-y-4 my-2">
           <div>
             <label className="block mb-1 " htmlFor="email">
               Username
