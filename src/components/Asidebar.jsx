@@ -1,4 +1,3 @@
-
 const Asidebar = () => {
   return (
     <div className="w-1/5 px-5 py-10 bg-inherit border-r-[1px] border-zinc-900 min-h-screen text-zinc-100">
@@ -6,6 +5,7 @@ const Asidebar = () => {
         </div>
         <hr className="border-b-2 border-zinc-900 opacity-20 mb-8" />
         <h1 className="border-t-[1px] border-zinc-900 py-2">TOPICS FOLLOWING</h1>
+        
     </div>
   )
 }
