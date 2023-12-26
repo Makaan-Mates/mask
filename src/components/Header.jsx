@@ -1,12 +1,19 @@
 import { FaRegUserCircle, FaBell, FaRegEdit, FaEllipsisV,FaSearch } from 'react-icons/fa';
 import { useState } from 'react';
+import {useNavigate} from 'react-router-dom'
 
 const Header = () => {
+  const navigate = useNavigate()
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => {
     setShowDropdown((prevState) => !prevState);
   };
+
+  const handleLogOut = ()=>{
+    localStorage.removeItem('token')
+    navigate('/login')
+  }
 
 
   return (
@@ -34,7 +41,7 @@ const Header = () => {
                 <li className="cursor-pointer py-1 text-sm hover:underline">Bookmarks</li>
                 <li className="cursor-pointer py-1 text-sm hover:underline">Activity</li>
                 <hr />
-                <li className="cursor-pointer py-1 text-md">Logout</li>
+                <li onClick={handleLogOut} className="cursor-pointer py-1 text-md">Logout</li>
               </ul>
             </div>
           )}
