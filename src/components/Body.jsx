@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
@@ -14,8 +14,12 @@ const Body = () => {
         element: <Register />,
       },
       {
-        path: "/",
+        path: "/home",
         element: <Home/>
+      },
+      {
+      path: "/",
+      element: <Navigate to="/home"/>
       }
   ]);
   return  (
