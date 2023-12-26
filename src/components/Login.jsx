@@ -25,7 +25,8 @@ const Login = () => {
    const json = await data.json()
    localStorage.setItem('token' , json.token)
    if(json.message==="logged in"){
-    navigate('/')
+
+    navigate('/home', {replace: true})
    }
 
   }
