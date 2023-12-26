@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Asidebar from "./Asidebar";
 import {useNavigate} from 'react-router-dom'
+import Header from "./Header";
 
 const Home = () => {
 const navigate = useNavigate()
@@ -23,11 +24,12 @@ const navigate = useNavigate()
     };
 
     fetchPosts();
-  }, []);
+  }, [navigate]);
 
   return (
     <>
-      <div className="flex ">
+        <Header/>
+        <div className="flex ">
         <Asidebar />
         <h1 className="text-white px-5 py-10">All Posts Component</h1>
       </div>
