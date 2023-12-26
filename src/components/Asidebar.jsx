@@ -1,5 +1,7 @@
+
 import {useDispatch} from 'react-redux'
 import { displayAddPostCard } from '../features/addPostCardSlice'
+
 const Asidebar = () => {
   const dispatch = useDispatch()
   const handleToggleEvent = ()=>{
@@ -11,6 +13,7 @@ const Asidebar = () => {
         </div>
         <hr className="border-b-2 border-zinc-900 opacity-20 mb-8" />
         <h1 className="border-t-[1px] border-zinc-900 py-2">TOPICS FOLLOWING</h1>
+        
     </div>
   )
 }

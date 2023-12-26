@@ -25,7 +25,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-[70vh] flex justify-center ">
+    <div className="min-h-[70vh] flex justify-center items-center ">
       <div className="bg-zinc-100 text-zinc-900 p-8 rounded shadow-md w-2/6 h-auto mt-10">
         <h2 className="text-3xl  font-semibold mb-4">Welcome to Mask</h2>
         <form className="space-y-4 my-2" action="">
