@@ -2,9 +2,14 @@ import { useEffect } from "react";
 import Asidebar from "./Asidebar";
 import {useNavigate} from 'react-router-dom'
 import Header from "./Header";
+import {useSelector} from 'react-redux'
+import AddPostCard from "./AddPostCard";
 
 const Home = () => {
-const navigate = useNavigate()
+const navigate = useNavigate() 
+const showAddPostCard = useSelector((state)=> state.addPost.isPoppedUp)
+console.log(showAddPostCard)
+
   useEffect(() => {
     const fetchPosts = async () => {
       const token = localStorage.getItem("token");
@@ -28,11 +33,15 @@ const navigate = useNavigate()
 
   return (
     <>
+        {showAddPostCard && <AddPostCard/>}
+        <div className={`${showAddPostCard ? 'blur-md' : ''}`}>
         <Header/>
         <div className="flex ">
         <Asidebar />
-        <h1 className="text-white px-5 py-10">All Posts Component</h1>
+        {/* AllPost component */}
       </div>
+        </div>
+        
     </>
   );
 };

@@ -29,9 +29,7 @@ const Login = () => {
     navigate('/home', {replace: true})
    }
 
-  }
-
-  
+  }  
   return (
     <div className=" h-[90vh] flex justify-center items-center ">
       <div className="bg-zinc-100 p-8 w-2/6 h-auto rounded shadow-md mt-10  text-zinc-900">
