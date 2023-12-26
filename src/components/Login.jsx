@@ -1,5 +1,36 @@
+import {useRef} from 'react'
+import {useNavigate} from 'react-router-dom'
+
 
 const Login = () => {
+
+  const navigate = useNavigate()
+
+  const email = useRef()
+  const password = useRef()
+
+  const loginUser = async (e)=>{
+   e.preventDefault()
+   const data = await fetch('http://localhost:4000/login' , {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: email.current.value,
+      password: password.current.value
+    })
+   })
+
+   const json = await data.json()
+   localStorage.setItem('token' , json.token)
+   if(json.message==="logged in"){
+    navigate('/home')
+   }
+
+  }
+
+  
   return (
     <div className=" min-h-[60vh] flex justify-center ">
       <div className="bg-zinc-100 p-8 w-2/6 h-auto rounded shadow-md mt-10  text-zinc-900">
@@ -7,13 +38,14 @@ const Login = () => {
         <form className="space-y-4 my-2">
           <div>
             <label className="block mb-1 " htmlFor="email">
-              Username
+              Email
             </label>
             <input
               className="w-full border rounded px-3 py-2 focus:outline-none focus:border-black "
-              type="text"
-              id="username"
-              placeholder="Enter your username"
+              type="email"
+              id="email"
+              ref ={email}
+              placeholder="Enter your email"
             />
           </div>
           <div>
@@ -24,6 +56,7 @@ const Login = () => {
               className="w-full border rounded px-3 py-2 focus:outline-none focus:border-black-500 "
               type="password"
               id="password"
+              ref={password}
               placeholder="Enter your password"
             />
           </div>
@@ -39,7 +72,7 @@ const Login = () => {
               Forgot Password?
             </a>
           </div>
-          <button className="w-full bg-zinc-800 text-white rounded py-2 px-4 hover:bg-zinc-900 transition duration-300">
+          <button onClick={loginUser} className="w-full bg-zinc-800 text-white rounded py-2 px-4 hover:bg-zinc-900 transition duration-300">
             Login
           </button>
         </form>
