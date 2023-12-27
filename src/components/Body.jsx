@@ -11,10 +11,6 @@ const Body = () => {
         element: <Login />,
       },
       {
-        path: "/",
-        element: <Navigate to="/home" />,
-      },
-      {
         path: "/register",
         element: <Register />,
       },
