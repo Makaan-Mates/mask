@@ -25,9 +25,9 @@ const Register = () => {
     });
 
     const json = await data.json();
-    console.log(json);
+    localStorage.setItem('token' , json.token)
     if(json.message==="account created!"){
-      navigate('/login')
+      navigate('/home')
     }
 
   };
