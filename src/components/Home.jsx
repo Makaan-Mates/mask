@@ -9,7 +9,7 @@ import AllPosts from "./AllPosts";
 const Home = () => {
   const navigate = useNavigate();
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
-  console.log(showAddPostCard);
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -22,7 +22,6 @@ const Home = () => {
         },
       });
       const json = await data.json();
-      console.log(json);
       if (
         json?.message === "invalid token" ||
         json?.message === "token not found"
