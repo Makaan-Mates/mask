@@ -7,7 +7,6 @@ import { topics } from "../utils/topics";
 
 const AddPostCard = () => {
 
-
   const dispatch = useDispatch();
   const handleHidePostCard = () => {
     dispatch(hideAddPostCard());
@@ -42,16 +41,16 @@ const AddPostCard = () => {
 
   return (
     <>
-      <div className="w-[70%] left-0 right-0 m-auto top-24 h-[85vh] absolute bg-zinc-900 z-10 rounded-lg  ">
-        <div className="w-full flex justify-end px-6 py-4 border-b-[0.5px] border-zinc-600">
+      <div className="w-[70%] h-[85vh] pb-2 fixed top-[12vh] left-0  right-0 m-auto  bg-zinc-900 z-50 rounded-lg ">
+        <div className="w-full h-[10vh] flex justify-end px-6 py-4 border-b-[0.5px] border-zinc-600">
           <RxCross2
             className="text-4xl cursor-pointer text-zinc-100"
             onClick={handleHidePostCard}
           />
         </div>
-        <div className="w-full h-20 px-2  py-2 text-xl font-semibold ">
+        <div className="w-full h-[10vh] px-2  py-2 text-xl font-semibold ">
           <select
-            className="rounded-md  w-full h-12 focus:outline-none bg-zinc-800 text-zinc-200"
+            className="rounded-md  w-full h-full focus:outline-none bg-zinc-800 text-zinc-200"
             ref={topic}
           >
             <option disabled selected value="">
@@ -64,28 +63,28 @@ const AddPostCard = () => {
             ))}
           </select>
         </div>
-        <div className="w-full px-2 py-4">
+        <div className="w-full h-[15vh]  px-2 py-4">
           <input
-            className="w-[90%] text-3xl font-semibold bg-zinc-900 rounded px-3 py-2 focus:outline-none  text-zinc-200"
+            className="w-[95%] h-full text-3xl font-semibold bg-zinc-900 rounded px-3 py-2 focus:outline-none  text-zinc-200"
             type="text"
             id="title"
             ref={title}
             placeholder="Write a specific title..."
           />
         </div>
-        <div className="w-full h-[50%] px-2 py-4">
+        <div className="w-full h-[40vh] px-2 py-4">
           <textarea
-            className="w-full h-full text-xl  bg-zinc-900 rounded px-3 py-2 focus:outline-none resize-none text-zinc-200"
+            className="w-[96%] h-full text-xl  bg-zinc-900 rounded px-3 py-2 focus:outline-none resize-none text-zinc-200 scrollbar-thin scrollbar-thumb-zinc-500"
             type="text"
             ref={description}
             id="title"
             placeholder="Unleash your thoughts and paint the canvas of your imagination..."
           />
         </div>
-        <div className="w-full px-4 mb-4 flex justify-end">
+        <div className="w-full h-[8vh] px-4 mb-4  flex justify-end">
           <button
             onClick={handlePublishPost}
-            className="bg-zinc-800  text-zinc-100 px-4 py-2 rounded-md hover:bg-red-800 transition duration-300"
+            className="bg-zinc-800 h-[6vh] flex items-center text-zinc-100 px-4 py-2 rounded-md hover:bg-red-800 transition duration-300"
           >
             Publish
           </button>

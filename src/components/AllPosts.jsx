@@ -53,13 +53,11 @@ const AllPosts = () => {
 
 
 
+
   useEffect(() => {
     window.addEventListener("scroll", handelInfiniteScroll);
     return () => window.removeEventListener("scroll", handelInfiniteScroll);
   }, []);
-
-
-
 
 
   return (
@@ -81,6 +79,7 @@ const AllPosts = () => {
           />
         ))}
       </div>
+
     </div>
   );
 };
