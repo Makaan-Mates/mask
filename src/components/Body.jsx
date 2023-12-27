@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
+import ShowPost from "./ShowPost";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -21,6 +22,10 @@ const Body = () => {
       {
       path: "/",
       element: <Navigate to="/home"/>
+      },
+      {
+        path:"/showpost/:postid",
+        element: <ShowPost/>
       }
   ]);
   return  (

@@ -9,6 +9,7 @@ const AllPosts = () => {
 
   const dispatch = useDispatch()
   const allPosts = useSelector((state)=>state.posts.data)
+  console.log(allPosts)
  
   useEffect(()=>{
     const fetchAllPosts = async ()=>{
@@ -36,7 +37,7 @@ const AllPosts = () => {
         </div>
         <div className="postcards flex flex-wrap py-5 " >
            {allPosts?.posts?.toReversed().map((post)=>(
-            <PostCard key={post._id} title={post.title} description={post.description} topic={post.topic}/>
+            <PostCard key={post._id} postid={post._id} title={post.title} description={post.description} topic={post.topic}/>
            ))}
         </div>
     </div>
