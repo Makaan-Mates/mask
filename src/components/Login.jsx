@@ -32,7 +32,7 @@ const Login = () => {
   }  
 
   return (
-    <div className=" h-[90vh] flex justify-center items-center ">
+    <div className=" h-[100vh] flex justify-center items-center ">
       <div className="bg-zinc-100 p-8 w-2/6 h-auto rounded shadow-md mt-10  text-zinc-900">
         <h2 className="text-3xl  font-semibold mb-4">Welcome back to Mask</h2>
         <form className="space-y-4 my-2">
