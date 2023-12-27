@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import Asidebar from "./Asidebar";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import Header from "./Header";
-import {useSelector} from 'react-redux'
+import { useSelector } from "react-redux";
 import AddPostCard from "./AddPostCard";
 import AllPosts from "./AllPosts";
 
 const Home = () => {
-const navigate = useNavigate() 
-const showAddPostCard = useSelector((state)=> state.addPost.isPoppedUp)
-console.log(showAddPostCard)
+  const navigate = useNavigate();
+  const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
+  console.log(showAddPostCard);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -23,10 +23,12 @@ console.log(showAddPostCard)
       });
       const json = await data.json();
       console.log(json);
-      if(json?.message==="invalid token" || json?.message==="token not found"){
-        navigate('/login')
-      } 
-
+      if (
+        json?.message === "invalid token" ||
+        json?.message === "token not found"
+      ) {
+        navigate("/login");
+      }
     };
 
     fetchPosts();
@@ -34,15 +36,14 @@ console.log(showAddPostCard)
 
   return (
     <>
-        {showAddPostCard && <AddPostCard/>}
-        <div className={`${showAddPostCard ? 'blur-md' : ''}`}>
-        <Header/>
+      {showAddPostCard && <AddPostCard />}
+      <div className={`${showAddPostCard ? "blur-md" : ""}`}>
+        <Header />
         <div className="flex ">
-        <Asidebar />
-        <AllPosts/>
-      </div>
+          <Asidebar />
+          <AllPosts />
         </div>
-        
+      </div>
     </>
   );
 };
