@@ -51,9 +51,6 @@ const AllPosts = () => {
   };
 
 
-
-
-
   useEffect(() => {
     window.addEventListener("scroll", handelInfiniteScroll);
     return () => window.removeEventListener("scroll", handelInfiniteScroll);
@@ -61,6 +58,7 @@ const AllPosts = () => {
 
 
   return (
+
     <div className=" w-4/5 px-5 py-8 ">
       <div className="w-full flex items-center justify-between pb-11 border-b-[1px] border-zinc-900">
         <h1 className="text-2xl font-semibold ">Sex Education</h1>

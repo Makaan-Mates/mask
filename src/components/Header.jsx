@@ -1,10 +1,14 @@
 import { FaRegUserCircle, FaBell, FaRegEdit, FaEllipsisV,FaSearch } from 'react-icons/fa';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
+import { displayAddPostCard } from '../features/addPostCardSlice'
+
 
 const Header = () => {
   const navigate = useNavigate()
   const [showDropdown, setShowDropdown] = useState(false);
+  const dispatch = useDispatch()
 
   const toggleDropdown = () => {
     setShowDropdown((prevState) => !prevState);
@@ -13,6 +17,10 @@ const Header = () => {
   const handleLogOut = ()=>{
     localStorage.removeItem('token')
     navigate('/login')
+  }
+
+  const handleToggleEvent = ()=>{
+    dispatch(displayAddPostCard())
   }
 
   return (
@@ -30,7 +38,7 @@ const Header = () => {
         </div>
       </div>
       <div className="flex gap-3 items-center space-x-4 ">
-        <FaRegEdit className="text-2xl cursor-pointer transition-transform transform hover:text-zinc-400 " />
+        <FaRegEdit onClick={handleToggleEvent} className="text-2xl cursor-pointer transition-transform transform hover:text-zinc-400 "  />
         <div className="text-2xl cursor-pointer transition-transform transform hover:text-zinc-400" onClick={toggleDropdown}>
           <FaRegUserCircle  />
           {showDropdown && (
