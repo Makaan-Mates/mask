@@ -1,6 +1,10 @@
 import { useRef } from "react";
+import {useNavigate} from "react-router-dom"
 
 const Register = () => {
+
+  const navigate = useNavigate();
+
   const username = useRef();
   const email = useRef();
   const password = useRef();
@@ -22,6 +26,10 @@ const Register = () => {
 
     const json = await data.json();
     console.log(json);
+    if(json.message==="account created!"){
+      navigate('/login')
+    }
+
   };
 
   return (
