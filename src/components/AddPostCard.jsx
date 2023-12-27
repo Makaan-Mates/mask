@@ -4,7 +4,9 @@ import { hideAddPostCard } from "../features/addPostCardSlice";
 import { useRef } from "react";
 import { topics } from "../utils/topics";
 
+
 const AddPostCard = () => {
+
 
   const dispatch = useDispatch();
   const handleHidePostCard = () => {
@@ -32,9 +34,9 @@ const AddPostCard = () => {
 
     const json = await data.json();
     console.log(json);
-  
    dispatch(hideAddPostCard())
-
+   window.location.reload()
+   
 
   };
 

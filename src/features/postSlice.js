@@ -9,7 +9,7 @@ export const postSlice = createSlice({
     addAllPosts : (state,action)=>{
       state.data = action.payload
     }
-    }
+    }   
 })
 
 export const {addAllPosts} = postSlice.actions

@@ -3,15 +3,17 @@ import PostCard from "./PostCard";
 import { useEffect } from "react"
 import {useDispatch} from "react-redux"
 import { addAllPosts } from "../features/postSlice"
+import {useSelector} from 'react-redux'
 
 const AllPosts = () => {
 
   const dispatch = useDispatch()
+  const allPosts = useSelector((state)=>state.posts.data)
  
   useEffect(()=>{
     const fetchAllPosts = async ()=>{
       const token = localStorage.getItem("token");
-      const data = await fetch("http://localhost:4000/api/posts",{
+      const data = await fetch("http://localhost:4000/api/posts?_limit=12&_page=1",{
         method: "GET",
         headers: {
           "CONTENT-TYPE": "application/json",
@@ -20,7 +22,6 @@ const AllPosts = () => {
       })
 
       const json = await data.json()
-      console.log(json)
       dispatch(addAllPosts(json))
     }
 
@@ -38,21 +39,9 @@ const AllPosts = () => {
             <button className="flex items-center border-2 border-red-600 rounded-md px-2 py-1 text-zinc-200 hover:border-red-500"><FaArrowRightArrowLeft className="mr-2 rotate-90" />Hot Posts</button>
         </div>
         <div className="postcards flex flex-wrap py-5 " >
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
+           {allPosts?.posts?.toReversed().map((post)=>(
+            <PostCard key={post._id} title={post.title} description={post.description} topic={post.topic}/>
+           ))}
         </div>
     </div>
   )
