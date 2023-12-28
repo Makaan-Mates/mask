@@ -24,12 +24,12 @@ const Body = () => {
       element: <Navigate to="/home"/>
       },
       {
-        path:"/showpost/:postid",
+        path:"/post/:postid",
         element: <ShowPost/>
       }
   ]);
   return  (
-    <div className="min-h-full bg-zinc-800 text-zinc-200">
+    <div className="min-h-full bg-zinc-800 text-zinc-200 ">
         <RouterProvider router={appRouter} />
     </div>
   );

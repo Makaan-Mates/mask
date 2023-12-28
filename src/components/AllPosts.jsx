@@ -5,7 +5,6 @@ import {useState, useEffect } from "react";
 
 const AllPosts = () => {
 
-
   const [card,setCard] = useState([])
   const [page,setPage] = useState(1)
 
@@ -31,10 +30,9 @@ const AllPosts = () => {
     }
   };
 
-
   useEffect(() => {
     fetchAllPosts();
-  }, [page]);
+  }, [page,]);
 
   const handelInfiniteScroll = async () => {
 
@@ -56,10 +54,9 @@ const AllPosts = () => {
     return () => window.removeEventListener("scroll", handelInfiniteScroll);
   }, []);
 
-
   return (
 
-    <div className=" w-4/5 px-5 py-8 ">
+    <div className=" w-4/5 px-5 py-8  ">
       <div className="w-full flex items-center justify-between pb-11 border-b-[1px] border-zinc-900">
         <h1 className="text-2xl font-semibold ">Sex Education</h1>
         <button className="flex items-center border-2 border-red-600 rounded-md px-2 py-1 text-zinc-200 hover:border-red-500">
@@ -71,6 +68,7 @@ const AllPosts = () => {
         {card.map((post) => (
           <PostCard
             key={post._id}
+            postid={post._id}
             title={post.title}
             description={post.description}
             topic={post.topic}

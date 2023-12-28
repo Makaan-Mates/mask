@@ -15,7 +15,7 @@ const PostCard = ({ title, description,topic,postid }) => {
       const truncatedDesc = truncateDescription(description, 20);
 
   const handleShowPost = () => {
-    navigate(`/showpost/${postid}}`)
+    navigate(`/post/${postid}`)
   }
 
   return (
