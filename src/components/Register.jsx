@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+
   const navigate = useNavigate();
 
   const username = useRef();
