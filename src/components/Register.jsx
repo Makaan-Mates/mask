@@ -1,7 +1,10 @@
 import { useRef } from "react";
+
 import { useNavigate } from "react-router-dom";
 
+
 const Register = () => {
+
   const navigate = useNavigate();
 
   const username = useRef();
@@ -24,10 +27,12 @@ const Register = () => {
     });
 
     const json = await data.json();
+
     localStorage.setItem("token", json.token);
     if (json?.message === "account created!") {
       navigate("/register/topics-to-follow");
     }
+
   };
 
   return (
@@ -79,6 +84,7 @@ const Register = () => {
             Sign Up
           </button>
         </form>
+
         <span>
           Already on Mask!
           <a className="mt-4 hover:underline" href="/login">
@@ -91,3 +97,5 @@ const Register = () => {
 };
 
 export default Register;
+
+
