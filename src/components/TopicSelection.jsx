@@ -18,7 +18,10 @@ const TopicSelection = ({ onTopicsSelected }) => {
   };
 
   const handleDone = () => {
+<<<<<<< HEAD
     console.log("dfjhfkjxnkj")
+=======
+>>>>>>> parent of bdbc5b0 (fetched postDetails from backend and rendered in UI)
     if (selectedTopics.length >= 4) {
       onTopicsSelected(selectedTopics);
     } else {
@@ -26,8 +29,11 @@ const TopicSelection = ({ onTopicsSelected }) => {
     }
   };
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> parent of bdbc5b0 (fetched postDetails from backend and rendered in UI)
   return (
     <div className="min-h-[50vh] flex justify-center items-center">
       <div className="bg-zinc-100 text-zinc-900 p-0 rounded shadow-md w-[48vh] h-auto mt-2  ">
@@ -41,7 +47,11 @@ const TopicSelection = ({ onTopicsSelected }) => {
                   ? 'bg-green-500 text-white'
                   : 'bg-gray-200 text-gray-800'
               } rounded-md p-10 cursor-pointer transition-all duration-300`}
+<<<<<<< HEAD
               onClick={()=>handleTopicToggle(topic.name)}
+=======
+              onClick={() => handleTopicToggle(topic.name)}
+>>>>>>> parent of bdbc5b0 (fetched postDetails from backend and rendered in UI)
             >
               {topic.name}
             </div>

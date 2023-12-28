@@ -122,10 +122,13 @@ const Register = () => {
       });
 
       const json = await response.json();
+<<<<<<< HEAD
       localStorage.setItem('token' , json.token)
        if(json.message==="account created!"){
       navigate('/register/topics')
     }
+=======
+>>>>>>> parent of bdbc5b0 (fetched postDetails from backend and rendered in UI)
 
       if (json?.message === "account created!") {
         setRegistrationSuccess(true);
@@ -146,7 +149,10 @@ const Register = () => {
     if (registrationSuccess) {
       navigate("/home");
     } else {
+<<<<<<< HEAD
       console.log("kuch to gadbad hai")
+=======
+>>>>>>> parent of bdbc5b0 (fetched postDetails from backend and rendered in UI)
       registerUser();
     }
   };

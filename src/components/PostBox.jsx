@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect,useState } from "react";
 import {useParams} from "react-router-dom"
 
@@ -42,6 +43,12 @@ const PostBox = () => {
       <p>{postDetails?.description}</p>
       </div>
      
+=======
+const PostBox = () => {
+  return (
+    <div className="w-full min-h-[88vh] bg-zinc-800 px-5 py-10">
+      <div className="w-full h-full bg-zinc-700">Post Details</div>
+>>>>>>> parent of bdbc5b0 (fetched postDetails from backend and rendered in UI)
     </div>
   );
 };
