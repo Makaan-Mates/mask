@@ -1,5 +1,7 @@
 import { useRef } from "react";
-import {useNavigate} from "react-router-dom"
+
+import { useNavigate } from "react-router-dom";
+
 
 const Register = () => {
 
@@ -25,9 +27,10 @@ const Register = () => {
     });
 
     const json = await data.json();
-    localStorage.setItem('token' , json.token)
-    if(json.message==="account created!"){
-      navigate('/home')
+
+    localStorage.setItem("token", json.token);
+    if (json?.message === "account created!") {
+      navigate("/register/topics-to-follow");
     }
 
   };
@@ -81,9 +84,13 @@ const Register = () => {
             Sign Up
           </button>
         </form>
-        <a className="mt-4 hover:underline" href="/login">
-          Already on Mask! Login.
-        </a>
+
+        <span>
+          Already on Mask!
+          <a className="mt-4 hover:underline" href="/login">
+            Login.
+          </a>
+        </span>
       </div>
     </div>
   );
