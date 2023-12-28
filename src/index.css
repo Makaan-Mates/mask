@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+    /* Custom scrollbar styles */
+    textarea::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    textarea::-webkit-scrollbar-thumb {
+      background-color: #6b7280; /* Adjust as needed */
+      border-radius: 10px;
+    }
+
+    /* Other styles */
+    .scrollbar-thin {
+      scrollbar-width: thin;
+    }
+
+    .scrollbar-thumb-zinc-500 {
+      scrollbar-color: #d1d5db #6b7280; /* Adjust colors */
+    }
