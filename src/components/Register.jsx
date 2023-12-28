@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-
   const navigate = useNavigate();
 
   const username = useRef();
@@ -80,9 +79,12 @@ const Register = () => {
             Sign Up
           </button>
         </form>
-        <a className="mt-4 hover:underline" href="/login">
-          Already on Mask! Login.
-        </a>
+        <span>
+          Already on Mask!
+          <a className="mt-4 hover:underline" href="/login">
+            Login.
+          </a>
+        </span>
       </div>
     </div>
   );

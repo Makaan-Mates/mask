@@ -32,13 +32,14 @@ const TopicsSelection = () => {
     if (selectedTopics.length === 3) {
         console.log("done")
       navigate("/home");}
+      
   };
 
   return (
     <div className="min-h-[100vh] flex justify-center items-center">
       <div className="bg-zinc-100 text-zinc-900 p-8 rounded shadow-md w-2/3 h-auto mt-10">
         <h2 className="text-3xl font-semibold mb-4">Topics To Follow</h2>
-        <h3>Atleast 3</h3>
+        <h3>Select atleast 3</h3>
         <div className="flex flex-wrap">
           {topics.map((topic) => (
             <div
