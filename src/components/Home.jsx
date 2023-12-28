@@ -10,7 +10,6 @@ const Home = () => {
   const navigate = useNavigate();
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
 
-
   useEffect(() => {
     const fetchPosts = async () => {
       const token = localStorage.getItem("token");
