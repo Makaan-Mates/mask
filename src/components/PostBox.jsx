@@ -1,3 +1,4 @@
+
 import { useEffect,useState } from "react";
 import {useParams} from "react-router-dom"
 
@@ -41,7 +42,6 @@ const PostBox = () => {
       <h1>{postDetails?.title}</h1>
       <p>{postDetails?.description}</p>
       </div>
-     
     </div>
   );
 };

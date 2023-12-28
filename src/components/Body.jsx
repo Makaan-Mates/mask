@@ -24,6 +24,7 @@ const Body = () => {
       element: <Navigate to="/home"/>
       },
       {
+
         path:"/post/:postid",
         element: <ShowPost/>
       }
