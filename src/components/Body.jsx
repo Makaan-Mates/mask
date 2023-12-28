@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
+import TopicsSelection from "./TopicsSelection";
 import ShowPost from "./ShowPost";
 
 const Body = () => {
@@ -14,6 +15,10 @@ const Body = () => {
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path:"/register/topics-to-follow",
+        element: <TopicsSelection />
       },
       {
         path: "/home",
