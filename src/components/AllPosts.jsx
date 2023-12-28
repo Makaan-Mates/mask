@@ -71,6 +71,7 @@ const AllPosts = () => {
         {card.map((post) => (
           <PostCard
             key={post._id}
+            postid={post._id}
             title={post.title}
             description={post.description}
             topic={post.topic}

@@ -122,6 +122,10 @@ const Register = () => {
       });
 
       const json = await response.json();
+      localStorage.setItem('token' , json.token)
+       if(json.message==="account created!"){
+      navigate('/register/topics')
+    }
 
       if (json?.message === "account created!") {
         setRegistrationSuccess(true);
@@ -142,6 +146,7 @@ const Register = () => {
     if (registrationSuccess) {
       navigate("/home");
     } else {
+      console.log("kuch to gadbad hai")
       registerUser();
     }
   };

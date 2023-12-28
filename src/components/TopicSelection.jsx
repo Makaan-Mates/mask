@@ -18,12 +18,15 @@ const TopicSelection = ({ onTopicsSelected }) => {
   };
 
   const handleDone = () => {
+    console.log("dfjhfkjxnkj")
     if (selectedTopics.length >= 4) {
       onTopicsSelected(selectedTopics);
     } else {
       alert('Please select at least 4 topics before clicking Done.');
     }
   };
+
+
 
   return (
     <div className="min-h-[50vh] flex justify-center items-center">
@@ -38,7 +41,7 @@ const TopicSelection = ({ onTopicsSelected }) => {
                   ? 'bg-green-500 text-white'
                   : 'bg-gray-200 text-gray-800'
               } rounded-md p-10 cursor-pointer transition-all duration-300`}
-              onClick={() => handleTopicToggle(topic.name)}
+              onClick={()=>handleTopicToggle(topic.name)}
             >
               {topic.name}
             </div>

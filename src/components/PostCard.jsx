@@ -2,7 +2,7 @@ import { FaRegEye, FaRegClock } from "react-icons/fa";
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom'
 
-const PostCard = ({ title, description,topic,postid }) => {
+const PostCard = ({ title, description,topic,postid}) => {
   const navigate = useNavigate()
 
     const truncateDescription = (text, maxLength) => {
@@ -12,10 +12,10 @@ const PostCard = ({ title, description,topic,postid }) => {
         }
         return text;
       };
-      const truncatedDesc = truncateDescription(description, 20);
+      const truncatedDesc = truncateDescription(description, 30);
 
   const handleShowPost = () => {
-    navigate(`/showpost/${postid}}`)
+    navigate(`/post/${postid}`)
   }
 
   return (
@@ -38,6 +38,7 @@ const PostCard = ({ title, description,topic,postid }) => {
   );
 };
 
+// for prop validation 
 PostCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
