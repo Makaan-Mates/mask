@@ -15,22 +15,23 @@ const TopicsSelection = () => {
         const updatedTopics = selectedTopics.filter(
           (selected) => selected !== topic
         );
+        console.log("updatedTopics", updatedTopics);
         return updatedTopics;
       }
-      if (selectedTopics.length < 3) {
-        // If the topic is not selected and the limit is not reached, add it
+      if (selectedTopics.length !== 3) {
         const updatedTopics = [...selectedTopics, topic];
-        console.log(updatedTopics);
+        console.log("limit not reached", updatedTopics);
         return updatedTopics;
       }
-      // setSelectedTopic((topic)=>)
-      console.log(selectedTopics);
+      console.log("selectedTopics", selectedTopics);
       return selectedTopics;
     });
   };
 
   const handleSelection = () => {
-    navigate("/home");
+    if (selectedTopics.length === 3) {
+        console.log("done")
+      navigate("/home");}
   };
 
   return (
