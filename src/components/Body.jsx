@@ -24,11 +24,8 @@ const Body = () => {
       element: <Navigate to="/home"/>
       },
       {
-<<<<<<< HEAD
+
         path:"/post/:postid",
-=======
-        path:"/showpost/:postid",
->>>>>>> parent of bdbc5b0 (fetched postDetails from backend and rendered in UI)
         element: <ShowPost/>
       }
   ]);

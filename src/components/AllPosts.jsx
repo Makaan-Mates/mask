@@ -71,10 +71,7 @@ const AllPosts = () => {
         {card.map((post) => (
           <PostCard
             key={post._id}
-<<<<<<< HEAD
             postid={post._id}
-=======
->>>>>>> parent of bdbc5b0 (fetched postDetails from backend and rendered in UI)
             title={post.title}
             description={post.description}
             topic={post.topic}
