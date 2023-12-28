@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom"
 
 const PostBox = () => {
     const {postid} = useParams()
+
   const [postData,setPostData] = useState() 
 
   const fetchPostDetails = async()=>{
@@ -100,6 +101,7 @@ const PostBox = () => {
       </div>
       <div className="commentsection w-full bg-zinc-700 h-80 px-5 py-4 rounded-md">
             <div><CommentSection/></div>
+
       </div>
     </div>
   );
