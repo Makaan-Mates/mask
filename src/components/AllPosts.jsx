@@ -22,7 +22,6 @@ const AllPosts = () => {
     );
 
     const json = await data.json();
-    console.log(json)
     if (page === 1) {
       setCard([...json.posts]);
     } else {

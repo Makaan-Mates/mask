@@ -3,6 +3,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
 import ShowPost from "./ShowPost";
+import TopicsSelection from "./TopicsSelection";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -26,6 +27,10 @@ const Body = () => {
       {
         path:"/post/:postid",
         element: <ShowPost/>
+      },
+      {
+        path:"/register/topics-to-follow",
+        element: <TopicsSelection/>
       }
   ]);
   return  (

@@ -38,9 +38,9 @@ const PostBox = () => {
   return (
     <div className="w-4/5 px-5 py-8  bg-zinc-800 ">
       <div className="topic text-sm font-semibold my-2 mx-4 ">
-        <span>TOPIC</span>
+        <span>{postDetails?.topic}</span>
       </div>
-      <div className="content-box w-full 2xl:w-2/3 flex flex-col gap-6 bg-zinc-800 justify-between border-[0.2px] border-zinc-700 px-5 py-10  text-zinc-200 rounded-md ">
+      <div className="content-box w-full 2xl:w-[90%] flex flex-col gap-6 bg-zinc-800 justify-between border-[0.2px] border-zinc-700 px-5 py-10  text-zinc-200 rounded-md ">
         <div className="tit-area flex flex-col gap-2">
           <div className="title">
             <h1 className=" text-4xl font-semibold ">

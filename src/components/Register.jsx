@@ -1,8 +1,7 @@
 import { useRef } from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-
   const navigate = useNavigate();
 
   const username = useRef();
@@ -25,11 +24,10 @@ const Register = () => {
     });
 
     const json = await data.json();
-    localStorage.setItem('token' , json.token)
-    if(json.message==="account created!"){
-      navigate('/home')
+    localStorage.setItem("token", json.token);
+    if (json?.message === "account created!") {
+      navigate("/register/topics-to-follow");
     }
-
   };
 
   return (
