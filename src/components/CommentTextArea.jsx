@@ -39,9 +39,9 @@ const comment = useRef();
 
   return (
     <>
-      <div className="addcomment w-[90%] bg-zinc-900 h-[20vh] my-6 flex rounded-md justify-between ">
+      <div className="addcomment w-[90%] bg-[#1C1C1C]  h-[20vh] my-6 flex rounded-md justify-between border-[0.2px] border-[#282828] ">
         <textarea
-          className="w-[80%] h-full text-sm  bg-zinc-900 rounded px-3 py-4 focus:outline-none resize-none text-zinc-200 scrollbar-thin scrollbar-thumb-zinc-500"
+          className="w-[80%] h-full text-sm  bg-[#1C1C1C]  rounded px-3 py-4 focus:outline-none resize-none text-[#d8d8d8] scrollbar-thin scrollbar-thumb-zinc-500 placeholder:text-[#9B9B9B]"
           name="addnewcomment"
           id=""
           ref={comment}
@@ -53,7 +53,7 @@ const comment = useRef();
         <div className=" m-4   items-end flex justify-end">
           <button
             onClick={handlePublishComment}
-            className="bg-zinc-800 h-[6vh] flex items-center text-zinc-100 px-4 py-2 rounded-md hover:bg-red-800 transition duration-300"
+            className="border-[#1B1B1B] bg-[#292929]  rounded-xl hover:bg-[#2e2e2e]  h-[6vh] flex items-center text-[#d8d8d8] px-4 py-2  transition duration-300"
           >
             Comment
           </button>

@@ -8,11 +8,11 @@ const Asidebar = () => {
     dispatch(displayAddPostCard())
   }
   return (
-    <div className="w-1/5 px-5 py-10 bg-inherit border-r-[1px] border-zinc-900 min-h-[88vh] text-zinc-100 self-start sticky top-[12vh] ">
-        <div onClick={handleToggleEvent} className="text-l px-2 py-1 text-center font-semibold border-2 border-red-500 hover:border-red-700 text-zinc-100 rounded-md cursor-pointer sticky top-0">WRITE A POST
+    <div className="bg-[#1C1C1C] w-1/5 px-5 py-10 bg-inherit border-r-[1px] border-[#282828] min-h-[88vh] self-start sticky top-[12vh] ">
+        <div onClick={handleToggleEvent} className="text-l px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929]  rounded-xl hover:bg-[#2e2e2e] cursor-pointer sticky top-0">WRITE A POST
         </div>
-        <hr className="border-b-2 border-zinc-900 opacity-20 mb-8" />
-        <h1 className="border-t-[1px] border-zinc-900 py-2">TOPICS FOLLOWING</h1>
+        <hr className="border-b-2 border-[#282828] opacity-20 mb-8" />
+        <h1 className="border-t-[1px] border-[#282828] py-2 text-[#FFFFFF]">TOPICS FOLLOWING</h1>
 
     </div>
   )
