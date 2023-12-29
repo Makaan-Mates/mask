@@ -38,7 +38,7 @@ const TopicsSelection = () => {
         return updatedTopics;
       }
 
-      if(selectedTopics.length !== 3){
+      if(selectedTopics.length !== 4){
         const updatedTopics = [...selectedTopics,{id:topicId,name:topicName}]
         return updatedTopics
       }
@@ -50,7 +50,7 @@ const TopicsSelection = () => {
 
   const handleTopicsFollowing = () => {
 
-    if (selectedTopics.length === 3) {
+    if (selectedTopics.length === 4) {
       navigate("/home");
     }
   
