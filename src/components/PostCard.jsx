@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom'
 
 
-const PostCard = ({ title, description,topic,postid}) => {
+const PostCard = ({ title, description,topic,postid,username}) => {
 
   const navigate = useNavigate()
 
@@ -27,7 +27,7 @@ const PostCard = ({ title, description,topic,postid}) => {
       <span className="text-2xl font-semibold">{title}</span>
       <div className="text-sm">{truncatedDesc}</div>
       <div className="flex gap-4 justify-end px-2 items-center">
-        <span>@username</span>
+        <span>{username ? `@${username}`: "anonymous"}</span>
         <span className="flex items-center">
           <FaRegEye className="mx-1" />
           Views
@@ -48,7 +48,8 @@ PostCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   topic: PropTypes.string.isRequired,
-  postid: PropTypes.string.isRequired
+  postid: PropTypes.string.isRequired,
+  username:PropTypes.string.isRequired,
 };
 
 export default PostCard;

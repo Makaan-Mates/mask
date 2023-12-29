@@ -31,7 +31,7 @@ const AllPosts = () => {
 
   useEffect(() => {
     fetchAllPosts();
-  }, [page,]);
+  }, [page]);
 
   const handelInfiniteScroll = async () => {
 
@@ -71,6 +71,7 @@ const AllPosts = () => {
             title={post.title}
             description={post.description}
             topic={post.topic}
+            username={post?.user_id?.username}
           />
         ))}
       </div>

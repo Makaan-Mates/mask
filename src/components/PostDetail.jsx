@@ -4,8 +4,9 @@ import { FaRegBookmark } from "react-icons/fa6";
 import CommentSection from "./CommentSection";
 import { useEffect,useState } from "react";
 import {useParams} from "react-router-dom"
+import CommentTextArea from "./CommentTextArea";
 
-const PostBox = () => {
+const PostDetail = () => {
     const {postid} = useParams()
 
   const [postData,setPostData] = useState() 
@@ -33,9 +34,10 @@ const PostBox = () => {
   if(!postData){
    return
   }
+ const {postDetails} = postData;
+ console.log(postDetails)
 
-  const {postDetails} = postData;
-   console.log(postDetails)
+
   return (
     <div className="w-4/5 px-5 py-8  bg-zinc-800 ">
       <div className="topic text-sm font-semibold my-2 mx-4 ">
@@ -53,7 +55,7 @@ const PostBox = () => {
           <div className="writer text-sm flex gap-2">
             <span>profession</span>
             <span>|</span>
-            <span className="cursor-pointer text-zinc-400">{postDetails?.user_id?.username}</span>
+            <span className="cursor-pointer text-zinc-400">{postDetails?.user_id?.username || "anonymous"}</span>
           </div>
           <div className="tit-info flex gap-4 py-2 items-center " >
             <span className="flex gap-1 items-center">
@@ -86,27 +88,13 @@ const PostBox = () => {
           </span>
         </div>
       </div>
-      <div className="addcomment w-[90%] bg-zinc-900 h-[20vh] my-6 flex rounded-md justify-between ">
-        <textarea
-          className="w-[80%] h-full text-sm  bg-zinc-900 rounded px-3 py-4 focus:outline-none resize-none text-zinc-200 scrollbar-thin scrollbar-thumb-zinc-500"
-          name="addnewcomment"
-          id=""
-          cols="30"
-          rows="10"
-          placeholder="Add a comment"
-        ></textarea>
-        <div className=" m-4   items-end flex justify-end">
-          <button className="bg-zinc-800 h-[6vh] flex items-center text-zinc-100 px-4 py-2 rounded-md hover:bg-red-800 transition duration-300">
-            Publish
-          </button>
-        </div>
-      </div>
-      <div className="commentsection w-full bg-zinc-700 h-80 px-5 py-4 rounded-md">
-            <div><CommentSection/></div>
+      <CommentTextArea/>
+      <div className="commentsection w-full h-auto bg-zinc-700  px-5 py-4 rounded-md">
+            <div><CommentSection /></div>
 
       </div>
     </div>
   );
 };
 
-export default PostBox;
+export default PostDetail;
