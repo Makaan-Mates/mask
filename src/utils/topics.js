@@ -1,37 +1,34 @@
-// import { v4 as uuidv4 } from "uuid";
-
 export const topics = [
   {
-    name: "GENERAL",
+    name: "General",
     id: 1,
   },
   {
-    name: "TECH INDUSTRY",
+    name: "Tech Industry",
     id: 2,
   },
-
   {
-    name: "STARTUPS",
+    name: "Startups",
     id: 3,
   },
   {
-    name: "SOFTWARE ENGINEERING",
+    name: "Software Engineering",
     id: 4,
   },
   {
-    name: "FULL STACK DEVELOPMENT",
+    name: "Full Stack Development",
     id: 5,
   },
   {
-    name: "DESIGN",
+    name: "Design",
     id: 6,
   },
   {
-    name: "FOOD AND TRAVEL",
+    name: "Food And Travel",
     id: 7,
   },
   {
-    name: "PLACEMENT PREPARATION",
+    name: "Placement Preparation",
     id: 8,
   },
   {
@@ -39,39 +36,39 @@ export const topics = [
     id: 9,
   },
   {
-    name: "OFFCAMPUS",
+    name: "Offcampus",
     id: 10,
   },
   {
-    name: "FINANCE",
+    name: "Finance",
     id: 11,
   },
   {
-    name: "MUSIC",
+    name: "Music",
     id: 12,
   },
   {
-    name: "SPORTS",
+    name: "Sports",
     id: 13,
   },
   {
-    name: "MOVIES",
+    name: "Movies",
     id: 14,
   },
   {
-    name: "SEX EDUCATION",
+    name: "Sex Education",
     id: 15,
   },
   {
-    name: "MY THOUGHTS",
+    name: "My Thoughts",
     id: 16,
   },
   {
-    name: "RANDOM TALKS",
+    name: "Random Talks",
     id: 17,
   },
   {
-    name: "POLITICS",
+    name: "Politics",
     id: 18,
   },
   {
@@ -79,35 +76,35 @@ export const topics = [
     id: 19,
   },
   {
-    name: "SCIENCE FICTION",
+    name: "Science Fiction",
     id: 20,
   },
   {
-    name: "ASTRONOMY",
+    name: "Astronomy",
     id: 21,
   },
   {
-    name: "GAMING",
+    name: "Gaming",
     id: 22,
   },
   {
-    name: "HEALTHCARE INDUSTRY",
+    name: "Healthcare Industry",
     id: 23,
   },
   {
-    name: "LIFESTYLE",
+    name: "Lifestyle",
     id: 24,
   },
   {
-    name: "RELATIONSHIPS",
+    name: "Relationships",
     id: 25,
   },
   {
-    name: "FITNESS",
+    name: "Fitness",
     id: 26,
   },
   {
-    name: "BOOKS",
+    name: "Books",
     id: 27,
   },
 ];

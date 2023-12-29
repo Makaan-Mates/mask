@@ -37,12 +37,10 @@ const TopicsSelection = () => {
         return updatedTopics;
       }
 
-      if (selectedTopics.length !== 3) {
-        const updatedTopics = [
-          ...selectedTopics,
-          { id: topicId, name: topicName },
-        ];
-        return updatedTopics;
+
+      if(selectedTopics.length !== 4){
+        const updatedTopics = [...selectedTopics,{id:topicId,name:topicName}]
+        return updatedTopics
       }
       console.log(selectedTopics);
       return selectedTopics;
@@ -51,6 +49,7 @@ const TopicsSelection = () => {
 
   const handleTopicsFollowing = () => {
     saveSelectedTopics();
+
   };
 
   console.log(selectedTopics);
