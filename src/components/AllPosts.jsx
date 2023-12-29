@@ -55,11 +55,11 @@ const AllPosts = () => {
 
   return (
 
-    <div className=" w-4/5 px-5 py-8  ">
-      <div className="w-full flex items-center justify-between pb-11 border-b-[1px] border-zinc-900">
-        <h1 className="text-2xl font-semibold ">Sex Education</h1>
-        <button className="flex items-center border-2 border-red-600 rounded-md px-2 py-1 text-zinc-200 hover:border-red-500">
-          <FaArrowRightArrowLeft className="mr-2 rotate-90" />
+    <div className=" w-4/5 px-5 py-8   bg-[#161616]">
+      <div className="w-full flex items-center justify-between pb-11 border-b-[1px] border-[#282828]">
+        <h1 className="text-2xl font-semibold text-[#F6F6F6]">Sex Education</h1>
+        <button className="flex text-sm items-center rounded-md px-4 py-2  text-[#F6F6F6] shadow-lg shadow-green-500/15 hover:shadow-green-500/20 bg-[#1C1C1C]">
+          <FaArrowRightArrowLeft className="mr-2 rotate-90 text-[#F6F6F6]" />
           Hot Posts
         </button>
       </div>
