@@ -35,8 +35,6 @@ const PostDetail = () => {
    return
   }
  const {postDetails} = postData;
- console.log(postDetails)
-
 
   return (
     <div className="w-4/5 px-5 py-8  bg-[#161616] ">

@@ -80,7 +80,7 @@ const AddPostCard = () => {
         <div className="w-full h-[8vh] px-4 mb-4  flex justify-end">
           <button
             onClick={handlePublishPost}
-            className=" h-[6vh] flex gap-2 items-center  px-6 py-2 border-[1px] border-[#1B1B1B] bg-[#292929] rounded-xl hover:bg-[#2e2e2e] transition duration-300"
+            className=" h-[6vh] flex gap-2 items-center  px-6 py-2 border-[1px] border-[#1B1B1B] bg-[#292929] rounded-xl hover:bg-[#2e2e2e] transition duration-300  text-[#d5d5d5] "
           >
             <IoSend className=""/>
             Publish

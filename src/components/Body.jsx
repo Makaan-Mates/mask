@@ -34,7 +34,7 @@ const Body = () => {
       }
   ]);
   return  (
-    <div className="min-h-full bg-zinc-800 text-zinc-200 ">
+    <div className="min-h-full bg-[#161616]">
         <RouterProvider router={appRouter} />
     </div>
   );

@@ -33,9 +33,9 @@ const CommentSection = () => {
   const filteredComments = comments.filter(
     (comment) => comment?.post_id?._id === postid
   );
-  console.log(filteredComments);
+
   return (
-    <div className="w-full  h-auto bg-[#161616] ">
+    <div className="w-full  text-[#d5d5d5]  h-auto bg-[#161616] ">
       {filteredComments.length > 0 ? (
         <h1 className="px-2 pb-2 font-semibold">All Comments</h1>
       ) : (

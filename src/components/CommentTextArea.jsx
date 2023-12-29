@@ -48,7 +48,6 @@ const comment = useRef();
           cols="30"
           rows="10"
           placeholder="Add a comment"
-          autoFocus
         ></textarea>
         <div className=" m-4   items-end flex justify-end">
           <button
