@@ -2,7 +2,7 @@ import Asidebar from "./Asidebar";
 import Header from "./Header";
 import { useSelector } from "react-redux";
 import AddPostCard from "./AddPostCard";
-import PostBox from "./PostBox";
+import PostDetail from "./PostDetail";
 
 const ShowPost = () => {
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
@@ -14,7 +14,7 @@ const ShowPost = () => {
         <Header />
         <div className="flex ">
           <Asidebar />
-          <PostBox />
+          <PostDetail />
         </div>
       </div>
     </>
