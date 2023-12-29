@@ -32,14 +32,15 @@ const CommentSection = () => {
     fetchComments()
   },[])
 
-  console.log(postid)
-  console.log(comments)
-  const filteredComments = comments.filter((comment)=> comment?.post_id?._id === postid)
-  console.log(filteredComments);
+  // console.log(postid)
+  // console.log(comments)
+  const filteredComments = comments.filter((comment)=> comment?.post_id?._id === postid )
+  // console.log(filteredComments)
   return (
     <div className="w-full h-auto bg-zinc-800">
-    {filteredComments && filteredComments.map((comment)=>(
-      <CommentCard key={comment._id} commentId={comment._id} content={comment.content} postid={postid}/>
+    {filteredComments &&  filteredComments.map((comment)=>(
+      comment.parentId === null &&
+      <CommentCard key={comment._id} commentId={comment._id} content={comment.content} postid={postid} filteredComments={filteredComments} />
     )
 
     )}
