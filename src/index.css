@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar styles */
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #4f4f4f; /* Adjust as needed */
+  border-radius: 10px;
+}
+
+/* Other styles */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thumb-zinc-500 {
+  scrollbar-color: #d1d5db #6b7280; /* Adjust colors */
+}
+
+/* styles.css */
+
+/* Custom scrollbar styling */
+.scrollable-div {
+  /* Set the maximum height and hide the scrollbar by default */
+  max-height: 70vh;
+  overflow-y: hidden;
+}
+
+/* Show the scrollbar when the .scrollable-div is being hovered */
+.scrollable-div:hover {
+  overflow-y: auto;
+}
+
+/* Rest of your scrollbar styling */
+.scrollable-div::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+  background-color: #4f4f4f;
+  border-radius: 6px;
+}
+
+.scrollable-div::-webkit-scrollbar-track {
+  background-color: #1c1c1c;
+}
+
+/* Optional: Handle styling for other browsers */
+.scrollable-div::-moz-scrollbar {
+  width: 12px;
+}
+
+.scrollable-div::-moz-scrollbar-thumb {
+  background-color: #4f4f4f;
+  border-radius: 6px;
+}
+
+.scrollable-div::-moz-scrollbar-track {
+  background-color: #1c1c1c;
+}
+
+
+/* global-styles.css */
+
+/* Custom scrollbar styling for the entire website */
+::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4f4f4f; /* Set the color of the scrollbar thumb */
+  border-radius: 6px; /* Set the border radius of the scrollbar thumb */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1c1c1c; /* Set the color of the scrollbar track */
+}
+
+/* Optional: Handle styling for other browsers */
+::-moz-scrollbar {
+  width: 12px;
+}
+
+::-moz-scrollbar-thumb {
+  background-color: #4f4f4f;
+  border-radius: 6px;
+}
+
+::-moz-scrollbar-track {
+  background-color: #1c1c1c;
+}
