@@ -4,32 +4,31 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { topics } from "../utils/topics";
 
-
 const TopicsSelection = () => {
   const navigate = useNavigate();
   const [selectedTopics, setSelectedTopics] = useState([]);
- 
-  const saveSelectedTopics = async()=>{
 
-  const token = localStorage.getItem("token");
-    await fetch("http://localhost:4000/topics",{
-    method: 'POST',
-    headers:{
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({
-     selectedTopics : selectedTopics
-    })
+  const saveSelectedTopics = async () => {
+    const token = localStorage.getItem("token");
+    const data = await fetch("http://localhost:4000/topics", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        selectedTopics: selectedTopics,
+      }),
+    });
 
-    })
-  }
- 
-
+    const json = await data.json();
+    if (json.message === "success") {
+      navigate("/home");
+    }
+  };
 
   const toggleTopic = (topicName, topicId) => {
     setSelectedTopics((selectedTopics) => {
-
       // Logic if the topic is already selected, toggle and deselect it.
       if (selectedTopics.find((topic) => topic.id === topicId)) {
         const updatedTopics = selectedTopics.filter(
@@ -38,24 +37,20 @@ const TopicsSelection = () => {
         return updatedTopics;
       }
 
-      if(selectedTopics.length !== 3){
-        const updatedTopics = [...selectedTopics,{id:topicId,name:topicName}]
-        return updatedTopics
+      if (selectedTopics.length !== 3) {
+        const updatedTopics = [
+          ...selectedTopics,
+          { id: topicId, name: topicName },
+        ];
+        return updatedTopics;
       }
-      console.log(selectedTopics)
-      return selectedTopics
-     
+      console.log(selectedTopics);
+      return selectedTopics;
     });
   };
 
   const handleTopicsFollowing = () => {
-
-    if (selectedTopics.length === 3) {
-      navigate("/home");
-    }
-  
-  saveSelectedTopics();
-    
+    saveSelectedTopics();
   };
 
   console.log(selectedTopics);
@@ -70,7 +65,9 @@ const TopicsSelection = () => {
             <div
               key={topic.id}
               className={`w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 mb-2 ${
-                selectedTopics.find((selectedTopic)=> selectedTopic.id === topic.id )
+                selectedTopics.find(
+                  (selectedTopic) => selectedTopic.id === topic.id
+                )
                   ? "bg-green-500 text-white"
                   : "bg-gray-200 text-gray-800"
               } rounded-md p-2 cursor-pointer transition-all duration-300`}
@@ -100,5 +97,3 @@ export default TopicsSelection;
 
 // selectedTopics -->
 // const selectedTopics = [{topicid, topicname}, {topicid, topicname}]
-
-
