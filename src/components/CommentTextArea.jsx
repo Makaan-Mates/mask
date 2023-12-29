@@ -2,13 +2,17 @@ import {useRef} from 'react'
 import {useParams} from "react-router-dom"
 
 
-const CommentTextArea= ()=> {
+
+const CommentTextArea= ({isReplySection,commentId})=> {
 const{postid} = useParams()
 const comment = useRef();
 
+
+
+
   const handlePublishComment = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch("http://localhost:4000/post/comment", {
+    const data = await fetch(`http://localhost:4000/post/comment?isReplySection=${isReplySection}`, {
    
       method: "POST",
       headers: {
@@ -17,7 +21,8 @@ const comment = useRef();
       },
       body: JSON.stringify({
         content: comment.current.value,
-        postid:postid
+        postid:postid,
+        commentId: commentId
       })
       
     });

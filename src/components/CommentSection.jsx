@@ -39,7 +39,7 @@ const CommentSection = () => {
   return (
     <div className="w-full h-auto bg-zinc-800">
     {filteredComments && filteredComments.map((comment)=>(
-      <CommentCard key={comment._id} content={comment.content} postid={postid} />
+      <CommentCard key={comment._id} commentId={comment._id} content={comment.content} postid={postid}/>
     )
 
     )}

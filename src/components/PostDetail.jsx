@@ -88,7 +88,7 @@ const PostDetail = () => {
           </span>
         </div>
       </div>
-      <CommentTextArea/>
+      <CommentTextArea isReplySection={false}/>
       <div className="commentsection w-full h-auto bg-zinc-700  px-5 py-4 rounded-md">
             <div><CommentSection /></div>
 
