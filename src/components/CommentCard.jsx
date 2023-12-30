@@ -18,6 +18,18 @@ const CommentCard = ({ content, commentId, filteredComments, username }) => {
     (reply) => reply?.parentId === commentId
   );
 
+  // Regular expression to find URLs within the content
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+  // Function to replace URLs with clickable links
+  const renderContentWithLinks = (text) => {
+    return text.replace(
+      urlRegex,
+      (url) =>
+        `<a href="${url}" target="_blank" class=" text-blue-500 hover:text-blue-700" rel="noopener noreferrer">${url}</a>`
+    );
+  };
+
   return (
     <div
       className={` ${
@@ -31,10 +43,14 @@ const CommentCard = ({ content, commentId, filteredComments, username }) => {
           <FaCircleUser />
         </span>
         <span className="font-semibold text-lg text-[#858585] hover:text-white cursor-pointer">
-        {username ? `${username}` : "anonymous"}
+
+          {username ? `${username}` : "anonymous"}
         </span>
       </div>
-      <h1 className="text-[#d8d8d8] whitespace-pre-wrap ">{content}</h1>
+      <h1
+        className="text-[#d8d8d8] whitespace-pre-wrap"
+        dangerouslySetInnerHTML={{ __html: renderContentWithLinks(content) }}
+      />
       {commentId === undefined ? (
         <span></span>
       ) : (
