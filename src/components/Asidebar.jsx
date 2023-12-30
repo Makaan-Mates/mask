@@ -49,7 +49,7 @@ const Asidebar = () => {
             </div>
           ))}
         </div>
-        <h1 className="border-t-[1px] font-semibold  mt-4 border-[#282828] py-2 text-[#d5d5d5] text-sm">
+        <h1 className="border-t-[1px] font-semibold pt-6 mt-4 border-[#282828] py-2 text-[#d5d5d5] text-sm">
           EXPLORE MORE TOPICS
         </h1>
         {exploreMoreTopics.map((moreTopic) => (

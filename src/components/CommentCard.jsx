@@ -4,6 +4,7 @@ import CommentTextArea from "./CommentTextArea";
 import PropTypes from "prop-types";
 import { FaCircleUser } from "react-icons/fa6";
 
+
 const CommentCard = ({ content, commentId, filteredComments, username }) => {
   const [displayReplyTextArea, setDisplayReplyTextArea] = useState(false);
   const [isReplySection, setIsReplySection] = useState(false);
@@ -42,6 +43,7 @@ const CommentCard = ({ content, commentId, filteredComments, username }) => {
           <FaCircleUser />
         </span>
         <span className="font-semibold text-lg text-[#858585] hover:text-white cursor-pointer">
+
           {username ? `${username}` : "anonymous"}
         </span>
       </div>
