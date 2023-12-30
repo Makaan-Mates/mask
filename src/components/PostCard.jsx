@@ -26,7 +26,7 @@ const PostCard = ({ title, description, topic, postid, username }) => {
     >
       <span className="text-sm font-semibold text-[#aeaeae] ">{topic}</span>
       <span className="text-2xl font-semibold text-[#F6F6F6]">{title}</span>
-      <div className="text-sm break-words text-[#858585]" >{truncatedDesc}</div>
+      <div className="text-sm break-words text-[#858585] " >{truncatedDesc}</div>
       <div className="flex gap-4 justify-end px-2 items-center text-[#aeaeae]">
         <span className="">{username ? `@${username}` : "anonymous"}</span>
         <span className="flex items-center">

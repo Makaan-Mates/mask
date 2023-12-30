@@ -48,7 +48,7 @@ const CommentCard = ({ content, commentId, filteredComments, username }) => {
         </span>
       </div>
       <h1
-        className="text-[#d8d8d8] whitespace-pre-wrap"
+        className="text-[#d8d8d8] whitespace-pre-wrap break-words"
         dangerouslySetInnerHTML={{ __html: renderContentWithLinks(content) }}
       />
       {commentId === undefined ? (
