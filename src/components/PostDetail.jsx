@@ -2,39 +2,46 @@ import { FaRegEye, FaRegClock } from "react-icons/fa";
 import { BiComment, BiUpvote } from "react-icons/bi";
 import { FaRegBookmark } from "react-icons/fa6";
 import CommentSection from "./CommentSection";
-import { useEffect,useState } from "react";
-import {useParams} from "react-router-dom"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CommentTextArea from "./CommentTextArea";
 
 const PostDetail = () => {
-    const {postid} = useParams()
+  const { postid } = useParams();
 
-  const [postData,setPostData] = useState() 
+  const [postData, setPostData] = useState();
 
-  const fetchPostDetails = async()=>{
+  const fetchPostDetails = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`http://localhost:4000/api/post/${postid}`,{
-      method:'GET',
-      headers:{
-       "CONTENT-TYPE": "application/json",
-       Authorization: `Bearer ${token}`,  
-      }
+    const data = await fetch(`http://localhost:4000/api/post/${postid}`, {
+      method: "GET",
+      headers: {
+        "CONTENT-TYPE": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-    })
+    const json = await data.json();
+    setPostData(json);
+  };
 
-    const json = await data.json()
-    setPostData(json)
+  useEffect(() => {
+    fetchPostDetails();
+  }, []);
+
+  if (!postData) {
+    return;
   }
+  const { postDetails } = postData;
 
-
-  useEffect(()=>{
-    fetchPostDetails()
-  },[])
-
-  if(!postData){
-   return
-  }
- const {postDetails} = postData;
+  const renderDescriptionWithLinks = (text) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(
+      urlRegex,
+      (url) =>
+        `<a href="${url}" target="_blank" class="text-blue-500 hover:text-blue-700" rel="noopener noreferrer">${url}</a>`
+    );
+  };
 
   return (
     <div className="w-4/5 px-5 py-8  bg-[#161616] ">
@@ -43,37 +50,42 @@ const PostDetail = () => {
       </div>
 
       <div className="content-box w-[90%] 2xl:w-[80%] flex flex-col gap-6 bg-[#1C1C1C]  justify-between  px-5 py-10  rounded-md border-[0.2px] border-[#282828] ">
-
         <div className="tit-area flex flex-col gap-2">
           <div className="title">
             <h1 className=" text-4xl font-semibold text-[#F6F6F6]  ">
-            {postDetails?.title}
+              {postDetails?.title}
             </h1>
           </div>
           <div className="writer text-sm flex gap-2 text-[#858585]">
             <span>New</span>
             <span>|</span>
-            <span className="cursor-pointer hover:text-white">{postDetails?.user_id?.username || "anonymous"}</span>
+            <span className="cursor-pointer hover:text-white">
+              {postDetails?.user_id?.username || "anonymous"}
+            </span>
           </div>
-          <div className="tit-info flex gap-4 py-2 items-center text-[#9B9B9B] " >
+          <div className="tit-info flex gap-4 py-2 items-center text-[#9B9B9B] ">
             <span className="flex gap-1 items-center">
               {" "}
               <FaRegClock className=" mr-1 text-lg text-[#9B9B9B] " />
               <span>2h</span>
             </span>
             <span className="flex items-center">
-            <FaRegEye className="mr-2 text-lg text-[#9B9B9B] " />
-            857
-          </span>
-          <span className="flex items-center cursor-pointer">
-            <FaRegBookmark className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
-          </span>
+              <FaRegEye className="mr-2 text-lg text-[#9B9B9B] " />
+              857
+            </span>
+            <span className="flex items-center cursor-pointer">
+              <FaRegBookmark className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
+            </span>
           </div>
         </div>
 
-        <div className="desc-content text-lg text-[#d8d8d8] whitespace-pre-wrap">
-        {postDetails?.description}
-        </div>
+        <div
+          className="desc-content text-lg text-[#d8d8d8] whitespace-pre-wrap"
+          dangerouslySetInnerHTML={{
+            __html: renderDescriptionWithLinks(postDetails?.description || ""),
+          }}
+        ></div>
+
         <div className="flex gap-4 py-2 items-center text-[#9B9B9B]">
           <span className="flex items-center cursor-pointer">
             {" "}
@@ -86,9 +98,11 @@ const PostDetail = () => {
           </span>
         </div>
       </div>
-      <CommentTextArea isReplySection={false}/>
+      <CommentTextArea isReplySection={false} />
       <div className="commentsection w-full h-auto bg-[#161616]  px-5 py-4 rounded-md">
-            <div><CommentSection /></div>
+        <div>
+          <CommentSection />
+        </div>
       </div>
     </div>
   );
