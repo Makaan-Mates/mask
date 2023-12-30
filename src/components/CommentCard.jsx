@@ -26,7 +26,7 @@ const CommentCard = ({ content, commentId, filteredComments, username }) => {
     return text.replace(
       urlRegex,
       (url) =>
-        `<a href="${url}" target="_blank" class=" text-blue-500 hover:text-blue-700" rel="noopener noreferrer">${url}</a>`
+        `<a href="${url}" target="_blank" class=" text-blue-400 hover:text-blue-300" rel="noopener noreferrer">${url}</a>`
     );
   };
 
