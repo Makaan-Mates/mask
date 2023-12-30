@@ -4,6 +4,7 @@ import Register from "./Register";
 import Home from "./Home";
 import ShowPost from "./ShowPost";
 import TopicsSelection from "./TopicsSelection";
+import Profile from "./Profile";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -31,7 +32,9 @@ const Body = () => {
       {
         path:"/register/topics-to-follow",
         element: <TopicsSelection/>
-      }
+      },{
+        path:"/profile",
+        element: <Profile/>     }
   ]);
   return  (
     <div className="min-h-full bg-[#161616]">
