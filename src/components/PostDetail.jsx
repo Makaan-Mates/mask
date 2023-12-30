@@ -5,14 +5,21 @@ import { BiComment, BiUpvote } from "react-icons/bi";
 import { FaRegBookmark } from "react-icons/fa6";
 import CommentSection from "./CommentSection";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import CommentTextArea from "./CommentTextArea";
+import { useDeletePost } from "../custom-hooks/useDeletePost";
+import { useFetchUser } from "../custom-hooks/useFetchUser";
 
 const PostDetail = () => {
+  const navigate = useNavigate();
+  const fetchUser = useFetchUser();
+
+  console.log(fetchUser?.user?._id);
+
   const { postid } = useParams();
   const [postData, setPostData] = useState();
   const [showEditComponent, setShowEditComponent] = useState(false);
-
+  const deletePost = useDeletePost();
   const fetchPostDetails = async () => {
     const token = localStorage.getItem("token");
     const data = await fetch(`http://localhost:4000/api/post/${postid}`, {
@@ -35,6 +42,7 @@ const PostDetail = () => {
     return;
   }
   const { postDetails } = postData;
+  console.log(postDetails?.user_id._id);
 
   const renderDescriptionWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -47,7 +55,12 @@ const PostDetail = () => {
 
   const handleToggleEditComponent = () => {
     setShowEditComponent(!showEditComponent);
-  }
+  };
+
+  const handleDeletePost = async () => {
+    await deletePost();
+    navigate("/home ");
+  };
 
   return (
     <div className="w-4/5 px-5 py-8  bg-[#161616] ">
@@ -85,13 +98,27 @@ const PostDetail = () => {
               <span className="flex items-center cursor-pointer">
                 <FaRegBookmark className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
               </span>
-              <span className=" flex items-center cursor-pointer" onClick={handleToggleEditComponent}>
-                <FaEllipsisV className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
-              </span>
+              {fetchUser?.user?._id === postDetails?.user_id._id && (
+                <span
+                  className=" flex items-center cursor-pointer"
+                  onClick={handleToggleEditComponent}
+                >
+                  <FaEllipsisV className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
+                </span>
+              )}
+
               {showEditComponent && (
                 <div className="absolute top-6 -left-7  w-40 h-30 flex flex-col items-center  rounded-lg bg-[#1C1C1C] overflow-hidden ">
-                  <span className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"><MdModeEdit className="mr-1"/> Edit</span>
-                  <span className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"><RiDeleteBin6Fill className="mr-1"/>Delete</span>
+                  <span className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
+                    <MdModeEdit className="mr-1" /> Edit
+                  </span>
+                  <button
+                    onClick={handleDeletePost}
+                    className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"
+                  >
+                    <RiDeleteBin6Fill className="mr-1" />
+                    Delete
+                  </button>
                 </div>
               )}
             </div>
