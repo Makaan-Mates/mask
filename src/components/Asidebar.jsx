@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom'
 
 const Asidebar = () => {
   
+  const navigate = useNavigate()
   const fetchUser = useFetchUser();
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -22,7 +23,6 @@ const Asidebar = () => {
   const allTopics = topics;
 
   const { topicsFollowing } = fetchUser;
-  console.log(topicsFollowing);
 
   const exploreMoreTopics = allTopics.filter(
     (topic) =>

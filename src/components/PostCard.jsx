@@ -26,7 +26,7 @@ const PostCard = ({
     navigate(`/post/${postid}`);
   };
 
-  const customStyleProfileClass = customStyleProfile ? " w-full" : "";
+  const customStyleProfileClass = customStyleProfile ? " w-full 2xl:w-full" : "";
 
   return (
     <div
