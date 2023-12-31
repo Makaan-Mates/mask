@@ -3,13 +3,20 @@ import { displayAddPostCard } from "../features/addPostCardSlice";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 import { topics } from "../utils/topics";
 import { filterByTopic } from "../features/postSlice";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Asidebar = () => {
-  
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { userInfo } = useFetchUser();
   const dispatch = useDispatch();
+  const [selectedTopic, setSelectedTopic] = useState(null);
+
+  const handleTopicSelection = (selectedTopic) => {
+    dispatch(filterByTopic(selectedTopic));
+    navigate("/home");
+    setSelectedTopic(selectedTopic);
+  };
 
   const handleToggleEvent = () => {
     dispatch(displayAddPostCard());
@@ -30,14 +37,6 @@ const Asidebar = () => {
       )
   );
 
-
-  const handleTopicSelection = (selectedTopic)=>{
-    dispatch(filterByTopic(selectedTopic))
-    navigate('/home')
-  }
-
- 
-
   return (
     <div className="bg-[#1C1C1C] w-1/5 px-5 py-10 border-r-[1px] border-[#282828] min-h-[88vh] self-start sticky top-[12vh] ">
       <div
@@ -54,8 +53,15 @@ const Asidebar = () => {
         </h1>
         <div className="text-[#9B9B9B] text-sm">
           {topicsFollowing.map((topic) => (
-            <div className="hover:text-white py-2" key={topic.id}>
-              <button  onClick={()=>handleTopicSelection(topic.name)} >{topic.name}</button>
+            <div
+              className={`hover:text-white w-fit px-4 py-2 rounded-lg ${
+                topic.name === selectedTopic ? "bg-[#282828] " : ""
+              }`}
+              key={topic.id}
+            >
+              <button onClick={() => handleTopicSelection(topic.name)}>
+                {topic.name}
+              </button>
             </div>
           ))}
         </div>
@@ -63,8 +69,18 @@ const Asidebar = () => {
           EXPLORE MORE TOPICS
         </h1>
         {exploreMoreTopics.map((moreTopic) => (
-          <div className="text-[#9B9B9B] text-sm py-2" key={moreTopic.id}>
-            <button  onClick={()=>handleTopicSelection(moreTopic.name)} className="hover:text-white">{moreTopic.name}</button>
+          <div
+            className={`text-[#9B9B9B] w-fit px-4 text-sm py-2 rounded-lg ${
+              moreTopic.name === selectedTopic ? "bg-[#2B2B2B]" : ""
+            }`}
+            key={moreTopic.id}
+          >
+            <button
+              onClick={() => handleTopicSelection(moreTopic.name)}
+              className="hover:text-white"
+            >
+              {moreTopic.name}
+            </button>
           </div>
         ))}
       </div>
