@@ -20,7 +20,7 @@ const Asidebar = () => {
 
   const allTopics = topics;
 
-  const { topicsFollowing } = fetchUser.user;
+  const { topicsFollowing } = fetchUser;
   console.log(topicsFollowing);
 
   const exploreMoreTopics = allTopics.filter(
@@ -30,7 +30,6 @@ const Asidebar = () => {
       )
   );
 
-  console.log(exploreMoreTopics);
 
   const handleTopicSelection = (selectedTopic)=>{
     dispatch(filterByTopic(selectedTopic))
