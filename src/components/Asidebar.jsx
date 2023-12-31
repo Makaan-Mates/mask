@@ -2,10 +2,14 @@ import { useDispatch } from "react-redux";
 import { displayAddPostCard } from "../features/addPostCardSlice";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 import { topics } from "../utils/topics";
+import { filterByTopic } from "../features/postSlice";
 
 const Asidebar = () => {
+  
   const fetchUser = useFetchUser();
   const dispatch = useDispatch();
+
+
   const handleToggleEvent = () => {
     dispatch(displayAddPostCard());
   };
@@ -27,6 +31,12 @@ const Asidebar = () => {
   );
 
 
+  const handleTopicSelection = (selectedTopic)=>{
+    dispatch(filterByTopic(selectedTopic))
+  }
+
+ 
+
   return (
     <div className="bg-[#1C1C1C] w-1/5 px-5 py-10 border-r-[1px] border-[#282828] min-h-[88vh] self-start sticky top-[12vh] ">
       <div
@@ -44,7 +54,7 @@ const Asidebar = () => {
         <div className="text-[#9B9B9B] text-sm">
           {topicsFollowing.map((topic) => (
             <div className="hover:text-white py-2" key={topic.id}>
-              <button >{topic.name}</button>
+              <button  onClick={()=>handleTopicSelection(topic.name)} >{topic.name}</button>
             </div>
           ))}
         </div>
@@ -53,7 +63,7 @@ const Asidebar = () => {
         </h1>
         {exploreMoreTopics.map((moreTopic) => (
           <div className="text-[#9B9B9B] text-sm py-2" key={moreTopic.id}>
-            <button className="hover:text-white">{moreTopic.name}</button>
+            <button  onClick={()=>handleTopicSelection(moreTopic.name)} className="hover:text-white">{moreTopic.name}</button>
           </div>
         ))}
       </div>
