@@ -3,12 +3,13 @@ import { displayAddPostCard } from "../features/addPostCardSlice";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 import { topics } from "../utils/topics";
 import { filterByTopic } from "../features/postSlice";
+import {useNavigate} from 'react-router-dom'
 
 const Asidebar = () => {
   
   const fetchUser = useFetchUser();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
 
   const handleToggleEvent = () => {
     dispatch(displayAddPostCard());
@@ -33,6 +34,7 @@ const Asidebar = () => {
 
   const handleTopicSelection = (selectedTopic)=>{
     dispatch(filterByTopic(selectedTopic))
+    navigate('/home')
   }
 
  
