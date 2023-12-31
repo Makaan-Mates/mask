@@ -3,7 +3,7 @@ import { useFetchUser } from '../custom-hooks/useFetchUser'
 import { useNavigate } from 'react-router-dom'
 
 export const useFetchUserPosts = () => {
-  const userInfo = useFetchUser()
+  const {userInfo} = useFetchUser()
   const navigate = useNavigate()
 
   const [userPosts, setUserPosts] = useState([])

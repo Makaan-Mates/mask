@@ -8,20 +8,20 @@ import {useNavigate} from 'react-router-dom'
 const Asidebar = () => {
   
   const navigate = useNavigate()
-  const fetchUser = useFetchUser();
+  const { userInfo } = useFetchUser();
   const dispatch = useDispatch();
 
   const handleToggleEvent = () => {
     dispatch(displayAddPostCard());
   };
 
-  if (!fetchUser) {
+  if (!userInfo) {
     return null;
   }
 
   const allTopics = topics;
 
-  const { topicsFollowing } = fetchUser;
+  const { topicsFollowing } = userInfo;
 
   const exploreMoreTopics = allTopics.filter(
     (topic) =>

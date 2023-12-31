@@ -12,7 +12,7 @@ import UpvoteContainer from "./UpvoteContainer";
 
 const PostDetail = () => {
   const navigate = useNavigate();
-  const fetchUser = useFetchUser();
+  const {userInfo} = useFetchUser();
 
   const { postid } = useParams();
   const [postData, setPostData] = useState();
@@ -63,7 +63,7 @@ const PostDetail = () => {
   };
 
 
-  if(!fetchUser){
+  if(!userInfo){
     return null
   }
 
@@ -105,7 +105,7 @@ const PostDetail = () => {
               <span className="flex items-center cursor-pointer">
                 <FaRegBookmark className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
               </span>
-              {fetchUser?._id === postDetails?.user_id._id && (
+              {userInfo?._id === postDetails?.user_id._id && (
                 <span
                   className=" flex items-center cursor-pointer"
                   onClick={handleToggleEditComponent}
