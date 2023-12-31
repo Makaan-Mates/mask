@@ -10,7 +10,6 @@ const Asidebar = () => {
   const navigate = useNavigate()
   const fetchUser = useFetchUser();
   const dispatch = useDispatch();
-  const navigate = useNavigate()
 
   const handleToggleEvent = () => {
     dispatch(displayAddPostCard());
