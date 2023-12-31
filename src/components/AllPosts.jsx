@@ -63,6 +63,7 @@ const handelInfiniteScroll = async () => {
     return () => window.removeEventListener("scroll", handelInfiniteScroll);
   }, [page,topicFromStore]);
 
+  console.log(card);
   return (
     <div className=" w-4/5 px-5 py-8   bg-[#161616]">
       <div className="w-full flex items-center justify-between pb-11 border-b-[1px] border-[#282828]">
