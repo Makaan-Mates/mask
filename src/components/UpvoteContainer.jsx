@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { BiComment, BiUpvote } from "react-icons/bi";
+import { BiComment, BiUpvote, BiSolidUpvote } from "react-icons/bi";
 import { useParams } from "react-router-dom";
 
 const UpvoteContainer = () => {
   const { postid } = useParams();
-  const [isUpvoted, setIsUpvoted] = useState();
+  const [isUpvoted, setIsUpvoted] = useState(false);
   const [postDetails, setPostDetails] = useState();
 
   const updateUpvoteCounter = async () => {
@@ -20,7 +20,7 @@ const UpvoteContainer = () => {
       }
     );
     const json = await data.json();
-    setIsUpvoted(json);
+    setIsUpvoted(!isUpvoted);
     console.log(json);
   };
 
@@ -42,11 +42,18 @@ const UpvoteContainer = () => {
     <div className="flex gap-4 py-2 items-center text-[#9B9B9B]">
       <span className="flex items-center cursor-pointer">
         {" "}
-        <BiUpvote
-          onClick={handleClick}
-          className="mx-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2]"
-        />
-        {postDetails && postDetails.message.upvotes.length}
+        {isUpvoted ? (
+          <BiSolidUpvote
+            onClick={handleClick}
+            className="mx-1 text-2xl text-orange-500 "
+          />
+        ) : (
+          <BiUpvote
+            onClick={handleClick}
+            className="mx-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2]"
+          />
+        )}
+        {postDetails && postDetails?.message?.upvotes?.length}
       </span>
       <span className="flex items-center cursor-pointer">
         <BiComment className="mx-1 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />

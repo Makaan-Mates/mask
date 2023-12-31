@@ -59,7 +59,7 @@ const Header = () => {
             <span onClick={handleProfile} className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer"><FaRegUserCircle className='mr-1'/>Profile</span>
             <span className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer"><FaRegBookmark className='mr-1'/>Bookmarks</span>
             <span className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer"><TbActivityHeartbeat className='mr-1'/>Activity</span>
-            <span onClick={handleLogOut} className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#9B9B9B] hover:bg-[#b73636] hover:text-[#d5d5d5] cursor-pointer text-lg"><TbLogout2 className='mr-1'/>Logout</span>
+            <span onClick={handleLogOut} className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#9B9B9B] hover:bg-[#982c2c] hover:text-white cursor-pointer text-lg"><TbLogout2 className='mr-1'/>Logout</span>
           </div>
           )}
         </div>

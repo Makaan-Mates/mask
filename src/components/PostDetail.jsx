@@ -1,7 +1,6 @@
 import { FaRegEye, FaRegClock, FaEllipsisV } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-import { BiComment, BiUpvote } from "react-icons/bi";
 import { FaRegBookmark } from "react-icons/fa6";
 import CommentSection from "./CommentSection";
 import { useEffect, useState } from "react";
@@ -139,7 +138,6 @@ const PostDetail = () => {
             __html: renderDescriptionWithLinks(postDetails?.description || ""),
           }}
         ></div>
-
       <UpvoteContainer/>
       </div>
       <CommentTextArea isReplySection={false} />
