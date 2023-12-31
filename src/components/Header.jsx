@@ -5,6 +5,7 @@ import {useDispatch} from 'react-redux'
 import { displayAddPostCard } from '../features/addPostCardSlice'
 import { TbActivityHeartbeat,TbLogout2 } from "react-icons/tb";
 import { FaRegBookmark } from "react-icons/fa6";
+import { filterByTopic } from '../features/postSlice';
 
 
 
@@ -27,6 +28,8 @@ const Header = () => {
   }
   const handleNavigateHome = ()=>{
     navigate('/home')
+    dispatch(filterByTopic("home"))
+
   }
 
   const handleProfile = ()=>{

@@ -43,8 +43,6 @@ const PostDetail = () => {
     return;
   }
   const { postDetails } = postData;
-  console.log(postDetails.upvotes.length);
-
 
   const renderDescriptionWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -104,7 +102,7 @@ const PostDetail = () => {
               <span className="flex items-center cursor-pointer">
                 <FaRegBookmark className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
               </span>
-              {fetchUser?.user?._id === postDetails?.user_id._id && (
+              {fetchUser?._id === postDetails?.user_id._id && (
                 <span
                   className=" flex items-center cursor-pointer"
                   onClick={handleToggleEditComponent}
