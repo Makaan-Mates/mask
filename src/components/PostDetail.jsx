@@ -14,8 +14,6 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const fetchUser = useFetchUser();
 
-  console.log(fetchUser?._id);
-
   const { postid } = useParams();
   const [postData, setPostData] = useState();
   const [showEditComponent, setShowEditComponent] = useState(false);
@@ -61,6 +59,11 @@ const PostDetail = () => {
     await deletePost();
     navigate("/home ");
   };
+
+  if(!fetchUser){
+    return null
+  }
+
 
   return (
     <div className="w-4/5 px-5 py-8  bg-[#161616] ">

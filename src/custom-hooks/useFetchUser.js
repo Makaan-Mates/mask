@@ -21,7 +21,6 @@ export const useFetchUser = () => {
     })
     const json = await data.json()
     setUserInfo(json)
-    console.log(json)
     if (
       json?.message === 'invalid token' ||
       json?.message === 'token not found'
