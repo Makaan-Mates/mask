@@ -5,6 +5,8 @@ export const useFetchUser = () => {
   const navigate = useNavigate()
 
   const [userInfo, setUserInfo] = useState(null)
+  const [loading, setLoading] = useState(true) // Add this line
+
 
   useEffect(() => {
     fetchUser()
@@ -21,6 +23,7 @@ export const useFetchUser = () => {
     })
     const json = await data.json()
     setUserInfo(json)
+    setLoading(false) // Add this line
     if (
       json?.message === 'invalid token' ||
       json?.message === 'token not found'
@@ -29,5 +32,5 @@ export const useFetchUser = () => {
     }
   }
 
-  return userInfo
+  return { userInfo, loading } // Modify this line
 }
