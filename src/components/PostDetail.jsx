@@ -9,6 +9,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import CommentTextArea from "./CommentTextArea";
 import { useDeletePost } from "../custom-hooks/useDeletePost";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
+import UpvoteContainer from "./UpvoteContainer";
 
 const PostDetail = () => {
   const navigate = useNavigate();
@@ -40,7 +41,6 @@ const PostDetail = () => {
     return;
   }
   const { postDetails } = postData;
-  // console.log(postDetails?.user_id._id);
 
   const renderDescriptionWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -55,14 +55,19 @@ const PostDetail = () => {
     setShowEditComponent(!showEditComponent);
   };
 
+  
+  
+
   const handleDeletePost = async () => {
     await deletePost();
     navigate("/home ");
   };
 
+
   if(!fetchUser){
     return null
   }
+
 
 
   return (
@@ -135,17 +140,7 @@ const PostDetail = () => {
           }}
         ></div>
 
-        <div className="flex gap-4 py-2 items-center text-[#9B9B9B]">
-          <span className="flex items-center cursor-pointer">
-            {" "}
-            <BiUpvote className="mx-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2]" />
-            69
-          </span>
-          <span className="flex items-center cursor-pointer">
-            <BiComment className="mx-1 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
-            <span className="text-center">21</span>
-          </span>
-        </div>
+      <UpvoteContainer/>
       </div>
       <CommentTextArea isReplySection={false} />
       <div className="commentsection w-full h-auto bg-[#161616]  px-5 py-4 rounded-md">
