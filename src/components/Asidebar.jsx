@@ -16,7 +16,7 @@ const Asidebar = () => {
 
   const allTopics = topics;
 
-  const { topicsFollowing } = fetchUser.user;
+  const { topicsFollowing } = fetchUser;
   console.log(topicsFollowing);
 
   const exploreMoreTopics = allTopics.filter(
@@ -26,7 +26,6 @@ const Asidebar = () => {
       )
   );
 
-  console.log(exploreMoreTopics);
 
   return (
     <div className="bg-[#1C1C1C] w-1/5 px-5 py-10 border-r-[1px] border-[#282828] min-h-[88vh] self-start sticky top-[12vh] ">

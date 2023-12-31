@@ -14,7 +14,7 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const fetchUser = useFetchUser();
 
-  console.log(fetchUser?.user?._id);
+  console.log(fetchUser?._id);
 
   const { postid } = useParams();
   const [postData, setPostData] = useState();
@@ -42,7 +42,7 @@ const PostDetail = () => {
     return;
   }
   const { postDetails } = postData;
-  console.log(postDetails?.user_id._id);
+  // console.log(postDetails?.user_id._id);
 
   const renderDescriptionWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -98,7 +98,7 @@ const PostDetail = () => {
               <span className="flex items-center cursor-pointer">
                 <FaRegBookmark className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
               </span>
-              {fetchUser?.user?._id === postDetails?.user_id._id && (
+              {fetchUser?._id === postDetails?.user_id._id && (
                 <span
                   className=" flex items-center cursor-pointer"
                   onClick={handleToggleEditComponent}

@@ -8,8 +8,6 @@ const Home = () => {
   
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
 
- 
-
   return (
     <>
       {showAddPostCard && <AddPostCard />}
