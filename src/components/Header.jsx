@@ -6,8 +6,7 @@ import { displayAddPostCard } from '../features/addPostCardSlice'
 import { TbActivityHeartbeat,TbLogout2 } from "react-icons/tb";
 import { FaRegBookmark } from "react-icons/fa6";
 import { filterByTopic } from '../features/postSlice';
-
-
+import SearchPosts from './SearchPosts';
 
 const Header = () => {
   const navigate = useNavigate()
@@ -42,13 +41,14 @@ const Header = () => {
         <div onClick={handleNavigateHome} className="text-4xl cursor-pointer  font-bold transition-transform transform hover:scale-105 text-[#FFFFFF]">mask</div>
         <div onClick={handleNavigateHome} className="text-base cursor-pointer px-2 py-1 font-semibold hover:text-[#FFFFFF] rounded-md">Home </div>
         <div className="text-base px-2 py-1 font-semibold hover:text-[#FFFFFF] cursor-pointer rounded-md">Explore</div>
-        <div className="bg-[#1C1C1C] px-4 py-2  rounded-full w-72 flex items-center border-[1px] border-[#282828] hover:border-[#363636] " >
+        {/* <div className="bg-[#1C1C1C] px-4 py-2  rounded-full w-72 flex items-center border-[1px] border-[#282828] hover:border-[#363636] " >
           <input
             type="text"
             className="w-full items-center bg-[#1C1C1C] hover:placeholder:text-[#d2d2d2]  focus:outline-none "
             placeholder="Search..." />
           <FaSearch className="text-xl text-[#9B9B9B] hover:text-[#d2d2d2] mx-2" />
-        </div>
+        </div> */}
+        <SearchPosts/>
       </div>
       <div className="flex gap-3 items-center space-x-4 ">
         <FaRegEdit onClick={handleToggleEvent} className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF] "  />

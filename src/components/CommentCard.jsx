@@ -82,8 +82,14 @@ const CommentCard = ({ content, commentId, filteredComments, username }) => {
     </div>
   );
 };
-CommentCard.PropTypes = {
+CommentCard.propTypes = {
   content: PropTypes.string.isRequired,
   commentId: PropTypes.string.isRequired,
+  filteredComments: PropTypes.arrayOf(
+    PropTypes.shape({
+      parentId: PropTypes.string,
+    })
+  ),
+  username: PropTypes.string,
 };
 export default CommentCard;
