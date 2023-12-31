@@ -1,5 +1,6 @@
 import { RxCross2 } from "react-icons/rx";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom"
 import { hideAddPostCard } from "../features/addPostCardSlice";
 import { useRef } from "react";
 import { topics } from "../utils/topics";
@@ -8,6 +9,7 @@ import { IoSend } from "react-icons/io5";
 
 const AddPostCard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleHidePostCard = () => {
     dispatch(hideAddPostCard());
   };
@@ -34,7 +36,10 @@ const AddPostCard = () => {
     const json = await data.json();
     console.log(json);
     dispatch(hideAddPostCard());
+    navigate("/home")
     window.location.reload();
+   
+
   };
 
   return (

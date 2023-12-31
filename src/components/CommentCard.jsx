@@ -3,6 +3,7 @@ import { FaReply } from "react-icons/fa";
 import CommentTextArea from "./CommentTextArea";
 import PropTypes from "prop-types";
 import { FaCircleUser } from "react-icons/fa6";
+import UpvoteContainer from "./UpvoteContainer";
 
 
 const CommentCard = ({ content, commentId, filteredComments, username }) => {
@@ -51,6 +52,7 @@ const CommentCard = ({ content, commentId, filteredComments, username }) => {
         className="text-[#d8d8d8] whitespace-pre-wrap break-words"
         dangerouslySetInnerHTML={{ __html: renderContentWithLinks(content) }}
       />
+      <UpvoteContainer type="comment" id={commentId}/>
       {commentId === undefined ? (
         <span></span>
       ) : (
@@ -82,8 +84,17 @@ const CommentCard = ({ content, commentId, filteredComments, username }) => {
     </div>
   );
 };
-CommentCard.PropTypes = {
-  content: PropTypes.string.isRequired,
-  commentId: PropTypes.string.isRequired,
-};
+
+
+CommentCard.propTypes = {
+    content: PropTypes.string.isRequired,
+    commentId: PropTypes.string.isRequired,
+    filteredComments: PropTypes.arrayOf(
+      PropTypes.shape({
+        parentId: PropTypes.string,
+      })
+    ),
+    username: PropTypes.string,
+  };
+
 export default CommentCard;

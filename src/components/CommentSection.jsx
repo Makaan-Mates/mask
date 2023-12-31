@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
 import { useParams } from "react-router-dom";
 
+
 const CommentSection = () => {
   const { postid } = useParams();
   const [comments, setComments] = useState([]);
