@@ -1,11 +1,10 @@
 import { RxCross2 } from "react-icons/rx";
-import { useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom"
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { hideAddPostCard } from "../features/addPostCardSlice";
 import { useRef } from "react";
 import { topics } from "../utils/topics";
 import { IoSend } from "react-icons/io5";
-
 
 const AddPostCard = () => {
   const dispatch = useDispatch();
@@ -36,10 +35,8 @@ const AddPostCard = () => {
     const json = await data.json();
     console.log(json);
     dispatch(hideAddPostCard());
-    navigate("/home")
+    navigate("/home");
     window.location.reload();
-   
-
   };
 
   return (
@@ -87,7 +84,7 @@ const AddPostCard = () => {
             onClick={handlePublishPost}
             className=" h-[6vh] flex gap-2 items-center  px-6 py-2 border-[1px] border-[#1B1B1B] bg-[#292929] rounded-xl hover:bg-[#2e2e2e] transition duration-300  text-[#d5d5d5] "
           >
-            <IoSend className=""/>
+            <IoSend className="" />
             Publish
           </button>
         </div>
