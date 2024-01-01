@@ -7,8 +7,6 @@ const UpvoteContainer = ({ type, id, totalreplies }) => {
   const [postDetails, setPostDetails] = useState();
   const { userInfo, loading } = useFetchUser();
 
-  // console.log(id)
-
   const updateUpvoteCounter = async () => {
     const token = localStorage.getItem("token");
     const data = await fetch(`http://localhost:4000/api/${type}/upvote/${id}`, {
@@ -26,7 +24,6 @@ const UpvoteContainer = ({ type, id, totalreplies }) => {
     const data = await fetch(`http://localhost:4000/api/${type}/upvote/${id}`);
     const json = await data.json();
     setPostDetails(json);
-    // console.log(json);
     setIsUpvoted(json?.upvotes?.includes(userInfo?._id));
   };
 

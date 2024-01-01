@@ -23,7 +23,7 @@ const AllPosts = () => {
     );
 
     const json = await data.json();
-    console.log(json);
+  
 
     if (json.posts && Array.isArray(json.posts)) {
       if (page === 1) {
@@ -82,6 +82,7 @@ const handelInfiniteScroll = async () => {
             description={post.description}
             topic={post.topic}
             username={post?.user_id?.username}
+            timeSinceCreated={post?.timeSinceCreated}
           />
         ))}
       </div>
