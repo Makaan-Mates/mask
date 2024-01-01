@@ -8,7 +8,9 @@ import { topics } from "../utils/topics";
 import { IoSend } from "react-icons/io5";
 import { useSelector } from "react-redux";
 
+
 const AddPostCard = ({  initialTitle, initialDescription }) => {
+
   const dispatch = useDispatch();
   const showEditPostCard = useSelector((state)=>state.addPost.displayEditMode);
 
@@ -44,6 +46,7 @@ const AddPostCard = ({  initialTitle, initialDescription }) => {
     dispatch(hideAddPostCard());
     navigate("/home");
     window.location.reload();
+
   };
 
   const handleUpdatePost = async () => {
@@ -64,6 +67,7 @@ const AddPostCard = ({  initialTitle, initialDescription }) => {
     console.log(json);
     dispatch(hideAddPostCard());
     window.location.reload();
+
   };
 
   return (
@@ -109,6 +113,7 @@ const AddPostCard = ({  initialTitle, initialDescription }) => {
           />
         </div>
         <div className="w-full h-[8vh] px-4 mb-4  flex justify-end">
+
           {showEditPostCard ? (
             <button
               onClick={handleUpdatePost}
@@ -126,6 +131,7 @@ const AddPostCard = ({  initialTitle, initialDescription }) => {
                Publish
             </button>
           )}
+
         </div>
       </div>
     </>

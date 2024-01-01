@@ -1,13 +1,10 @@
 import {useRef} from 'react'
 import {useParams} from "react-router-dom"
-
-
+import PropTypes from 'prop-types';
 
 const CommentTextArea= ({isReplySection,commentId})=> {
 const{postid} = useParams()
 const comment = useRef();
-
-
 
 
   const handlePublishComment = async () => {
@@ -32,7 +29,7 @@ const comment = useRef();
     const response = await data.json()
 
     window.location.reload()
-    // console.log(response)
+    console.log(response)
   };
 
 
@@ -61,5 +58,9 @@ const comment = useRef();
     </>
   );
 }
+CommentTextArea.propTypes = {
+  isReplySection: PropTypes.bool.isRequired,
+  commentId: PropTypes.string,
+};
 
 export default CommentTextArea;
