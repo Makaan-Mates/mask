@@ -71,8 +71,8 @@ const SearchPosts = () => {
           autoFocus
         />
         <div className="flex items-center border-[1px] border-[#363636] rounded-md text-sm px-1 ">
-            <span className="mb-1 text-[#9B9B9B]">esc</span>
-          </div>
+          <span className="mb-1 text-[#9B9B9B]">esc</span>
+        </div>
       </div>
       <div className=" scrollable-div scroll-smooth px-2 items-center flex flex-wrap">
         {isLoading ? (
@@ -81,7 +81,11 @@ const SearchPosts = () => {
           </div>
         ) : (
           searchResults.map((post) => (
-            <div key={post._id} onClick={handlePostCardClick} className="w-full flex flex-wrap">
+            <div
+              key={post._id}
+              onClick={handlePostCardClick}
+              className="w-full flex flex-wrap"
+            >
               <PostCard
                 key={post._id}
                 title={post?.title}
