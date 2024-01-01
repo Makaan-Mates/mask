@@ -82,6 +82,7 @@ const PostDetail = () => {
     return null;
   }
 
+
   return (
     <div className="w-4/5 px-5 py-8  bg-[#161616] ">
       <div className="topic text-sm font-semibold my-2 mx-4 text-[#aeaeae] ">
@@ -107,7 +108,7 @@ const PostDetail = () => {
               <span className="flex gap-1 items-center">
                 {" "}
                 <FaRegClock className=" mr-1 text-lg text-[#9B9B9B] " />
-                <span>2h</span>
+                <span className="text-sm">{postData.timeSinceCreated}</span>
               </span>
               <span className="flex items-center">
                 <FaRegEye className="mr-2 text-lg text-[#9B9B9B] " />

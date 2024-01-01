@@ -9,6 +9,7 @@ const PostCard = ({
   postid,
   username,
   customStyleProfile,
+  timeSinceCreated
 }) => {
   const navigate = useNavigate();
 
@@ -52,7 +53,7 @@ const PostCard = ({
         <span className="flex items-center">
           {" "}
           <FaRegClock className="mx-1 " />
-          2h
+          {timeSinceCreated}
         </span>
       </div>
     </div>
