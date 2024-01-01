@@ -51,6 +51,9 @@ const Header = () => {
         event.preventDefault();
         handleToggleSearch();
       }
+      else if (event.key === "Escape") {
+        dispatch(displaySearchBar(false));
+      }
     }
 
     document.addEventListener("keydown", handleKeyDown);
