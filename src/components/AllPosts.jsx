@@ -9,7 +9,6 @@ const AllPosts = () => {
   const [page, setPage] = useState(1);
 
 
-
   const fetchAllPosts = async (topicFromStore) => {
     const token = localStorage.getItem("token");
     const data = await fetch(

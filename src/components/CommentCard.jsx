@@ -7,6 +7,7 @@ import UpvoteContainer from "./UpvoteContainer";
 
 
 const CommentCard = ({ content, commentId,replyId,filteredComments, username }) => {
+
   const [displayReplyTextArea, setDisplayReplyTextArea] = useState(false);
   const [isReplySection, setIsReplySection] = useState(false);
 
@@ -44,7 +45,6 @@ const CommentCard = ({ content, commentId,replyId,filteredComments, username }) 
           <FaCircleUser />
         </span>
         <span className="font-semibold text-lg text-[#858585] hover:text-white cursor-pointer">
-
           {username ? `${username}` : "anonymous"}
         </span>
       </div>
@@ -53,6 +53,7 @@ const CommentCard = ({ content, commentId,replyId,filteredComments, username }) 
         dangerouslySetInnerHTML={{ __html: renderContentWithLinks(content) }}
       />
       <div className="flex items-center">
+
       {commentId === undefined ? (
         <span></span>
       ) : (
@@ -87,7 +88,6 @@ const CommentCard = ({ content, commentId,replyId,filteredComments, username }) 
   );
 };
 
-
 CommentCard.propTypes = {
     content: PropTypes.string.isRequired,
     commentId: PropTypes.string.isRequired,
@@ -98,6 +98,7 @@ CommentCard.propTypes = {
         })
     ),
     username: PropTypes.string,
+
 };
 
 export default CommentCard;
