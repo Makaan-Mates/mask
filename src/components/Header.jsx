@@ -3,7 +3,6 @@ import {
   FaBell,
   FaRegEdit,
   FaEllipsisV,
-  FaSearch,
 } from "react-icons/fa";
 import { MdKeyboardCommandKey } from "react-icons/md";
 import { useState, useEffect, useCallback } from "react";
@@ -50,8 +49,7 @@ const Header = () => {
       if (event.key === "k" && (event.metaKey || event.ctrlKey)) {
         event.preventDefault();
         handleToggleSearch();
-      }
-      else if (event.key === "Escape") {
+      } else if (event.key === "Escape") {
         dispatch(displaySearchBar(false));
       }
     }

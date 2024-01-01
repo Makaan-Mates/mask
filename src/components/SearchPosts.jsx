@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { FaSearch } from "react-icons/fa";
 import { TbFidgetSpinner } from "react-icons/tb";
 import PostCard from "./PostCard";
 import { useDispatch } from "react-redux";
@@ -60,7 +59,7 @@ const SearchPosts = () => {
   return (
     <div
       ref={searchPostsRef}
-      className="  w-[100vh]  z-50  items-center justify-center fixed top-[12vh] left-0  right-0 m-auto   rounded-lg bg-[#161616] text-white"
+      className="  w-[100vh]  z-50  items-center justify-center fixed top-[12vh] left-0  right-0 m-auto   rounded-lg bg-[#161616] text-white "
     >
       <div className=" flex px-2 py-2 items-center bg-[#1C1C1C] gap-1 rounded-lg  border-[1px] border-[#282828] hover:border-[#363636] ">
         <input
@@ -71,7 +70,9 @@ const SearchPosts = () => {
           placeholder="Search Posts"
           autoFocus
         />
-        <FaSearch className="text-xl text-[#9B9B9B] hover:text-[#d2d2d2]  " />
+        <div className="flex items-center border-[1px] border-[#363636] rounded-md text-sm px-1 ">
+            <span className="mb-1 text-[#9B9B9B]">esc</span>
+          </div>
       </div>
       <div className=" scrollable-div scroll-smooth px-2 items-center flex flex-wrap">
         {isLoading ? (
