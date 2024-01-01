@@ -9,21 +9,24 @@ import CommentTextArea from "./CommentTextArea";
 import { useDeletePost } from "../custom-hooks/useDeletePost";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 import UpvoteContainer from "./UpvoteContainer";
-import { displayEditPostCard,storePostDetail } from "../features/addPostCardSlice";
-import { useDispatch } from "react-redux";
+import {
+  displayEditPostCard,
+  storePostDetail,
+} from "../features/addPostCardSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { BiComment } from "react-icons/bi";
+import { totalPostComments } from "../features/counterSlice";
 
 
 const PostDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useFetchUser();
-
-
-
   const { postid } = useParams();
   const [postData, setPostData] = useState();
   const [showEditComponent, setShowEditComponent] = useState(false);
-
+  const filteredCommentsLength = useSelector((state) => state.counter.value);
+  const totalcomments = filteredCommentsLength;
 
   const deletePost = useDeletePost();
   const fetchPostDetails = async () => {
@@ -53,7 +56,9 @@ const PostDetail = () => {
   const initialDescription = postDetails?.description;
   const initialTopic = postDetails?.topic
 
+
   dispatch(storePostDetail({title:initialTitle, description:initialDescription, topic:initialTopic}))
+
 
   const renderDescriptionWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -68,9 +73,8 @@ const PostDetail = () => {
     setShowEditComponent(!showEditComponent);
   };
 
-  const handleEditPost =  () => {
-     dispatch(displayEditPostCard(true))
-
+  const handleEditPost = () => {
+    dispatch(displayEditPostCard(true));
   };
 
   const handleDeletePost = async () => {
@@ -81,6 +85,7 @@ const PostDetail = () => {
   if (!userInfo) {
     return null;
   }
+  // console.log(postDetails)
 
 
   return (
@@ -155,7 +160,15 @@ const PostDetail = () => {
             __html: renderDescriptionWithLinks(postDetails?.description || ""),
           }}
         ></div>
-        <UpvoteContainer type="post" id={postid} />
+        <div className="flex items-center">
+        <UpvoteContainer
+          type="post"
+          id={postid}
+        />
+        <BiComment className="mx-1 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
+        <span className="text-[#9B9B9B]">{totalcomments}</span>
+        </div>
+        
       </div>
       <CommentTextArea isReplySection={false} />
       <div className="commentsection w-full h-auto bg-[#161616]  px-5 py-4 rounded-md">

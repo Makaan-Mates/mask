@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
 import { useParams } from "react-router-dom";
-
+import {useDispatch} from 'react-redux'
+import {totalPostComments} from '../features/counterSlice'
 
 const CommentSection = () => {
   const { postid } = useParams();
   const [comments, setComments] = useState([]);
-
+  const dispatch = useDispatch()
   // if(!comments){
   //   return null
   // }
@@ -34,6 +35,9 @@ const CommentSection = () => {
   const filteredComments = comments.filter(
     (comment) => comment?.post_id?._id === postid
   );
+  useEffect(() => {
+    dispatch(totalPostComments(filteredComments.length))
+  },[filteredComments])
 
   return (
     <div className="w-full  text-[#d5d5d5]  h-auto bg-[#161616] ">
@@ -60,6 +64,7 @@ const CommentSection = () => {
                   postid={postid}
                   filteredComments={filteredComments}
                   username={comment.user_id.username}
+                  totalcomments={filteredComments.length}
                 />
               )
           )}
