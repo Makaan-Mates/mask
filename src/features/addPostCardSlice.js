@@ -8,7 +8,8 @@ import {createSlice} from '@reduxjs/toolkit'
         searchPoppedUp: false,
         postDetails : {
             title : null,
-            description: null
+            description: null,
+            topic:null
         }
        
     },
@@ -30,6 +31,7 @@ import {createSlice} from '@reduxjs/toolkit'
         storePostDetail : (state,action)=>{
          state.postDetails.title = action.payload.title
          state.postDetails.description = action.payload.description
+         state.postDetails.topic = action.payload.topic
 
         }
         

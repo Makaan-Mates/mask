@@ -10,6 +10,7 @@ const ShowPost = () => {
   const showEditPostCard = useSelector((state)=>state.addPost.displayEditMode);
   const initialTitle = useSelector((state)=>state.addPost.postDetails.title)
   const initialDescription = useSelector((state)=>state.addPost.postDetails.description)
+  const initialTopic = useSelector((state)=>state.addPost.postDetails.topic)
   const showSearchBar = useSelector((state) => state.addPost.searchPoppedUp);
 
 
@@ -17,7 +18,7 @@ const ShowPost = () => {
     <>
       {showAddPostCard  && <AddPostCard />}
       {showSearchBar && <SearchPosts />}
-      {showEditPostCard &&  <AddPostCard initialTitle={initialTitle} initialDescription={initialDescription}/>}
+      {showEditPostCard &&  <AddPostCard initialTitle={initialTitle} initialDescription={initialDescription} initialTopic={initialTopic}/>}
       
       <div className={`${showAddPostCard || showEditPostCard || showSearchBar ? "blur-md" : ""}`}>
 

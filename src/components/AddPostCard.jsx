@@ -9,7 +9,7 @@ import { IoSend } from "react-icons/io5";
 import { useSelector } from "react-redux";
 
 
-const AddPostCard = ({  initialTitle, initialDescription }) => {
+const AddPostCard = ({  initialTitle, initialDescription, initialTopic }) => {
 
   const dispatch = useDispatch();
   const showEditPostCard = useSelector((state)=>state.addPost.displayEditMode);
@@ -60,6 +60,7 @@ const AddPostCard = ({  initialTitle, initialDescription }) => {
       body: JSON.stringify({
         newTitle: title.current.value,
         newDescription: description.current.value,
+        newTopic: topic.current.value
       }),
     });
 
@@ -83,6 +84,7 @@ const AddPostCard = ({  initialTitle, initialDescription }) => {
           <select
             className="rounded-md  w-full h-full focus:outline-none bg-[#1C1C1C] text-[#9B9B9B]"
             ref={topic}
+            defaultValue={initialTopic}
           >
             <option disabled selected value="">
               Select a Topic

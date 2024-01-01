@@ -51,8 +51,9 @@ const PostDetail = () => {
 
   const initialTitle = postDetails?.title;
   const initialDescription = postDetails?.description;
+  const initialTopic = postDetails?.topic
 
-  dispatch(storePostDetail({title:initialTitle,description:initialDescription}))
+  dispatch(storePostDetail({title:initialTitle, description:initialDescription, topic:initialTopic}))
 
   const renderDescriptionWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
