@@ -1,19 +1,25 @@
+/* eslint-disable react/prop-types */
 import { RxCross2 } from "react-icons/rx";
-import { useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom"
-import { hideAddPostCard } from "../features/addPostCardSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { hideAddPostCard,displayEditPostCard } from "../features/addPostCardSlice";
 import { useRef } from "react";
 import { topics } from "../utils/topics";
 import { IoSend } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
-
-const AddPostCard = () => {
+const AddPostCard = ({  initialTitle, initialDescription }) => {
   const dispatch = useDispatch();
+  const showEditPostCard = useSelector((state)=>state.addPost.displayEditMode);
+
+
   const navigate = useNavigate();
   const handleHidePostCard = () => {
     dispatch(hideAddPostCard());
+    dispatch(displayEditPostCard(false))
   };
 
+  const { postid } = useParams();
   const title = useRef();
   const description = useRef();
   const topic = useRef();
@@ -36,10 +42,28 @@ const AddPostCard = () => {
     const json = await data.json();
     console.log(json);
     dispatch(hideAddPostCard());
-    navigate("/home")
+    navigate("/home");
     window.location.reload();
-   
+  };
 
+  const handleUpdatePost = async () => {
+    const token = localStorage.getItem("token");
+    const data = await fetch(`http://localhost:4000/api/post/edit/${postid}`, {
+      method: "POST",
+      headers: {
+        "CONTENT-TYPE": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        newTitle: title.current.value,
+        newDescription: description.current.value,
+      }),
+    });
+
+    const json = await data.json();
+    console.log(json);
+    dispatch(hideAddPostCard());
+    window.location.reload();
   };
 
   return (
@@ -71,6 +95,7 @@ const AddPostCard = () => {
             id="title"
             ref={title}
             placeholder="Write a specific title..."
+            defaultValue={initialTitle}
           />
         </div>
         <div className="w-full h-[40vh] px-2 py-4">
@@ -80,16 +105,27 @@ const AddPostCard = () => {
             ref={description}
             id="title"
             placeholder="Unleash your thoughts and paint the canvas of your imagination..."
+            defaultValue={initialDescription}
           />
         </div>
         <div className="w-full h-[8vh] px-4 mb-4  flex justify-end">
-          <button
-            onClick={handlePublishPost}
-            className=" h-[6vh] flex gap-2 items-center  px-6 py-2 border-[1px] border-[#1B1B1B] bg-[#292929] rounded-xl hover:bg-[#2e2e2e] transition duration-300  text-[#d5d5d5] "
-          >
-            <IoSend className=""/>
-            Publish
-          </button>
+          {showEditPostCard ? (
+            <button
+              onClick={handleUpdatePost}
+              className=" h-[6vh] flex gap-2 items-center  px-6 py-2 border-[1px] border-[#1B1B1B] bg-[#292929] rounded-xl hover:bg-[#2e2e2e] transition duration-300  text-[#d5d5d5] "
+            >
+              <IoSend className="" />
+               Update
+            </button>
+          ) : (
+            <button
+              onClick={handlePublishPost}
+              className=" h-[6vh] flex gap-2 items-center  px-6 py-2 border-[1px] border-[#1B1B1B] bg-[#292929] rounded-xl hover:bg-[#2e2e2e] transition duration-300  text-[#d5d5d5] "
+            >
+              <IoSend className="" />
+               Publish
+            </button>
+          )}
         </div>
       </div>
     </>

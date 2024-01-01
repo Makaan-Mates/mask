@@ -9,14 +9,22 @@ import CommentTextArea from "./CommentTextArea";
 import { useDeletePost } from "../custom-hooks/useDeletePost";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 import UpvoteContainer from "./UpvoteContainer";
+import { displayEditPostCard,storePostDetail } from "../features/addPostCardSlice";
+import { useDispatch } from "react-redux";
+
 
 const PostDetail = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { userInfo } = useFetchUser();
+
+
 
   const { postid } = useParams();
   const [postData, setPostData] = useState();
   const [showEditComponent, setShowEditComponent] = useState(false);
+
+
   const deletePost = useDeletePost();
   const fetchPostDetails = async () => {
     const token = localStorage.getItem("token");
@@ -41,6 +49,11 @@ const PostDetail = () => {
   }
   const { postDetails } = postData;
 
+  const initialTitle = postDetails?.title;
+  const initialDescription = postDetails?.description;
+
+  dispatch(storePostDetail({title:initialTitle,description:initialDescription}))
+
   const renderDescriptionWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.replace(
@@ -52,6 +65,11 @@ const PostDetail = () => {
 
   const handleToggleEditComponent = () => {
     setShowEditComponent(!showEditComponent);
+  };
+
+  const handleEditPost =  () => {
+     dispatch(displayEditPostCard(true))
+
   };
 
   const handleDeletePost = async () => {
@@ -110,7 +128,10 @@ const PostDetail = () => {
 
               {showEditComponent && (
                 <div className="absolute top-6 -left-7  w-40 h-30 flex flex-col items-center  rounded-lg bg-[#1C1C1C] overflow-hidden ">
-                  <span className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
+                  <span
+                    onClick={handleEditPost}
+                    className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"
+                  >
                     <MdModeEdit className="mr-1" /> Edit
                   </span>
                   <button
