@@ -12,7 +12,7 @@ import UpvoteContainer from "./UpvoteContainer";
 
 const PostDetail = () => {
   const navigate = useNavigate();
-  const {userInfo} = useFetchUser();
+  const { userInfo } = useFetchUser();
 
   const { postid } = useParams();
   const [postData, setPostData] = useState();
@@ -54,20 +54,14 @@ const PostDetail = () => {
     setShowEditComponent(!showEditComponent);
   };
 
-  
-  
-
   const handleDeletePost = async () => {
     await deletePost();
     navigate("/home ");
   };
 
-
-  if(!userInfo){
-    return null
+  if (!userInfo) {
+    return null;
   }
-
-
 
   return (
     <div className="w-4/5 px-5 py-8  bg-[#161616] ">
@@ -138,7 +132,7 @@ const PostDetail = () => {
             __html: renderDescriptionWithLinks(postDetails?.description || ""),
           }}
         ></div>
-      <UpvoteContainer/>
+        <UpvoteContainer type="post" id={postid} />
       </div>
       <CommentTextArea isReplySection={false} />
       <div className="commentsection w-full h-auto bg-[#161616]  px-5 py-4 rounded-md">

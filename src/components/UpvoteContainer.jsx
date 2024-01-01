@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { BiComment, BiUpvote, BiSolidUpvote } from "react-icons/bi";
-import { useParams } from "react-router-dom";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 
-const UpvoteContainer = () => {
-  const { postid } = useParams();
+const UpvoteContainer = ({type,id}) => {
+
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [postDetails, setPostDetails] = useState();
   const { userInfo, loading } = useFetchUser();
@@ -12,7 +11,7 @@ const UpvoteContainer = () => {
   const updateUpvoteCounter = async () => {
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `http://localhost:4000/api/post/upvote/${postid}`,
+      `http://localhost:4000/api/${type}/upvote/${id}`,
       {
         method: "POST",
         headers: {
@@ -26,7 +25,7 @@ const UpvoteContainer = () => {
     console.log(json);
   };
   const getPostDetails = async () => {
-    const data = await fetch(`http://localhost:4000/api/upvote/${postid}`);
+    const data = await fetch(`http://localhost:4000/api/${type}/upvote/${id}`);
     const json = await data.json();
     setPostDetails(json);
     console.log(json);
