@@ -8,6 +8,8 @@ const UpvoteContainer = ({type,id}) => {
   const [postDetails, setPostDetails] = useState();
   const { userInfo, loading } = useFetchUser();
 
+  console.log(id)
+
   const updateUpvoteCounter = async () => {
     const token = localStorage.getItem("token");
     const data = await fetch(
@@ -29,7 +31,7 @@ const UpvoteContainer = ({type,id}) => {
     const json = await data.json();
     setPostDetails(json);
     console.log(json);
-    setIsUpvoted(json?.message?.upvotes?.includes(userInfo?._id));
+    setIsUpvoted(json?.upvotes?.includes(userInfo?._id));
   };
 
   useEffect(() => {
@@ -57,7 +59,7 @@ const UpvoteContainer = ({type,id}) => {
             className="mx-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2]"
           />
         )}
-        {postDetails && postDetails?.message?.upvotes?.length}
+        {postDetails && postDetails?.upvotes?.length}
       </span>
       <span className="flex items-center cursor-pointer">
         <BiComment className="mx-1 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />

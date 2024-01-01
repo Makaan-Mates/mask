@@ -5,7 +5,9 @@ import PropTypes from "prop-types";
 import { FaCircleUser } from "react-icons/fa6";
 import UpvoteContainer from "./UpvoteContainer";
 
-const CommentCard = ({ content, commentId, filteredComments, username }) => {
+
+const CommentCard = ({ content, commentId,replyId,filteredComments, username }) => {
+
   const [displayReplyTextArea, setDisplayReplyTextArea] = useState(false);
   const [isReplySection, setIsReplySection] = useState(false);
 
@@ -50,20 +52,22 @@ const CommentCard = ({ content, commentId, filteredComments, username }) => {
         className="text-[#d8d8d8] whitespace-pre-wrap break-words"
         dangerouslySetInnerHTML={{ __html: renderContentWithLinks(content) }}
       />
-      <UpvoteContainer type="comment" id={commentId} />
+      <div className="flex items-center">
+
       {commentId === undefined ? (
         <span></span>
       ) : (
-        <div className=" ">
-          <button
-            onClick={handleCommentReply}
-            className="px-3 py-1 flex items-center gap-2 text-[16px] border-[#1B1B1B]  bg-[#292929]  rounded-lg hover:bg-[#2e2e2e]  text-[#d8d8d8]  transition duration-300  "
-          >
-            <FaReply className="text-[12px] text- cursor-pointer hover:text-white" />
-            Reply
-          </button>
+        <div className="cursor-pointer text-[18px] text-[#d8d8d8] w-8 flex justify-between">
+       
+            <FaReply onClick={handleCommentReply}     
+             className="cursor-pointer text-[18px] text-[#d8d8d8] " />
+          
+         
         </div>
-      )}
+     )}
+      <UpvoteContainer type="comment" id={replyId || commentId}/>
+    </div>
+
       {displayReplyTextArea && (
         <CommentTextArea
           isReplySection={isReplySection}
@@ -72,9 +76,10 @@ const CommentCard = ({ content, commentId, filteredComments, username }) => {
       )}
       {replies &&
         replies.map((reply) => (
-          <div key={reply.id} className="ml-8">
+          <div key={reply._id} className="ml-8">
             <CommentCard
               content={reply.content}
+              replyId={reply._id}
               username={reply.user_id.username}
             />
           </div>
@@ -84,14 +89,16 @@ const CommentCard = ({ content, commentId, filteredComments, username }) => {
 };
 
 CommentCard.propTypes = {
-  content: PropTypes.string.isRequired,
-  commentId: PropTypes.string.isRequired,
-  filteredComments: PropTypes.arrayOf(
-    PropTypes.shape({
-      parentId: PropTypes.string,
-    })
-  ),
-  username: PropTypes.string,
+    content: PropTypes.string.isRequired,
+    commentId: PropTypes.string.isRequired,
+    replyId: PropTypes.string,
+    filteredComments: PropTypes.arrayOf(
+        PropTypes.shape({
+            parentId: PropTypes.string,
+        })
+    ),
+    username: PropTypes.string,
+
 };
 
 export default CommentCard;
