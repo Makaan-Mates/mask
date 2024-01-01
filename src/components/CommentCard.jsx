@@ -4,10 +4,15 @@ import CommentTextArea from "./CommentTextArea";
 import PropTypes from "prop-types";
 import { FaCircleUser } from "react-icons/fa6";
 import UpvoteContainer from "./UpvoteContainer";
+import { BiComment } from "react-icons/bi";
 
-
-const CommentCard = ({ content, commentId,replyId,filteredComments, username }) => {
-
+const CommentCard = ({
+  content,
+  commentId,
+  replyId,
+  filteredComments,
+  username,
+}) => {
   const [displayReplyTextArea, setDisplayReplyTextArea] = useState(false);
   const [isReplySection, setIsReplySection] = useState(false);
 
@@ -19,6 +24,7 @@ const CommentCard = ({ content, commentId,replyId,filteredComments, username }) 
   const replies = filteredComments?.filter(
     (reply) => reply?.parentId === commentId
   );
+  console.log(replies?.length);
 
   // Regular expression to find URLs within the content
   const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -52,21 +58,17 @@ const CommentCard = ({ content, commentId,replyId,filteredComments, username }) 
         className="text-[#d8d8d8] whitespace-pre-wrap break-words"
         dangerouslySetInnerHTML={{ __html: renderContentWithLinks(content) }}
       />
-      <div className="flex items-center">
-
-      {commentId === undefined ? (
-        <span></span>
-      ) : (
-        <div className="cursor-pointer text-[18px] text-[#d8d8d8] w-8 flex justify-between">
-       
-            <FaReply onClick={handleCommentReply}     
-             className="cursor-pointer text-[18px] text-[#d8d8d8] " />
-          
-         
-        </div>
-     )}
-      <UpvoteContainer type="comment" id={replyId || commentId}/>
-    </div>
+      <div className="flex items-center ">
+        {commentId === undefined ? (
+          <span></span>
+        ) : (
+          <div className="cursor-pointer text-[#d8d8d8] flex justify-between mr-2 items-center">
+            <BiComment onClick={handleCommentReply}  className="mx-1 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
+            <span>{replies.length}</span>
+          </div>
+        )}
+        <UpvoteContainer type="comment" id={replyId || commentId} />
+      </div>
 
       {displayReplyTextArea && (
         <CommentTextArea
@@ -89,16 +91,15 @@ const CommentCard = ({ content, commentId,replyId,filteredComments, username }) 
 };
 
 CommentCard.propTypes = {
-    content: PropTypes.string.isRequired,
-    commentId: PropTypes.string.isRequired,
-    replyId: PropTypes.string,
-    filteredComments: PropTypes.arrayOf(
-        PropTypes.shape({
-            parentId: PropTypes.string,
-        })
-    ),
-    username: PropTypes.string,
-
+  content: PropTypes.string.isRequired,
+  commentId: PropTypes.string.isRequired,
+  replyId: PropTypes.string,
+  filteredComments: PropTypes.arrayOf(
+    PropTypes.shape({
+      parentId: PropTypes.string,
+    })
+  ),
+  username: PropTypes.string,
 };
 
 export default CommentCard;
