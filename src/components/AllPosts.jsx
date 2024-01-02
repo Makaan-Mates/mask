@@ -2,12 +2,15 @@ import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import PostCard from "./PostCard";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { FaFire } from "react-icons/fa";
+import { MdTimer } from "react-icons/md";
+import {  BiSolidUpvote } from "react-icons/bi";
 
 const AllPosts = () => {
   const topicFromStore = useSelector((state) => state.posts.data.topic);
   const [card, setCard] = useState([]);
   const [page, setPage] = useState(1);
-
+  const [displayFilterCategory, setDisplayFilterCategory] = useState(false);
 
   const fetchAllPosts = async (topicFromStore) => {
     const token = localStorage.getItem("token");
@@ -23,7 +26,6 @@ const AllPosts = () => {
     );
 
     const json = await data.json();
-  
 
     if (json.posts && Array.isArray(json.posts)) {
       if (page === 1) {
@@ -34,44 +36,74 @@ const AllPosts = () => {
     }
   };
 
-
   useEffect(() => {
     setCard([]);
     setPage(1);
   }, [topicFromStore]);
 
-
   useEffect(() => {
     fetchAllPosts(topicFromStore);
   }, [page, topicFromStore]);
 
-const handelInfiniteScroll = async () => {
-  try {
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 1  >=
-      document.documentElement.scrollHeight 
-    ) {
-      setPage((prev) => prev + 1);
+  const handelInfiniteScroll = async () => {
+    try {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >=
+        document.documentElement.scrollHeight
+      ) {
+        setPage((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
+  };
+
+  const handleShowFilterCategory = () => {
+    setDisplayFilterCategory(!displayFilterCategory)
   }
-};
 
   useEffect(() => {
     window.addEventListener("scroll", handelInfiniteScroll);
     return () => window.removeEventListener("scroll", handelInfiniteScroll);
-  }, [page,topicFromStore]);
+  }, [page, topicFromStore]);
 
   console.log(card);
+
   return (
     <div className=" w-4/5 px-5 py-8   bg-[#161616]">
       <div className="w-full flex items-center justify-between pb-11 border-b-[1px] border-[#282828]">
-        <h1 className="text-2xl font-semibold text-[#F6F6F6]">{topicFromStore==="home" ? `All Posts` : topicFromStore}</h1>
-        <button className="flex text-sm items-center rounded-md px-4 py-2  text-[#F6F6F6] shadow-lg shadow-orange-500/15 hover:shadow-orange-500/20 bg-[#1C1C1C]">
+        <h1 className="text-2xl font-semibold text-[#F6F6F6]">
+          {topicFromStore === "home" ? `All Posts` : topicFromStore}
+        </h1>
+        <div className="relative">
+        <button onClick={handleShowFilterCategory} className="flex text-sm items-center rounded-md px-4 py-2  text-[#F6F6F6] shadow-lg shadow-orange-500/15 hover:shadow-orange-500/20 bg-[#1C1C1C]">
           <FaArrowRightArrowLeft className="mr-2 rotate-90 text-[#F6F6F6]" />
-          Hot Posts
+          Sort By
         </button>
+        {displayFilterCategory && (
+                <div className="absolute top-10 -left-14  w-40 h-30 flex flex-col items-center  rounded-lg bg-[#1C1C1C] overflow-hidden ">
+                  <span
+                    
+                    className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"
+                  >
+                    <FaFire className="mr-1 text-orange-500" /> Trending
+                  </span>
+                  <button
+                    className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"
+                  >
+                    <MdTimer className="mr-1" />
+                    Latest
+                  </button>
+                  <button
+                    className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"
+                  >
+                    <BiSolidUpvote className="mr-1" />
+                    Top Voted
+                  </button>
+                </div>
+              )}
+        </div>
+        
       </div>
       <div className="postcards flex flex-wrap py-5 ">
         {card.map((post) => (
@@ -83,6 +115,7 @@ const handelInfiniteScroll = async () => {
             topic={post.topic}
             username={post?.user_id?.username}
             timeSinceCreated={post?.timeSinceCreated}
+            totalUpvotes={post?.upvotes?.length}
           />
         ))}
       </div>
