@@ -15,7 +15,10 @@ import {
 } from "../features/addPostCardSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22ca04b5c0c94e0ed4c1085c59164d0879d903fe
 
 const PostDetail = () => {
   const navigate = useNavigate();
