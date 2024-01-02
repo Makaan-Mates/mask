@@ -74,7 +74,6 @@ const CommentCard = ({
           </div>
         )}
 
-     
       </div>
 
       {displayReplyTextArea && (
