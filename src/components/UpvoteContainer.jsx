@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { BiComment, BiUpvote, BiSolidUpvote } from "react-icons/bi";
+import { BiUpvote, BiSolidUpvote } from "react-icons/bi";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
+import PropTypes from "prop-types";
 
-const UpvoteContainer = ({ type, id, totalreplies }) => {
+const UpvoteContainer = ({ type, id }) => {
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [postDetails, setPostDetails] = useState();
+  const [postid, setPostid] = useState();
   const { userInfo, loading } = useFetchUser();
 
   const updateUpvoteCounter = async () => {
@@ -16,22 +18,26 @@ const UpvoteContainer = ({ type, id, totalreplies }) => {
         authorization: `Bearer ${token}`,
       },
     });
-    const json = await data.json();
-    setIsUpvoted(json?.message?.upvotes?.includes(userInfo?._id));
-    // console.log(json);
+    const info = await data.json();
+    setIsUpvoted(info?.message?.upvotes?.includes(userInfo?._id));
+    setPostid(info?.postDetails._id);
   };
-  const getPostDetails = async () => {
-    const data = await fetch(`http://localhost:4000/api/${type}/upvote/${id}`);
-    const json = await data.json();
-    setPostDetails(json);
-    setIsUpvoted(json?.upvotes?.includes(userInfo?._id));
-  };
-
   useEffect(() => {
+    const getPostDetails = async () => {
+      const data = await fetch(
+        `http://localhost:4000/api/${type}/upvote/${id}`
+      );
+      const json = await data.json();
+      setPostDetails(json);
+      setIsUpvoted(json?.upvotes?.includes(userInfo?._id));
+    };
+
     if (!loading) {
       getPostDetails();
     }
-  }, [loading, isUpvoted]);
+  }, [loading, isUpvoted, type, id, userInfo, setPostDetails, setIsUpvoted]);
+
+  console.log(postid);
 
   const handleClick = () => {
     updateUpvoteCounter();
@@ -54,18 +60,13 @@ const UpvoteContainer = ({ type, id, totalreplies }) => {
         )}
         {postDetails && postDetails?.upvotes?.length}
       </span>
-      {/* <span className="flex items-center cursor-pointer">
-        {totalreplies ? (
-          <BiComment className="mx-1 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
-        ) : (
-          ""
-        )}
-        <span className="text-center">
-          {totalreplies ? totalreplies : ""}
-        </span>
-      </span> */}
     </div>
   );
+};
+
+UpvoteContainer.propTypes = {
+  type: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 export default UpvoteContainer;

@@ -15,8 +15,6 @@ import {
 } from "../features/addPostCardSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
-import { totalPostComments } from "../features/counterSlice";
-
 
 const PostDetail = () => {
   const navigate = useNavigate();
