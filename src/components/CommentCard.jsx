@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FaReply } from "react-icons/fa";
 import CommentTextArea from "./CommentTextArea";
 import PropTypes from "prop-types";
 import { FaCircleUser } from "react-icons/fa6";
@@ -58,7 +57,8 @@ const CommentCard = ({
         className="text-[#d8d8d8] whitespace-pre-wrap break-words"
         dangerouslySetInnerHTML={{ __html: renderContentWithLinks(content) }}
       />
-      <div className="flex items-center ">
+      <div className="flex items-center gap-3 ">
+      <UpvoteContainer type="comment" id={replyId || commentId} />
         {commentId === undefined ? (
           <span></span>
         ) : (
@@ -67,7 +67,7 @@ const CommentCard = ({
             <span>{replies.length}</span>
           </div>
         )}
-        <UpvoteContainer type="comment" id={replyId || commentId} />
+     
       </div>
 
       {displayReplyTextArea && (

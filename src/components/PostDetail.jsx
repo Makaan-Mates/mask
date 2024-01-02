@@ -15,7 +15,6 @@ import {
 } from "../features/addPostCardSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
-import { totalPostComments } from "../features/counterSlice";
 
 
 const PostDetail = () => {
@@ -165,7 +164,7 @@ const PostDetail = () => {
           type="post"
           id={postid}
         />
-        <BiComment className="mx-1 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
+        <BiComment className="ml-4 mr-2 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
         <span className="text-[#9B9B9B]">{totalcomments}</span>
         </div>
         

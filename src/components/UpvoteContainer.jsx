@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BiComment, BiUpvote, BiSolidUpvote } from "react-icons/bi";
+import { BiUpvote, BiSolidUpvote } from "react-icons/bi";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 
 const UpvoteContainer = ({ type, id, totalreplies }) => {
@@ -54,16 +54,6 @@ const UpvoteContainer = ({ type, id, totalreplies }) => {
         )}
         {postDetails && postDetails?.upvotes?.length}
       </span>
-      {/* <span className="flex items-center cursor-pointer">
-        {totalreplies ? (
-          <BiComment className="mx-1 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
-        ) : (
-          ""
-        )}
-        <span className="text-center">
-          {totalreplies ? totalreplies : ""}
-        </span>
-      </span> */}
     </div>
   );
 };
