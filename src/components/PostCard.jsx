@@ -1,6 +1,7 @@
 import { FaRegEye, FaRegClock } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { BiUpvote } from "react-icons/bi";
 
 
 const PostCard = ({
@@ -10,7 +11,9 @@ const PostCard = ({
   postid,
   username,
   customStyleProfile,
-  timeSinceCreated
+  timeSinceCreated,
+  totalUpvotes,
+  
 }) => {
   const navigate = useNavigate();
 
@@ -44,15 +47,15 @@ const PostCard = ({
         {title}
       </span>
       <div className="text-sm break-words text-[#858585] ">{truncatedDesc}</div>
-      <div className="flex gap-4 justify-end px-2 items-center text-[#aeaeae]">
+      <div className="flex gap-4 justify-end px-2 items-center text-sm text-[#aeaeae]">
         <span className="">
           {username
             ? `@${username}`
             : `${customStyleProfile ? " " : "anonymous"}`}
         </span>
         <span className="flex items-center">
-          <FaRegEye className="mx-1 " />
-          Views
+          <BiUpvote className="mx-1  " />
+          {totalUpvotes}
         </span>
         <span className="flex items-center">
           {" "}

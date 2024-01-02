@@ -19,7 +19,7 @@ const Profile = () => {
         <Header />
         <div className="w-full flex  gap-6">
           <div className="userinfo mx-8 relative w-2/6 ">
-            <div className="mt-8 h-[60vh] sticky top-28  bg-[#1C1C1C] rounded-md border-[0.2px] border-[#282828] text-white px-5 py-5">
+            <div className="mt-8 h-[60vh] sticky top-36  bg-[#1C1C1C] rounded-md border-[0.2px] border-[#282828] text-white px-5 py-5">
               <div className="flex gap-10 items-center">
                 <div className="w-24 h-24 rounded-full overflow-hidden">
                   <img
