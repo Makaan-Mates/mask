@@ -58,13 +58,10 @@ const CommentCard = ({
         className="text-[#d8d8d8] whitespace-pre-wrap break-words"
         dangerouslySetInnerHTML={{ __html: renderContentWithLinks(content) }}
       />
-<<<<<<< HEAD
+
       <div className="flex items-center gap-3 ">
       <UpvoteContainer type="comment" id={replyId || commentId} />
-=======
-      <div className="flex items-center ">
-        <UpvoteContainer type="comment" id={replyId || commentId} />
->>>>>>> 22ca04b5c0c94e0ed4c1085c59164d0879d903fe
+
         {commentId === undefined ? (
           <span></span>
         ) : (
@@ -76,10 +73,8 @@ const CommentCard = ({
             <span>{replies.length}</span>
           </div>
         )}
-<<<<<<< HEAD
+
      
-=======
->>>>>>> 22ca04b5c0c94e0ed4c1085c59164d0879d903fe
       </div>
 
       {displayReplyTextArea && (

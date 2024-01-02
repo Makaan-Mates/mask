@@ -15,10 +15,6 @@ import {
 } from "../features/addPostCardSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
-<<<<<<< HEAD
-
-=======
->>>>>>> 22ca04b5c0c94e0ed4c1085c59164d0879d903fe
 
 const PostDetail = () => {
   const navigate = useNavigate();
@@ -56,11 +52,15 @@ const PostDetail = () => {
 
   const initialTitle = postDetails?.title;
   const initialDescription = postDetails?.description;
-  const initialTopic = postDetails?.topic
+  const initialTopic = postDetails?.topic;
 
-
-  dispatch(storePostDetail({title:initialTitle, description:initialDescription, topic:initialTopic}))
-
+  dispatch(
+    storePostDetail({
+      title: initialTitle,
+      description: initialDescription,
+      topic: initialTopic,
+    })
+  );
 
   const renderDescriptionWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -88,7 +88,6 @@ const PostDetail = () => {
     return null;
   }
   // console.log(postDetails)
-
 
   return (
     <div className="w-4/5 px-5 py-8  bg-[#161616] ">
@@ -163,14 +162,10 @@ const PostDetail = () => {
           }}
         ></div>
         <div className="flex items-center">
-        <UpvoteContainer
-          type="post"
-          id={postid}
-        />
-        <BiComment className="ml-4 mr-2 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
-        <span className="text-[#9B9B9B]">{totalcomments}</span>
+          <UpvoteContainer type="post" id={postid} />
+          <BiComment className="ml-4 mr-2 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
+          <span className="text-[#9B9B9B]">{totalcomments}</span>
         </div>
-        
       </div>
       <CommentTextArea isReplySection={false} />
       <div className="commentsection w-full h-auto bg-[#161616]  px-5 py-4 rounded-md">
