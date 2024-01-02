@@ -9,7 +9,7 @@ import { IoSend } from "react-icons/io5";
 import { useSelector } from "react-redux";
 
 
-const AddPostCard = ({  initialTitle, initialDescription, initialTopic }) => {
+const AddPostCard = ({  initialTitle, initialDescription, initialTopic,setReloadPosts }) => {
 
   const dispatch = useDispatch();
   const showEditPostCard = useSelector((state)=>state.addPost.displayEditMode);
@@ -45,7 +45,7 @@ const AddPostCard = ({  initialTitle, initialDescription, initialTopic }) => {
     console.log(json);
     dispatch(hideAddPostCard());
     navigate("/home");
-    window.location.reload();
+    setReloadPosts(true)
 
   };
 
@@ -141,3 +141,8 @@ const AddPostCard = ({  initialTitle, initialDescription, initialTopic }) => {
 };
 
 export default AddPostCard;
+
+
+   
+
+
