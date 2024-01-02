@@ -18,6 +18,7 @@ const UpvoteContainer = ({ type, id }) => {
         authorization: `Bearer ${token}`,
       },
     });
+
     const info = await data.json();
     setIsUpvoted(info?.message?.upvotes?.includes(userInfo?._id));
     setPostid(info?.postDetails._id);

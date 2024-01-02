@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
