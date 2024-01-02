@@ -16,7 +16,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
 
-
 const PostDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

@@ -18,12 +18,13 @@ const CommentCard = ({
   const handleCommentReply = () => {
     setDisplayReplyTextArea(!displayReplyTextArea);
     setIsReplySection(true);
+    
   };
 
   const replies = filteredComments?.filter(
     (reply) => reply?.parentId === commentId
   );
-  console.log(replies?.length);
+
 
   // Regular expression to find URLs within the content
   const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -57,17 +58,22 @@ const CommentCard = ({
         className="text-[#d8d8d8] whitespace-pre-wrap break-words"
         dangerouslySetInnerHTML={{ __html: renderContentWithLinks(content) }}
       />
+
       <div className="flex items-center gap-3 ">
       <UpvoteContainer type="comment" id={replyId || commentId} />
+
         {commentId === undefined ? (
           <span></span>
         ) : (
           <div className="cursor-pointer text-[#d8d8d8] flex justify-between mr-2 items-center">
-            <BiComment onClick={handleCommentReply}  className="mx-1 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
+            <BiComment
+              onClick={handleCommentReply}
+              className="mx-1 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] "
+            />
             <span>{replies.length}</span>
           </div>
         )}
-     
+
       </div>
 
       {displayReplyTextArea && (
