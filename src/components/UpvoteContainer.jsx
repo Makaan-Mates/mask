@@ -18,7 +18,6 @@ const UpvoteContainer = ({ type, id, totalreplies }) => {
     });
     const json = await data.json();
     setIsUpvoted(json?.message?.upvotes?.includes(userInfo?._id));
-    // console.log(json);
   };
   const getPostDetails = async () => {
     const data = await fetch(`http://localhost:4000/api/${type}/upvote/${id}`);

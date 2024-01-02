@@ -3,13 +3,18 @@ import {createSlice} from '@reduxjs/toolkit'
     name: 'counter',
     initialState: {
         value: 0,
+        
     },
     reducers:{
         totalPostComments : (state,action)=>{
             state.value = action.payload
      },
-    }
-
+     totalPostBookMarks : (state,action)=>{
+        state.value = action.payload
+ },
+       
+     }
+  
  })
-    export const {totalPostComments} = counterSlice.actions
+    export const { totalPostComments,totalPostBookMarks } = counterSlice.actions
     export default counterSlice.reducer;

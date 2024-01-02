@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaReply } from "react-icons/fa";
+//import { FaReply } from "react-icons/fa";
 import CommentTextArea from "./CommentTextArea";
 import PropTypes from "prop-types";
 import { FaCircleUser } from "react-icons/fa6";

@@ -1,7 +1,6 @@
 import { FaRegEye, FaRegClock, FaEllipsisV } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-import { FaRegBookmark } from "react-icons/fa6";
 import CommentSection from "./CommentSection";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -9,14 +8,13 @@ import CommentTextArea from "./CommentTextArea";
 import { useDeletePost } from "../custom-hooks/useDeletePost";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 import UpvoteContainer from "./UpvoteContainer";
+import BookmarkButton from "./BookmarkButton";
 import {
   displayEditPostCard,
   storePostDetail,
 } from "../features/addPostCardSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
-import { totalPostComments } from "../features/counterSlice";
-
 
 const PostDetail = () => {
   const navigate = useNavigate();
@@ -121,9 +119,10 @@ const PostDetail = () => {
               </span>
             </div>
             <div className="relative flex gap-3">
-              <span className="flex items-center cursor-pointer">
-                <FaRegBookmark className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
-              </span>
+              <BookmarkButton />
+              {/*<span className="flex items-center cursor-pointer">
+              <FaRegBookmark className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
+              </span>*/}
               {userInfo?._id === postDetails?.user_id._id && (
                 <span
                   className=" flex items-center cursor-pointer"

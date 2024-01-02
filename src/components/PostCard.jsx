@@ -2,6 +2,7 @@ import { FaRegEye, FaRegClock } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
+
 const PostCard = ({
   title,
   description,
@@ -25,7 +26,10 @@ const PostCard = ({
 
   const handleShowPost = () => {
     navigate(`/post/${postid}`);
+    
+
   };
+ 
 
   const customStyleProfileClass = customStyleProfile ? " w-full  2xl:w-full " : "";
 
