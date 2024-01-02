@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const Asidebar = () => {
   const navigate = useNavigate();
-  const { userInfo } = useFetchUser();
+  const { userInfo, loading } = useFetchUser();
   const dispatch = useDispatch();
   const [selectedTopic, setSelectedTopic] = useState(null);
 
@@ -22,13 +22,9 @@ const Asidebar = () => {
     dispatch(displayAddPostCard());
   };
 
-  if (!userInfo) {
-    return null;
-  }
-
   const allTopics = topics;
 
-  const { topicsFollowing } = userInfo;
+  const { topicsFollowing = [] } = userInfo || {};
 
   const exploreMoreTopics = allTopics.filter(
     (topic) =>
@@ -47,24 +43,31 @@ const Asidebar = () => {
       </div>
 
       <div className="scrollable-div max-h-[70vh] mt-8 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300 pb-8">
-        <div className="border-t-[1px] font-semibold   border-[#282828]"></div>
+        <div className="border-t-[1px] font-semibold border-[#282828]"></div>
         <h1 className=" border-[#aeaeae] py-2 mt-4 font-semibold text-[#d5d5d5] text-sm">
           FOLLOWING
         </h1>
-        <div className="text-[#9B9B9B] text-sm">
-          {topicsFollowing.map((topic) => (
-            <div
-              className={`hover:text-white w-fit px-4 py-2 rounded-lg ${
-                topic.name === selectedTopic ? "bg-[#282828] " : ""
-              }`}
-              key={topic.id}
-            >
-              <button onClick={() => handleTopicSelection(topic.name)}>
-                {topic.name}
-              </button>
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-[#9B9B9B] w-52  bg-[#1C1C1C] h-52">
+          
+          </div>
+        ) : (
+          <div className="text-[#9B9B9B] text-sm">
+            {topicsFollowing.map((topic) => (
+              <div
+                className={`hover:text-white w-fit px-4 py-2 rounded-lg ${
+                  topic.name === selectedTopic ? "bg-[#282828] " : ""
+                }`}
+                key={topic.id}
+              >
+                <button onClick={() => handleTopicSelection(topic.name)}>
+                  {topic.name}
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        
         <h1 className="border-t-[1px] font-semibold pt-6 mt-4 border-[#282828] py-2 text-[#d5d5d5] text-sm">
           EXPLORE MORE TOPICS
         </h1>

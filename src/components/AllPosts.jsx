@@ -6,10 +6,9 @@ import { FaFire } from "react-icons/fa";
 import { MdTimer } from "react-icons/md";
 import { BiSolidUpvote } from "react-icons/bi";
 
-const AllPosts = () => {
+const AllPosts = ({reloadPosts,page,setPage}) => {
   const topicFromStore = useSelector((state) => state.posts.data.topic);
   const [card, setCard] = useState([]);
-  const [page, setPage] = useState(1);
   const [displayFilterCategory, setDisplayFilterCategory] = useState(false);
   const [isTrending,setIsTrending] = useState(false)
   
@@ -46,7 +45,7 @@ const AllPosts = () => {
 
   useEffect(() => {
     fetchAllPosts(topicFromStore);
-  }, [page, topicFromStore,isTrending]);
+  }, [page, topicFromStore,isTrending,reloadPosts]);
 
   const handelInfiniteScroll = async () => {
     try {
@@ -67,17 +66,16 @@ const AllPosts = () => {
   };
 
   const handleTrendingSort = ()=>{
-    setIsTrending(true)
+    setIsTrending(!isTrending)
     setDisplayFilterCategory(false)
   }
-  console.log(isTrending)
 
   useEffect(() => {
     window.addEventListener("scroll", handelInfiniteScroll);
     return () => window.removeEventListener("scroll", handelInfiniteScroll);
   }, [page, topicFromStore]);
 
-  console.log(card);
+
 
   return (
     <div className=" w-4/5 px-5 py-8   bg-[#161616]">
