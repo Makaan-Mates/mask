@@ -34,7 +34,7 @@ const SearchPosts = () => {
       if (searchQuery) {
         try {
           const response = await axios.get(
-            `http://localhost:4000/api/searchposts/${searchQuery}`
+            `https://mask-backend.up.railway.app/api/searchposts/${searchQuery}`
           );
           setSearchResults(response.data.message);
         } catch (error) {

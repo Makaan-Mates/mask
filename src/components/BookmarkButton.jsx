@@ -15,7 +15,7 @@ const BookmarkButton = () => {
 
   const updateBookmark = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`http://localhost:4000/api/user/bookmark/${postid}`, {
+    const data = await fetch(`https://mask-backend.up.railway.app/api/user/bookmark/${postid}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const BookmarkButton = () => {
   };
 
   const getUserDetails = async () => {
-    const data = await fetch(`http://localhost:4000/api/post/bookmark/${postid}`);
+    const data = await fetch(`https://mask-backend.up.railway.app/api/post/bookmark/${postid}`);
     const json = await data.json();
     setPostDetails(json)
     setIsBookmarked(json?.bookmarkedUsers?.includes(userInfo?._id))
