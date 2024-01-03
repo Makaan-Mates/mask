@@ -2,18 +2,18 @@ import {useRef} from 'react'
 import {useParams} from "react-router-dom"
 import PropTypes from 'prop-types';
 
-const CommentTextArea= ({isReplySection,commentId})=> {
+const CommentTextArea= ({isReplySection,commentId,setCommentPosted,commentPosted})=> {
 const{postid} = useParams()
 const comment = useRef();
 
 
   const handlePublishComment = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`https://mask-backend.up.railway.app/comment?isReplySection=${isReplySection}`, {
+    const data = await fetch(`https://mask-backend.up.railway.app/post/comment?isReplySection=${isReplySection}`, {
    
       method: "POST",
       headers: {
-        "CONTENT-TYPE": "application/json",
+        "CONTENT-TYPE": "application/json", 
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
@@ -24,11 +24,11 @@ const comment = useRef();
       
     });
     
-    console.log(comment.current.value)
 
+    setCommentPosted(!commentPosted)
+    comment.current.blur();
+    comment.current.value = '';
     const response = await data.json()
-
-    window.location.reload()
     console.log(response)
   };
 

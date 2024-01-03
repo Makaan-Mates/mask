@@ -48,7 +48,11 @@ const Asidebar = () => {
           FOLLOWING
         </h1>
         {loading ? (
-          <div className="text-[#9B9B9B] w-52  bg-[#1C1C1C] h-52">
+          <div className="animate-pulse mt-4">
+            <div className="h-4 bg-[#282828] rounded w-3/4"></div>
+            <div className="h-4 bg-[#282828] rounded w-3/4 mt-5"></div>
+            <div className="h-4 bg-[#282828] rounded w-3/4 mt-5"></div>
+            <div className="h-4 bg-[#282828] rounded w-3/4 mt-5"></div>
           
           </div>
         ) : (
@@ -67,25 +71,38 @@ const Asidebar = () => {
             ))}
           </div>
         )}
-        
+
         <h1 className="border-t-[1px] font-semibold pt-6 mt-4 border-[#282828] py-2 text-[#d5d5d5] text-sm">
           EXPLORE MORE TOPICS
         </h1>
-        {exploreMoreTopics.map((moreTopic) => (
-          <div
-            className={`text-[#9B9B9B] w-fit px-4 text-sm py-2 rounded-lg ${
-              moreTopic.name === selectedTopic ? "bg-[#2B2B2B]" : ""
-            }`}
-            key={moreTopic.id}
-          >
-            <button
-              onClick={() => handleTopicSelection(moreTopic.name)}
-              className="hover:text-white"
-            >
-              {moreTopic.name}
-            </button>
+        {loading ? (
+          <div className="animate-pulse mt-4">
+            <div className="h-4 bg-[#282828] rounded w-3/4"></div>
+            <div className="h-4 bg-[#282828] rounded w-3/4 mt-5"></div>
+            <div className="h-4 bg-[#282828] rounded w-3/4 mt-5"></div>
+            <div className="h-4 bg-[#282828] rounded w-3/4 mt-5"></div>
+            <div className="h-4 bg-[#282828] rounded w-3/4 mt-5"></div>
+            <div className="h-4 bg-[#282828] rounded w-3/4 mt-5"></div>
+            <div className="h-4 bg-[#282828] rounded w-3/4 mt-5"></div>
+            <div className="h-4 bg-[#282828] rounded w-3/4 mt-5"></div>
           </div>
-        ))}
+        ) : (
+          exploreMoreTopics.map((moreTopic) => (
+            <div
+              className={`text-[#9B9B9B] w-fit px-4 text-sm py-2 rounded-lg ${
+                moreTopic.name === selectedTopic ? "bg-[#2B2B2B]" : ""
+              }`}
+              key={moreTopic.id}
+            >
+              <button
+                onClick={() => handleTopicSelection(moreTopic.name)}
+                className="hover:text-white"
+              >
+                {moreTopic.name}
+              </button>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
