@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 const UpvoteContainer = ({ type, id }) => {
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [postDetails, setPostDetails] = useState();
-  const [postid, setPostid] = useState();
   const { userInfo, loading } = useFetchUser();
 
   const updateUpvoteCounter = async () => {
@@ -21,7 +20,6 @@ const UpvoteContainer = ({ type, id }) => {
 
     const info = await data.json();
     setIsUpvoted(info?.message?.upvotes?.includes(userInfo?._id));
-    setPostid(info?.postDetails._id);
   };
   useEffect(() => {
     const getPostDetails = async () => {
@@ -38,7 +36,7 @@ const UpvoteContainer = ({ type, id }) => {
     }
   }, [loading, isUpvoted, type, id, userInfo, setPostDetails, setIsUpvoted]);
 
-  console.log(postid);
+  // console.log(postid);
 
   const handleClick = () => {
     updateUpvoteCounter();
