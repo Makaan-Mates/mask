@@ -1,91 +1,94 @@
-import { FaRegEye, FaRegClock, FaEllipsisV } from "react-icons/fa";
-import { MdModeEdit } from "react-icons/md";
-import { RiDeleteBin6Fill } from "react-icons/ri";
-import CommentSection from "./CommentSection";
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import CommentTextArea from "./CommentTextArea";
-import { useDeletePost } from "../custom-hooks/useDeletePost";
-import { useFetchUser } from "../custom-hooks/useFetchUser";
-import UpvoteContainer from "./UpvoteContainer";
-import BookmarkButton from "./BookmarkButton";
+import { FaRegEye, FaRegClock, FaEllipsisV } from 'react-icons/fa'
+import { MdModeEdit } from 'react-icons/md'
+import { RiDeleteBin6Fill } from 'react-icons/ri'
+import CommentSection from './CommentSection'
+import { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import CommentTextArea from './CommentTextArea'
+import { useDeletePost } from '../custom-hooks/useDeletePost'
+import { useFetchUser } from '../custom-hooks/useFetchUser'
+import UpvoteContainer from './UpvoteContainer'
+import BookmarkButton from './BookmarkButton'
 import {
   displayEditPostCard,
   storePostDetail,
-} from "../features/addPostCardSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { BiComment } from "react-icons/bi";
+} from '../features/addPostCardSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { BiComment } from 'react-icons/bi'
 
 const PostDetail = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { userInfo } = useFetchUser();
-  const { postid } = useParams();
-  const [postData, setPostData] = useState();
-  const [showEditComponent, setShowEditComponent] = useState(false);
-  const filteredCommentsLength = useSelector((state) => state.counter.value);
-  const totalcomments = filteredCommentsLength;
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { userInfo } = useFetchUser()
+  const { postid } = useParams()
+  const [postData, setPostData] = useState()
+  const [showEditComponent, setShowEditComponent] = useState(false)
+  const filteredCommentsLength = useSelector((state) => state.counter.value)
+  const totalcomments = filteredCommentsLength
 
-  const deletePost = useDeletePost();
+  const deletePost = useDeletePost()
   const fetchPostDetails = async () => {
-    const token = localStorage.getItem("token");
-    const data = await fetch(`https://mask-backend.up.railway.app/api/post/${postid}`, {
-      method: "GET",
-      headers: {
-        "CONTENT-TYPE": "application/json",
-        Authorization: `Bearer ${token}`,
+    const token = localStorage.getItem('token')
+    const data = await fetch(
+      `https://mask-backend.up.railway.app/api/post/${postid}`,
+      {
+        method: 'GET',
+        headers: {
+          'CONTENT-TYPE': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
       },
-    });
+    )
 
-    const json = await data.json();
-    setPostData(json);
-  };
+    const json = await data.json()
+    setPostData(json)
+  }
 
   useEffect(() => {
-    fetchPostDetails();
-  }, []);
+    fetchPostDetails()
+  }, [postid])
 
   if (!postData) {
-    return;
+    return
   }
-  const { postDetails } = postData;
+  const { postDetails } = postData
 
-  const initialTitle = postDetails?.title;
-  const initialDescription = postDetails?.description;
-  const initialTopic = postDetails?.topic;
+  const initialTitle = postDetails?.title
+  const initialDescription = postDetails?.description
+  const initialTopic = postDetails?.topic
 
   dispatch(
     storePostDetail({
       title: initialTitle,
       description: initialDescription,
       topic: initialTopic,
-    })
-  );
+    }),
+  )
 
   const renderDescriptionWithLinks = (text) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const urlRegex = /(https?:\/\/[^\s]+)/g
     return text.replace(
       urlRegex,
       (url) =>
-        `<a href="${url}" target="_blank" class="text-blue-400 hover:text-blue-300" rel="noopener noreferrer">${url}</a>`
-    );
-  };
+        `<a href="${url}" target="_blank" class="text-blue-400 hover:text-blue-300" rel="noopener noreferrer">${url}</a>`,
+    )
+  }
 
   const handleToggleEditComponent = () => {
-    setShowEditComponent(!showEditComponent);
-  };
+    setShowEditComponent(!showEditComponent)
+  }
 
   const handleEditPost = () => {
-    dispatch(displayEditPostCard(true));
-  };
+    dispatch(displayEditPostCard(true))
+  }
 
   const handleDeletePost = async () => {
-    await deletePost();
-    navigate("/home ");
-  };
+    await deletePost()
+    navigate('/home ')
+  }
 
   if (!userInfo) {
-    return null;
+    return null
   }
   // console.log(postDetails)
 
@@ -106,13 +109,13 @@ const PostDetail = () => {
             <span>New</span>
             <span>|</span>
             <span className="cursor-pointer hover:text-white">
-              {postDetails?.user_id?.username || "anonymous"}
+              {postDetails?.user_id?.username || 'anonymous'}
             </span>
           </div>
           <div className=" tit-info w-full  flex justify-between items-center text-[#9B9B9B] ">
             <div className="flex gap-3">
               <span className="flex gap-1 items-center">
-                {" "}
+                {' '}
                 <FaRegClock className=" mr-1 text-lg text-[#9B9B9B] " />
                 <span className="text-sm">{postData.timeSinceCreated}</span>
               </span>
@@ -159,7 +162,7 @@ const PostDetail = () => {
         <div
           className="desc-content text-lg text-[#d8d8d8] whitespace-pre-wrap"
           dangerouslySetInnerHTML={{
-            __html: renderDescriptionWithLinks(postDetails?.description || ""),
+            __html: renderDescriptionWithLinks(postDetails?.description || ''),
           }}
         ></div>
         <div className="flex items-center">
@@ -175,7 +178,7 @@ const PostDetail = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PostDetail;
+export default PostDetail

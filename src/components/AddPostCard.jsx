@@ -1,24 +1,31 @@
-
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { hideAddPostCard,displayEditPostCard } from "../features/addPostCardSlice";
+import {
+  hideAddPostCard,
+  displayEditPostCard,
+} from "../features/addPostCardSlice";
 import { useRef } from "react";
 import { topics } from "../utils/topics";
 import { IoSend } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
-
-const AddPostCard = ({  initialTitle, initialDescription, initialTopic,setReloadPosts }) => {
-
+const AddPostCard = ({
+  initialTitle,
+  initialDescription,
+  initialTopic,
+  setReloadPosts,
+}) => {
   const dispatch = useDispatch();
-  const showEditPostCard = useSelector((state)=>state.addPost.displayEditMode);
-
+  const showEditPostCard = useSelector(
+    (state) => state.addPost.displayEditMode
+  );
 
   const navigate = useNavigate();
   const handleHidePostCard = () => {
     dispatch(hideAddPostCard());
-    dispatch(displayEditPostCard(false))
+    dispatch(displayEditPostCard(false));
   };
 
   const { postid } = useParams();
@@ -45,30 +52,31 @@ const AddPostCard = ({  initialTitle, initialDescription, initialTopic,setReload
     console.log(json);
     dispatch(hideAddPostCard());
     navigate("/home");
-    setReloadPosts(true)
-
+    setReloadPosts(true);
   };
 
   const handleUpdatePost = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`https://mask-backend.up.railway.app/edit/${postid}`, {
-      method: "POST",
-      headers: {
-        "CONTENT-TYPE": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        newTitle: title.current.value,
-        newDescription: description.current.value,
-        newTopic: topic.current.value
-      }),
-    });
+    const data = await fetch(
+      `https://mask-backend.up.railway.app/edit/${postid}`,
+      {
+        method: "POST",
+        headers: {
+          "CONTENT-TYPE": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          newTitle: title.current.value,
+          newDescription: description.current.value,
+          newTopic: topic.current.value,
+        }),
+      }
+    );
 
     const json = await data.json();
     console.log(json);
     dispatch(hideAddPostCard());
     window.location.reload();
-
   };
 
   return (
@@ -115,14 +123,13 @@ const AddPostCard = ({  initialTitle, initialDescription, initialTopic,setReload
           />
         </div>
         <div className="w-full h-[8vh] px-4 mb-4  flex justify-end">
-
           {showEditPostCard ? (
             <button
               onClick={handleUpdatePost}
               className=" h-[6vh] flex gap-2 items-center  px-6 py-2 border-[1px] border-[#1B1B1B] bg-[#292929] rounded-xl hover:bg-[#2e2e2e] transition duration-300  text-[#d5d5d5] "
             >
               <IoSend className="" />
-               Update
+              Update
             </button>
           ) : (
             <button
@@ -130,19 +137,19 @@ const AddPostCard = ({  initialTitle, initialDescription, initialTopic,setReload
               className=" h-[6vh] flex gap-2 items-center  px-6 py-2 border-[1px] border-[#1B1B1B] bg-[#292929] rounded-xl hover:bg-[#2e2e2e] transition duration-300  text-[#d5d5d5] "
             >
               <IoSend className="" />
-               Publish
+              Publish
             </button>
           )}
-
         </div>
       </div>
     </>
   );
 };
 
+AddPostCard.propTypes = {
+  initialTitle: PropTypes.string,
+  initialDescription: PropTypes.string,
+  initialTopic: PropTypes.string,
+  setReloadPosts: PropTypes.func,
+};
 export default AddPostCard;
-
-
-   
-
-
