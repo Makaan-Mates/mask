@@ -6,6 +6,8 @@ import { FaFire } from "react-icons/fa";
 import { MdTimer } from "react-icons/md";
 import { BiSolidUpvote } from "react-icons/bi";
 import ShimmerPostCard from "./ShimmerPostCard";
+import PropTypes from 'prop-types';
+
 
 const AllPosts = ({reloadPosts,page,setPage}) => {
   const topicFromStore = useSelector((state) => state.posts.data.topic);
@@ -131,6 +133,12 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
       </div>
     </div>
   );
+};
+
+AllPosts.propTypes = {
+  reloadPosts: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  setPage: PropTypes.func.isRequired,
 };
 
 export default AllPosts;

@@ -1,4 +1,4 @@
-import { FaRegEye, FaRegClock } from "react-icons/fa";
+import { FaRegClock } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { BiUpvote } from "react-icons/bi";
@@ -29,17 +29,14 @@ const PostCard = ({
 
   const handleShowPost = () => {
     navigate(`/post/${postid}`);
-    
 
   };
  
-
   const customStyleProfileClass = customStyleProfile ? " w-full  2xl:w-full " : "";
 
   return (
     <div
       onClick={handleShowPost}
-
       className={`w-[48%] sm:full  2xl:w-[31.8%] mx-2 my-2 rounded-md  flex flex-col bg-[#1C1C1C]  justify-between border-[0.2px] border-[#242424] px-5 py-5 gap-4 cursor-pointer hover:border-[#282828] ${customStyleProfileClass}`}
     >
       <span className="text-sm font-semibold text-[#aeaeae] ">{topic}</span>
@@ -76,6 +73,8 @@ PostCard.propTypes = {
   postid: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   customStyleProfile: PropTypes.bool,
+  totalUpvotes: PropTypes.number, // assuming totalUpvotes is a number
+  timeSinceCreated: PropTypes.string, // assuming timeSinceCreated is a string
 };
 
 export default PostCard;
