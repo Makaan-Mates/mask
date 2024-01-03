@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
-import ShowPost from "./ShowPost";
 import TopicsSelection from "./TopicsSelection";
 import Profile from "./Profile";
 
@@ -27,7 +26,7 @@ const Body = () => {
       },
       {
         path:"/post/:postid",
-        element: <ShowPost/>
+        element: <Home/>
       },
       {
         path:"/register/topics-to-follow",

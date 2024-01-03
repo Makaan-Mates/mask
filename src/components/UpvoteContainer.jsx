@@ -11,13 +11,14 @@ const UpvoteContainer = ({ type, id }) => {
 
   const updateUpvoteCounter = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`http://localhost:4000/api/${type}/upvote/${id}`, {
+    const data = await fetch(`https://mask-backend.up.railway.app/api/${type}/upvote/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
     });
+
     const info = await data.json();
     setIsUpvoted(info?.message?.upvotes?.includes(userInfo?._id));
     setPostid(info?.postDetails._id);
@@ -25,7 +26,7 @@ const UpvoteContainer = ({ type, id }) => {
   useEffect(() => {
     const getPostDetails = async () => {
       const data = await fetch(
-        `http://localhost:4000/api/${type}/upvote/${id}`
+        `https://mask-backend.up.railway.app/api/${type}/upvote/${id}`
       );
       const json = await data.json();
       setPostDetails(json);

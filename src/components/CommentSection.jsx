@@ -12,9 +12,11 @@ const CommentSection = () => {
   //   return null
   // }
 
+
+
   const fetchComments = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch("http://localhost:4000/comments", {
+    const data = await fetch(`https://mask-backend.up.railway.app/comments/?postid=${postid}`, {
       method: "GET",
       headers: {
         "CONTENT-TYPE": "application/json",
@@ -26,15 +28,16 @@ const CommentSection = () => {
     setComments(json);
   };
 
+    // Here filtered comments is the total comments of a post 
+    const filteredComments = comments.filter(
+      (comment) => comment?.post_id?._id === postid
+    );
+
   useEffect(() => {
     fetchComments();
   }, []);
-  // {filteredComments.length > 0 ? 'All Comments':'No comments, be the first to comment'}
-  // console.log(postid)
-  // console.log(comments)
-  const filteredComments = comments.filter(
-    (comment) => comment?.post_id?._id === postid
-  );
+
+ 
   useEffect(() => {
     dispatch(totalPostComments(filteredComments.length))
   },[filteredComments])

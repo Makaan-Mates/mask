@@ -1,7 +1,6 @@
 import { FaRegEye, FaRegClock, FaEllipsisV } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-import { FaRegBookmark } from "react-icons/fa6";
 import CommentSection from "./CommentSection";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -9,6 +8,7 @@ import CommentTextArea from "./CommentTextArea";
 import { useDeletePost } from "../custom-hooks/useDeletePost";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 import UpvoteContainer from "./UpvoteContainer";
+import BookmarkButton from "./BookmarkButton";
 import {
   displayEditPostCard,
   storePostDetail,
@@ -29,7 +29,7 @@ const PostDetail = () => {
   const deletePost = useDeletePost();
   const fetchPostDetails = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`http://localhost:4000/api/post/${postid}`, {
+    const data = await fetch(`https://mask-backend.up.railway.app/api/post/${postid}`, {
       method: "GET",
       headers: {
         "CONTENT-TYPE": "application/json",
@@ -52,11 +52,15 @@ const PostDetail = () => {
 
   const initialTitle = postDetails?.title;
   const initialDescription = postDetails?.description;
-  const initialTopic = postDetails?.topic
+  const initialTopic = postDetails?.topic;
 
-
-  dispatch(storePostDetail({title:initialTitle, description:initialDescription, topic:initialTopic}))
-
+  dispatch(
+    storePostDetail({
+      title: initialTitle,
+      description: initialDescription,
+      topic: initialTopic,
+    })
+  );
 
   const renderDescriptionWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -84,7 +88,6 @@ const PostDetail = () => {
     return null;
   }
   // console.log(postDetails)
-
 
   return (
     <div className="w-4/5 px-5 py-8  bg-[#161616] ">
@@ -119,9 +122,10 @@ const PostDetail = () => {
               </span>
             </div>
             <div className="relative flex gap-3">
-              <span className="flex items-center cursor-pointer">
-                <FaRegBookmark className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
-              </span>
+              <BookmarkButton />
+              {/*<span className="flex items-center cursor-pointer">
+              <FaRegBookmark className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
+              </span>*/}
               {userInfo?._id === postDetails?.user_id._id && (
                 <span
                   className=" flex items-center cursor-pointer"
@@ -159,14 +163,10 @@ const PostDetail = () => {
           }}
         ></div>
         <div className="flex items-center">
-        <UpvoteContainer
-          type="post"
-          id={postid}
-        />
-        <BiComment className="mx-1 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
-        <span className="text-[#9B9B9B]">{totalcomments}</span>
+          <UpvoteContainer type="post" id={postid} />
+          <BiComment className="ml-4 mr-2 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
+          <span className="text-[#9B9B9B]">{totalcomments}</span>
         </div>
-        
       </div>
       <CommentTextArea isReplySection={false} />
       <div className="commentsection w-full h-auto bg-[#161616]  px-5 py-4 rounded-md">

@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ import { IoSend } from "react-icons/io5";
 import { useSelector } from "react-redux";
 
 
-const AddPostCard = ({  initialTitle, initialDescription, initialTopic }) => {
+const AddPostCard = ({  initialTitle, initialDescription, initialTopic,setReloadPosts }) => {
 
   const dispatch = useDispatch();
   const showEditPostCard = useSelector((state)=>state.addPost.displayEditMode);
@@ -28,7 +28,7 @@ const AddPostCard = ({  initialTitle, initialDescription, initialTopic }) => {
 
   const handlePublishPost = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch("http://localhost:4000/post", {
+    const data = await fetch("https://mask-backend.up.railway.app/post", {
       method: "POST",
       headers: {
         "CONTENT-TYPE": "application/json",
@@ -45,13 +45,13 @@ const AddPostCard = ({  initialTitle, initialDescription, initialTopic }) => {
     console.log(json);
     dispatch(hideAddPostCard());
     navigate("/home");
-    window.location.reload();
+    setReloadPosts(true)
 
   };
 
   const handleUpdatePost = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`http://localhost:4000/api/post/edit/${postid}`, {
+    const data = await fetch(`https://mask-backend.up.railway.app/edit/${postid}`, {
       method: "POST",
       headers: {
         "CONTENT-TYPE": "application/json",
@@ -141,3 +141,8 @@ const AddPostCard = ({  initialTitle, initialDescription, initialTopic }) => {
 };
 
 export default AddPostCard;
+
+
+   
+
+
