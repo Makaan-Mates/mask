@@ -7,10 +7,8 @@ import PostCard from "./PostCard";
 
 const Profile = () => {
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
-
   const fetchUserPosts = useFetchUserPosts();
   console.log(fetchUserPosts);
-  console.log(fetchUserPosts[0]?.user_id?.username);
 
   return (
     <>
@@ -65,6 +63,8 @@ const Profile = () => {
                       description={post?.description}
                       topic={post?.topic}
                       postid={post._id}
+                      totalUpvotes={post?.upvotes?.length}
+                      timeSinceCreated={post?.timeSinceCreated}
                       customStyleProfile={true}
                     />
                   ))}

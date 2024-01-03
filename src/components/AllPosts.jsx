@@ -13,8 +13,6 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
   const [displayFilterCategory, setDisplayFilterCategory] = useState(false);
   const [isTrending,setIsTrending] = useState(false)
   
-
-
   const fetchAllPosts = async (topicFromStore) => {
     const token = localStorage.getItem("token");
     const data = await fetch(
@@ -76,7 +74,7 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
     return () => window.removeEventListener("scroll", handelInfiniteScroll);
   }, [page, topicFromStore]);
 
-
+console.log(card)
 
   return (
     <div className=" w-4/5 px-5 py-8   bg-[#161616]">

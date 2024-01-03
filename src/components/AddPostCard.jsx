@@ -58,7 +58,7 @@ const AddPostCard = ({
   const handleUpdatePost = async () => {
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `https://mask-backend.up.railway.app/edit/${postid}`,
+      `https://mask-backend.up.railway.app/api/post/edit/${postid}`,
       {
         method: "POST",
         headers: {
@@ -76,7 +76,8 @@ const AddPostCard = ({
     const json = await data.json();
     console.log(json);
     dispatch(hideAddPostCard());
-    window.location.reload();
+    dispatch(displayEditPostCard(false));
+    // window.location.reload();
   };
 
   return (
