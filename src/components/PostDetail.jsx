@@ -29,7 +29,7 @@ const PostDetail = () => {
   const deletePost = useDeletePost();
   const fetchPostDetails = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`http://localhost:4000/api/post/${postid}`, {
+    const data = await fetch(`https://mask-backend.up.railway.app/api/post/${postid}`, {
       method: "GET",
       headers: {
         "CONTENT-TYPE": "application/json",

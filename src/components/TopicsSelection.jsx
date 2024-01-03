@@ -10,7 +10,7 @@ const TopicsSelection = () => {
 
   const saveSelectedTopics = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch("http://localhost:4000/topics", {
+    const data = await fetch("https://mask-backend.up.railway.app/topics", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

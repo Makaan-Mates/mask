@@ -9,7 +9,7 @@ const comment = useRef();
 
   const handlePublishComment = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`http://localhost:4000/post/comment?isReplySection=${isReplySection}`, {
+    const data = await fetch(`https://mask-backend.up.railway.app/comment?isReplySection=${isReplySection}`, {
    
       method: "POST",
       headers: {

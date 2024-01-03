@@ -28,7 +28,7 @@ const AddPostCard = ({  initialTitle, initialDescription, initialTopic,setReload
 
   const handlePublishPost = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch("http://localhost:4000/post", {
+    const data = await fetch("https://mask-backend.up.railway.app/post", {
       method: "POST",
       headers: {
         "CONTENT-TYPE": "application/json",
@@ -51,7 +51,7 @@ const AddPostCard = ({  initialTitle, initialDescription, initialTopic,setReload
 
   const handleUpdatePost = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`http://localhost:4000/api/post/edit/${postid}`, {
+    const data = await fetch(`https://mask-backend.up.railway.app/edit/${postid}`, {
       method: "POST",
       headers: {
         "CONTENT-TYPE": "application/json",

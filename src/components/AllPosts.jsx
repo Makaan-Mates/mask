@@ -17,7 +17,7 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
   const fetchAllPosts = async (topicFromStore) => {
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `http://localhost:4000/api/posts?_limit=14&_page=${page}&topic=${topicFromStore}&trending=${isTrending}`,
+      `https://mask-backend.up.railway.app/api/posts?_limit=14&_page=${page}&topic=${topicFromStore}&trending=${isTrending}`,
       {
         method: "GET",
         headers: {

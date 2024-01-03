@@ -16,7 +16,7 @@ const CommentSection = () => {
 
   const fetchComments = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`http://localhost:4000/comments/?postid=${postid}`, {
+    const data = await fetch(`https://mask-backend.up.railway.app/comments/?postid=${postid}`, {
       method: "GET",
       headers: {
         "CONTENT-TYPE": "application/json",
