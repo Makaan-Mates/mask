@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { FaFire } from "react-icons/fa";
 import { MdTimer } from "react-icons/md";
 import { BiSolidUpvote } from "react-icons/bi";
+import ShimmerPostCard from "./ShimmerPostCard";
 
 const AllPosts = ({reloadPosts,page,setPage}) => {
   const topicFromStore = useSelector((state) => state.posts.data.topic);
@@ -109,18 +110,24 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
         </div>
       </div>
       <div className="postcards flex flex-wrap py-5 ">
-        {card.map((post) => (
-          <PostCard
-            key={post._id}
-            postid={post._id}
-            title={post.title}
-            description={post.description}
-            topic={post.topic}
-            username={post?.user_id?.username}
-            timeSinceCreated={post?.timeSinceCreated}
-            totalUpvotes={post?.upvotes?.length}
-          />
-        ))}
+      {card.length === 0 ? (
+    Array(10)
+      .fill()
+      .map((_, i) => <ShimmerPostCard key={i} />)
+  ) : (
+    card.map((post) => (
+      <PostCard
+        key={post._id}
+        postid={post._id}
+        title={post.title}
+        description={post.description}
+        topic={post.topic}
+        username={post?.user_id?.username}
+        timeSinceCreated={post?.timeSinceCreated}
+        totalUpvotes={post?.upvotes?.length}
+      />
+    ))
+  )}
       </div>
     </div>
   );

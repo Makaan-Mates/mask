@@ -15,6 +15,7 @@ import {
 } from "../features/addPostCardSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
+import ShimmerPostDetail from "./ShimmerPostDetail";
 
 const PostDetail = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const PostDetail = () => {
   const [showEditComponent, setShowEditComponent] = useState(false);
   const filteredCommentsLength = useSelector((state) => state.counter.value);
   const totalcomments = filteredCommentsLength;
+  const [commentPosted,setCommentPosted] = useState(false)
 
   const deletePost = useDeletePost();
   const fetchPostDetails = async () => {
@@ -45,9 +47,10 @@ const PostDetail = () => {
     fetchPostDetails();
   }, []);
 
-  if (!postData) {
-    return;
+  if(!postData){
+    return <ShimmerPostDetail/>
   }
+ 
   const { postDetails } = postData;
 
   const initialTitle = postDetails?.title;
@@ -61,6 +64,8 @@ const PostDetail = () => {
       topic: initialTopic,
     })
   );
+
+ 
 
   const renderDescriptionWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -85,7 +90,7 @@ const PostDetail = () => {
   };
 
   if (!userInfo) {
-    return null;
+    return <ShimmerPostDetail/>;
   }
   // console.log(postDetails)
 
@@ -168,10 +173,10 @@ const PostDetail = () => {
           <span className="text-[#9B9B9B]">{totalcomments}</span>
         </div>
       </div>
-      <CommentTextArea isReplySection={false} />
+      <CommentTextArea isReplySection={false} commentPosted={commentPosted} setCommentPosted={setCommentPosted} />
       <div className="commentsection w-full h-auto bg-[#161616]  px-5 py-4 rounded-md">
         <div>
-          <CommentSection />
+          <CommentSection commentPosted={commentPosted} />
         </div>
       </div>
     </div>

@@ -3,18 +3,15 @@ import CommentCard from "./CommentCard";
 import { useParams } from "react-router-dom";
 import {useDispatch} from 'react-redux'
 import {totalPostComments} from '../features/counterSlice'
+import { FaCircleArrowDown } from "react-icons/fa6";
 
-const CommentSection = () => {
+const CommentSection = ({commentPosted}) => {
   const { postid } = useParams();
   const [comments, setComments] = useState([]);
   const dispatch = useDispatch()
-  // if(!comments){
-  //   return null
-  // }
-
-
 
   const fetchComments = async () => {
+    setComments(null)
     const token = localStorage.getItem("token");
     const data = await fetch(`https://mask-backend.up.railway.app/comments/?postid=${postid}`, {
       method: "GET",
@@ -29,18 +26,31 @@ const CommentSection = () => {
   };
 
     // Here filtered comments is the total comments of a post 
-    const filteredComments = comments.filter(
+    const filteredComments = comments ? comments.filter(
       (comment) => comment?.post_id?._id === postid
-    );
+    ) : []
+
 
   useEffect(() => {
     fetchComments();
-  }, []);
+  }, [commentPosted]);
+
 
  
   useEffect(() => {
     dispatch(totalPostComments(filteredComments.length))
   },[filteredComments])
+
+
+   if(!comments){
+      return(
+        <>
+        <div className="w-[90%] flex justify-center "> 
+        <div className="text-[#d5d5d5] flex gap-3 items-center mx-4"><span>Loading Comments</span><FaCircleArrowDown className="text-lg animate-bounce"/></div>
+         </div>
+        </>
+      ) 
+    }
 
   return (
     <div className="w-full  text-[#d5d5d5]  h-auto bg-[#161616] ">
