@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { BiUpvote } from "react-icons/bi";
 
-
 const PostCard = ({
   title,
   description,
@@ -11,9 +10,9 @@ const PostCard = ({
   postid,
   username,
   customStyleProfile,
+  customStyleSearch,
   timeSinceCreated,
   totalUpvotes,
-  
 }) => {
   const navigate = useNavigate();
 
@@ -29,18 +28,23 @@ const PostCard = ({
 
   const handleShowPost = () => {
     navigate(`/post/${postid}`);
-
   };
- 
-  const customStyleProfileClass = customStyleProfile ? " w-full  2xl:w-full " : "";
+
+  const customStyleProfileClass = customStyleProfile
+    ? " w-full  2xl:w-full"
+    : customStyleSearch
+    ? " w-full  2xl:w-full "
+    : "w-full  sm:w-[48.3%]  2xl:w-[31.8%]  rounded-md   ";
 
   return (
     <div
       onClick={handleShowPost}
-      className={` w-full sm:w-[48%]  2xl:w-[31.8%] mx-2 my-2 rounded-md  flex flex-col bg-[#1C1C1C]  justify-between border-[0.2px] border-[#242424] px-5 py-5 gap-4 cursor-pointer hover:border-[#282828] ${customStyleProfileClass}`}
+      className={` flex flex-col bg-[#1C1C1C] mx-2 my-2 px-5 py-5 gap-4 justify-between border-[0.2px] border-[#242424] cursor-pointer hover:border-[#282828] ${customStyleProfileClass} `}
     >
-      <span className="text-sm font-semibold text-[#aeaeae] ">{topic}</span>
-      <span className="text-2xl font-semibold text-[#F6F6F6] whitespace-pre-wrap break-words">
+      <span className="text-xs  sm:text-sm font-semibold text-[#aeaeae] ">
+        {topic}
+      </span>
+      <span className="text-lg sm:text-2xl  font-semibold text-[#F6F6F6] whitespace-pre-wrap break-words ">
         {title}
       </span>
       <div className="text-sm break-words text-[#858585] ">{truncatedDesc}</div>
@@ -64,7 +68,6 @@ const PostCard = ({
   );
 };
 
-
 PostCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
@@ -72,8 +75,9 @@ PostCard.propTypes = {
   postid: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   customStyleProfile: PropTypes.bool,
-  totalUpvotes: PropTypes.number, // assuming totalUpvotes is a number
-  timeSinceCreated: PropTypes.string, // assuming timeSinceCreated is a string
+  customStyleSearch: PropTypes.bool,
+  totalUpvotes: PropTypes.number,
+  timeSinceCreated: PropTypes.string,
 };
 
 export default PostCard;

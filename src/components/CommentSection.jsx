@@ -3,7 +3,8 @@ import CommentCard from "./CommentCard";
 import { useParams } from "react-router-dom";
 import {useDispatch} from 'react-redux'
 import {totalPostComments} from '../features/counterSlice'
-import { FaCircleArrowDown } from "react-icons/fa6";
+import { ImSpinner9 } from "react-icons/im";
+import PropTypes from 'prop-types'
 
 const CommentSection = ({commentPosted}) => {
   const { postid } = useParams();
@@ -46,7 +47,7 @@ const CommentSection = ({commentPosted}) => {
       return(
         <>
         <div className="w-[90%] flex justify-center "> 
-        <div className="text-[#d5d5d5] flex gap-3 items-center mx-4"><span>Loading Comments</span><FaCircleArrowDown className="text-lg animate-bounce"/></div>
+        <div className="text-[#d5d5d5] flex gap-3 items-center mx-4"><span>Loading Comments</span><ImSpinner9 className="text-lg animate-spin text-[#9B9B9B]"/></div>
          </div>
         </>
       ) 
@@ -83,6 +84,10 @@ const CommentSection = ({commentPosted}) => {
           )}
     </div>
   );
+};
+
+CommentSection.propTypes = {
+  commentPosted: PropTypes.bool.isRequired,
 };
 
 export default CommentSection;

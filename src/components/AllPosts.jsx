@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { displayAddPostCard } from "../features/addPostCardSlice";
 
-
 const AllPosts = ({reloadPosts,page,setPage}) => {
   const dispatch = useDispatch();
   const topicFromStore = useSelector((state) => state.posts.data.topic);

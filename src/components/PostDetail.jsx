@@ -55,7 +55,6 @@ const PostDetail = () => {
   if(!postData){
     return <ShimmerPostDetail/>
   }
- 
   const { postDetails } = postData;
 
   const initialTitle = postDetails?.title
@@ -164,9 +163,8 @@ const PostDetail = () => {
             </div>
           </div>
         </div>
-
         <div
-          className="desc-content text-lg text-[#d8d8d8] whitespace-pre-wrap"
+          className="desc-content text-lg text-[#d8d8d8] whitespace-pre-wrap flex break-words  "
           dangerouslySetInnerHTML={{
             __html: renderDescriptionWithLinks(postDetails?.description || ''),
           }}
