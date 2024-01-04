@@ -1,42 +1,44 @@
-import {useRef} from 'react'
-import {useParams} from "react-router-dom"
-import PropTypes from 'prop-types';
+import { useRef } from 'react'
+import { useParams } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-const CommentTextArea= ({isReplySection,commentId,setCommentPosted,commentPosted})=> {
-const{postid} = useParams()
-const comment = useRef();
-
+const CommentTextArea = ({
+  isReplySection,
+  commentId,
+  setCommentPosted,
+  commentPosted,
+}) => {
+  const { postid } = useParams()
+  const comment = useRef()
 
   const handlePublishComment = async () => {
-    const token = localStorage.getItem("token");
-    const data = await fetch(`https://mask-backend.up.railway.app/post/comment?isReplySection=${isReplySection}`, {
-   
-      method: "POST",
-      headers: {
-        "CONTENT-TYPE": "application/json", 
-        Authorization: `Bearer ${token}`,
+    const token = localStorage.getItem('token')
+    const data = await fetch(
+      `https://mask-backend.up.railway.app/post/comment?isReplySection=${isReplySection}`,
+      {
+        method: 'POST',
+        headers: {
+          'CONTENT-TYPE': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          content: comment.current.value,
+          postid: postid,
+          commentId: commentId,
+        }),
       },
-      body: JSON.stringify({
-        content: comment.current.value,
-        postid:postid,
-        commentId: commentId
-      })
-      
-    });
-    
+    )
 
     setCommentPosted(!commentPosted)
-    comment.current.blur();
-    comment.current.value = '';
+    comment.current.blur()
+    comment.current.value = ''
     const response = await data.json()
     console.log(response)
-  };
-
-
+  }
 
   return (
     <>
-      <div className="addcomment w-[90%] bg-[#1C1C1C]  h-[20vh] my-6 flex rounded-md justify-between border-[0.2px] border-[#282828] ">
+      <div className="addcomment w-full sm:w-[90%] bg-[#1C1C1C]  h-[20vh] my-6 flex rounded-md justify-between border-[0.2px] border-[#282828] ">
         <textarea
           className="w-[80%] h-full text-sm  bg-[#1C1C1C]  rounded px-3 py-4 focus:outline-none resize-none text-[#d8d8d8] scrollbar-thin scrollbar-thumb-zinc-500 placeholder:text-[#9B9B9B]"
           name="addnewcomment"
@@ -56,11 +58,13 @@ const comment = useRef();
         </div>
       </div>
     </>
-  );
+  )
 }
 CommentTextArea.propTypes = {
   isReplySection: PropTypes.bool.isRequired,
   commentId: PropTypes.string,
-};
+  setCommentPosted: PropTypes.func.isRequired,
+  commentPosted: PropTypes.bool.isRequired,
+}
 
-export default CommentTextArea;
+export default CommentTextArea

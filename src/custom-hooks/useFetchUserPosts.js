@@ -8,7 +8,6 @@ export const useFetchUserPosts = () => {
 
   const [userPosts, setUserPosts] = useState([])
   const userId = userInfo?._id
-//   console.log(userId)
 
   const fetchUserPosts = async () => {
     const token = localStorage.getItem('token')
@@ -26,7 +25,6 @@ export const useFetchUserPosts = () => {
     }
     const json = await data.json()
     setUserPosts(json)
-    // console.log(json)
     if (
       json?.message === 'invalid token' ||
       json?.message === 'token not found'

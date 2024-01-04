@@ -50,7 +50,6 @@ const SearchPosts = () => {
     return () => clearTimeout(fetchPostsAfterDelay);
   }, [searchQuery]);
 
-  console.log(searchResults);
 
   const handlePostCardClick = () => {
     dispatch(displaySearchBar(false));

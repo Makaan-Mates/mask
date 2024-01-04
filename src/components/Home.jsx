@@ -25,7 +25,6 @@ const Home = () => {
   const location = useLocation();
   const isAllPosts = location.pathname === "/home";
   const isPostDetail = location.pathname.startsWith("/post/");
- 
 
   useEffect(()=>{
     if(isPostDetail){
@@ -52,7 +51,7 @@ const Home = () => {
         }`}
       >
         <Header />
-        <div className="flex ">
+        <div className="flex  ">
           <Asidebar />
           {isAllPosts && <AllPosts page={page} setPage={setPage} reloadPosts={reloadPosts} />}
           {isPostDetail && <PostDetail />}
