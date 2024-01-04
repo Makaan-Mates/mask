@@ -34,7 +34,7 @@ const Asidebar = () => {
   );
 
   return (
-    <div className="bg-[#1C1C1C] w-1/5 px-5 py-10 border-r-[1px] border-[#282828] min-h-[88vh] self-start sticky top-[12vh] ">
+    <div className="bg-[#1C1C1C] hidden sm:block sm:w-1/5  md:w-1/5 px-5 py-10 border-r-[1px] border-[#282828] min-h-[88vh] self-start sticky top-[12vh] ">
       <div
         onClick={handleToggleEvent}
         className="text-l px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5]  rounded-xl hover:bg-[#2e2e2e] cursor-pointer sticky top-0"

@@ -70,7 +70,6 @@ const PostDetail = () => {
     }),
   )
 
-
   const renderDescriptionWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g
     return text.replace(
@@ -100,15 +99,15 @@ const PostDetail = () => {
   // console.log(postDetails)
 
   return (
-    <div className="w-4/5 px-5 py-8  bg-[#161616] ">
+    <div className="w-full  sm:w-4/5 px-5 py-8  bg-[#161616] ">
       <div className="topic text-sm font-semibold my-2 mx-4 text-[#aeaeae] ">
         <span>{postDetails?.topic}</span>
       </div>
 
-      <div className="content-box w-[90%] 2xl:w-[80%] flex flex-col gap-6 bg-[#1C1C1C]  justify-between  px-5 py-10  rounded-md border-[0.2px] border-[#282828] ">
+      <div className="content-box w-[100%] sm:w-[90%] 2xl:w-[80%] flex flex-col gap-6 bg-[#1C1C1C]  justify-between  px-5 py-10  rounded-md border-[0.2px] border-[#282828] ">
         <div className="tit-area flex flex-col gap-2">
           <div className="title">
-            <h1 className=" text-4xl font-semibold text-[#F6F6F6]  ">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#F6F6F6]  ">
               {postDetails?.title}
             </h1>
           </div>

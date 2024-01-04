@@ -37,7 +37,7 @@ const BookmarkButton = () => {
   };
 
   const totalBookMarkedUsers = postDetails?.bookmarkedUsers?.length
-  console.log(totalBookMarkedUsers);
+  // console.log(totalBookMarkedUsers);
 
   
   useEffect(() => {

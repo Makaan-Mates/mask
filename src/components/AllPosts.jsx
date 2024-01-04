@@ -7,9 +7,12 @@ import { MdTimer } from "react-icons/md";
 import { BiSolidUpvote } from "react-icons/bi";
 import ShimmerPostCard from "./ShimmerPostCard";
 import PropTypes from 'prop-types';
+import { useDispatch } from "react-redux";
+import { displayAddPostCard } from "../features/addPostCardSlice";
 
 
 const AllPosts = ({reloadPosts,page,setPage}) => {
+  const dispatch = useDispatch();
   const topicFromStore = useSelector((state) => state.posts.data.topic);
   const [card, setCard] = useState([]);
   const [displayFilterCategory, setDisplayFilterCategory] = useState(false);
@@ -71,17 +74,20 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
     setDisplayFilterCategory(false)
   }
 
+  const handleToggleEvent = () => {
+    dispatch(displayAddPostCard());
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", handelInfiniteScroll);
     return () => window.removeEventListener("scroll", handelInfiniteScroll);
   }, [page, topicFromStore]);
 
-console.log(card)
 
   return (
-    <div className=" w-4/5 px-5 py-8   bg-[#161616]">
-      <div className="w-full flex items-center justify-between pb-11 border-b-[1px] border-[#282828]">
-        <h1 className="text-2xl font-semibold text-[#F6F6F6]">
+    <div className="relative shrink w-full  sm:w-4/5 px-5 py-4 sm:py-8   bg-[#161616]">
+      <div className="w-full flex items-center justify-between pb-5  sm:pb-11 border-b-[1px] border-[#282828]">
+        <h1 className="text-lg sm:text-2xl font-semibold text-[#F6F6F6]">
           {topicFromStore === "home" ? `All Posts` : topicFromStore}
         </h1>
         <div className="relative">
@@ -109,7 +115,7 @@ console.log(card)
           )}
         </div>
       </div>
-      <div className="postcards flex flex-wrap py-5 ">
+      <div className="postcards w-full flex flex-wrap py-5 ">
       {card.length === 0 ? (
     Array(10)
       .fill()
@@ -129,7 +135,14 @@ console.log(card)
     ))
   )}
       </div>
+      <div
+        onClick={handleToggleEvent}
+        className="sm:hidden w-32 fixed bottom-10 right-3 z-50  text-sm  px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] rounded-md hover:bg-[#2e2e2e] cursor-pointer "
+      >
+        WRITE A POST
+      </div>
     </div>
+
   );
 };
 

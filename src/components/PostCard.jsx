@@ -37,7 +37,7 @@ const PostCard = ({
   return (
     <div
       onClick={handleShowPost}
-      className={`w-[48%] sm:full  2xl:w-[31.8%] mx-2 my-2 rounded-md  flex flex-col bg-[#1C1C1C]  justify-between border-[0.2px] border-[#242424] px-5 py-5 gap-4 cursor-pointer hover:border-[#282828] ${customStyleProfileClass}`}
+      className={` w-full sm:w-[48%]  2xl:w-[31.8%] mx-2 my-2 rounded-md  flex flex-col bg-[#1C1C1C]  justify-between border-[0.2px] border-[#242424] px-5 py-5 gap-4 cursor-pointer hover:border-[#282828] ${customStyleProfileClass}`}
     >
       <span className="text-sm font-semibold text-[#aeaeae] ">{topic}</span>
       <span className="text-2xl font-semibold text-[#F6F6F6] whitespace-pre-wrap break-words">
@@ -64,7 +64,6 @@ const PostCard = ({
   );
 };
 
-// for prop validation
 
 PostCard.propTypes = {
   title: PropTypes.string.isRequired,

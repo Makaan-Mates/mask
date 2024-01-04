@@ -53,8 +53,6 @@ const TopicsSelection = () => {
     saveSelectedTopics();
   };
 
-  console.log(selectedTopics);
-
   return (
     <div className="min-h-[100vh] flex justify-center items-center">
       <div className="bg-zinc-100 text-zinc-900 p-8 rounded shadow-md w-2/3 h-auto mt-10">

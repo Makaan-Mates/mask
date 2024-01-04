@@ -4,6 +4,7 @@ import {
   FaRegEdit,
   FaEllipsisV,
 } from "react-icons/fa";
+import { RxHamburgerMenu } from "react-icons/rx";
 import { MdKeyboardCommandKey } from "react-icons/md";
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -61,37 +62,38 @@ const Header = () => {
   }, [handleToggleSearch]);
 
   return (
-    <div className="bg-[#1C1C1C] z-20 sticky top-0 h-[12vh] py-4 px-6  flex items-center justify-between  border-b-[1px] border-[#282828] text-[#9B9B9B]">
-      <div className="flex items-center justify-center space-x-4 gap-5">
+    <div className="bg-[#1C1C1C] w-full z-20 sticky top-0 h-[10vh] sm:h-[12vh] py-4 px-6  flex items-center justify-between  border-b-[1px] border-[#282828] text-[#9B9B9B] ">
+      <div className="logohome w-10/12 flex items-center  space-x-2 sm:space-x-4 gap-5">
         <div
           onClick={handleNavigateHome}
-          className="text-4xl cursor-pointer  font-bold transition-transform transform hover:scale-105 text-[#FFFFFF]"
+          className="w-2/12 sm:w-auto text-2xl sm:text-4xl  cursor-pointer  font-bold transition-transform transform hover:scale-105 text-[#FFFFFF] flex-none"
         >
           mask
         </div>
         <div
           onClick={handleNavigateHome}
-          className="text-base cursor-pointer px-2 py-1 font-semibold hover:text-[#FFFFFF] rounded-md"
+          className="hidden sm:block text-base px-1  sm:px-2 py-1 font-semibold hover:text-[#FFFFFF] rounded-md cursor-pointer flex-none"
         >
           Home{" "}
         </div>
-        <div className="text-base px-2 py-1 font-semibold hover:text-[#FFFFFF] cursor-pointer rounded-md">
+        <div className=" hidden sm:block text-base px-2 py-1 font-semibold hover:text-[#FFFFFF] cursor-pointer rounded-md ">
           Explore
         </div>
-        <div className="bg-[#1C1C1C] px-4 py-2  rounded-full w-72 flex items-center justify-between border-[1px] border-[#282828] hover:border-[#363636] ">
-          <span className="w-full" onClick={handleToggleSearch}>
-            Search
-          </span>
-          <div className="flex items-center border-[1px] border-[#363636] rounded-md text-sm px-1 ">
-            <MdKeyboardCommandKey
-              onClick={handleToggleSearch}
-              className=" text-[#9B9B9B]  "
-            />
-            <span>K</span>
-          </div>
+        <div className="searchbox w-10/12 sm:w-72 px-3 sm:px-4 py-2 mx-4 rounded-full  flex items-center justify-between bg-[#1C1C1C] border-[1px]  border-[#282828] hover:border-[#363636] ">
+        <div className="w-full" onClick={handleToggleSearch}>
+          Search
+        </div>
+        <div className="hidden sm:flex  items-center border-[1px] border-[#363636] rounded-md text-sm px-1 ">
+          <MdKeyboardCommandKey
+            onClick={handleToggleSearch}
+            className=" text-[#9B9B9B]  "
+          />
+          <span>K</span>
         </div>
       </div>
-      <div className="flex gap-3 items-center space-x-4 ">
+      </div>
+      
+      <div className="lists  hidden md:flex gap-3 items-center space-x-4 ">
         <FaRegEdit
           onClick={handleToggleEvent}
           className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF] "
@@ -130,6 +132,9 @@ const Header = () => {
         </div>
         <FaBell className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]" />
         <FaEllipsisV className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]" />
+      </div>
+      <div className="hamburger  flex gap-3  space-x-4  md:hidden cursor-pointer ">
+        <RxHamburgerMenu className="text-2xl" />
       </div>
     </div>
   );
