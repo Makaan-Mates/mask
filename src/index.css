@@ -27,7 +27,7 @@ textarea::-webkit-scrollbar-thumb {
 .scrollable-div {
   /* Set the maximum height and hide the scrollbar by default */
   max-height: 70vh;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 /* Show the scrollbar when the .scrollable-div is being hovered */
