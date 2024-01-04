@@ -33,7 +33,7 @@ const Login = () => {
 
   return (
     <div className=" h-[100vh] flex justify-center items-center ">
-      <div className="bg-zinc-100 p-8 w-2/6 h-auto rounded shadow-md mt-10  text-zinc-900">
+      <div className= " bg-[#f4f4f4] p-8 2xs:w-[90%] xs:w-[90%] md:w-3/4 sm:w-2/3 2xl:w-[28%] lg:w-2/6 h-auto rounded shadow-md mt-10  text-[#1c1c1c]">
         <h2 className="text-3xl  font-semibold mb-4">Welcome back to Mask</h2>
         <form className="space-y-4 my-2">
           <div>
@@ -41,7 +41,7 @@ const Login = () => {
               Email
             </label>
             <input
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:border-black "
+              className="w-full border rounded px-3 py-2 focus:outline-none focus:border-[#1c1c1c] "
               type="email"
               id="email"
               ref ={email}
@@ -53,7 +53,7 @@ const Login = () => {
               Password
             </label>
             <input
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:border-black-500 "
+              className="w-full border rounded px-3 py-2 focus:outline-none focus:border-[#1c1c1c] "
               type="password"
               id="password"
               ref={password}
@@ -76,7 +76,7 @@ const Login = () => {
             Login
           </button>
         </form>
-        <a className="mt-5 hover:underline" href="/register"> Not on Mask yet! Sign up</a>
+        <a className="mt-5 hover:underline hover:text-blue-900" href="/register"> Not on Mask yet! Sign up</a>
       </div>
     </div>
   )
