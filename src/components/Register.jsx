@@ -2,9 +2,7 @@ import { useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-
 const Register = () => {
-
   const navigate = useNavigate();
 
   const username = useRef();
@@ -32,12 +30,11 @@ const Register = () => {
     if (json?.message === "account created!") {
       navigate("/register/topics-to-follow");
     }
-
   };
 
   return (
     <div className="min-h-[100vh] flex justify-center items-center ">
-      <div className="bg-zinc-100 text-zinc-900 p-8 rounded shadow-md w-2/6 h-auto mt-10">
+      <div className="bg-[#f4f4f4] text-[#1c1c1c] p-8 rounded shadow-md 2xs:w-[90%] xs:w-[90%] md:w-3/4 sm:w-2/3 2xl:w-[28%] lg:w-2/6  h-auto mt-10">
         <h2 className="text-3xl  font-semibold mb-4">Welcome to Mask</h2>
         <form className="space-y-4 my-2" action="">
           <div>
@@ -84,18 +81,12 @@ const Register = () => {
             Sign Up
           </button>
         </form>
-
-        <span>
-          Already on Mask!
-          <a className="mt-4 hover:underline" href="/login">
-            Login.
-          </a>
-        </span>
+        <a className="mt-4  hover:text-blue-900 hover:underline" href="/login">
+          <span>Already on Mask! Login.</span>
+        </a>
       </div>
     </div>
   );
 };
 
 export default Register;
-
-
