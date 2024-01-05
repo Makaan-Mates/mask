@@ -38,7 +38,7 @@ const CommentCard = ({
     const token = localStorage.getItem("token");
 
     const data = await fetch(
-      `http://localhost:4000/api/comment/delete/${commentId}`,
+      `https://mask-backend.up.railway.app/api/comment/delete/${commentId}`,
       {
         method: "DELETE",
         headers: {
