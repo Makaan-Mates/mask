@@ -74,7 +74,7 @@ const Register = () => {
               type="email"
               id="email"
               ref={email}
-              placeholder="Enter your email"
+              placeholder="Enter your college email"
             />
           </div>
           <div className="my-4">
