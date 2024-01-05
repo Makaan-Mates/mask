@@ -13,7 +13,7 @@ const PostCard = ({
   customStyleSearch,
   timeSinceCreated,
   totalUpvotes,
-  collegeName
+  collegeName,
 }) => {
   const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ const PostCard = ({
     ? " w-full  2xl:w-full "
     : "w-full  md:[90%] lg:w-[47.5%] xl:w-[48.3%] 2xl:w-[31.8%]  rounded-md   ";
 
-    console.log(collegeName)
+  console.log(collegeName);
 
   return (
     <div
@@ -52,12 +52,16 @@ const PostCard = ({
       </span>
       <div className="text-sm break-words text-[#858585] ">{truncatedDesc}</div>
       <div className="flex gap-4 justify-end px-2 items-center text-sm text-[#aeaeae]">
-        <span>{collegeName || null}</span>
-        <span className="">
-          {username
-            ? `@${username}`
-            : `${customStyleProfile ? " " : "anonymous"}`}
-        </span>
+        <div className=" flex  gap-1 items-center">
+          <span className="text-xs text-[#aeaeae]">{collegeName || null}</span>
+          <span className="text-xs text-[#aeaeae]">|</span>
+          <span className="text-xs">
+            {username
+              ? `@${username}`
+              : `${customStyleProfile ? " " : "anonymous"}`}
+          </span>
+        </div>
+
         <span className="flex items-center">
           <BiUpvote className="mx-1  " />
           {totalUpvotes}
@@ -82,6 +86,7 @@ PostCard.propTypes = {
   customStyleSearch: PropTypes.bool,
   totalUpvotes: PropTypes.number,
   timeSinceCreated: PropTypes.string,
+  collegeName: PropTypes.string,
 };
 
 export default PostCard;
