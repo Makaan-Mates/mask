@@ -12,7 +12,7 @@ const Home = () => {
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
   const [reloadPosts, setReloadPosts] = useState(false);
   const [page, setPage] = useState(1);
-  const [postEdited, setPostEdited] = useState(null)
+  const [postEdited, setPostEdited] = useState(null);
   const showEditPostCard = useSelector(
     (state) => state.addPost.displayEditMode
   );
@@ -27,13 +27,13 @@ const Home = () => {
   const isAllPosts = location.pathname === "/home";
   const isPostDetail = location.pathname.startsWith("/post/");
 
-  useEffect(()=>{
-    if(isPostDetail){
-      window.scrollTo(0,0)
-      setPage(1)
+  useEffect(() => {
+    if (isPostDetail) {
+      window.scrollTo(0, 0);
+      setPage(1);
     }
-  },[isPostDetail])
- 
+  }, [isPostDetail]);
+
   return (
     <>
       {showAddPostCard && <AddPostCard setReloadPosts={setReloadPosts} />}
@@ -43,7 +43,7 @@ const Home = () => {
           initialTitle={initialTitle}
           initialDescription={initialDescription}
           initialTopic={initialTopic}
-          setPostEdited={setPostEdited} 
+          setPostEdited={setPostEdited}
           postEdited={postEdited}
         />
       )}
@@ -56,8 +56,10 @@ const Home = () => {
         <Header />
         <div className="flex  ">
           <Asidebar />
-          {isAllPosts && <AllPosts page={page} setPage={setPage} reloadPosts={reloadPosts} />}
-          {isPostDetail && <PostDetail postEdited={postEdited}/>}
+          {isAllPosts && (
+            <AllPosts page={page} setPage={setPage} reloadPosts={reloadPosts} />
+          )}
+          {isPostDetail && <PostDetail postEdited={postEdited} />}
         </div>
       </div>
     </>

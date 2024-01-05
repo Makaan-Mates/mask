@@ -87,8 +87,6 @@ const AddPostCard = ({
     value: topic.id,
     label: topic.name,
   }));
-  console.log(options);
-  console.log(selectedTopic)
 
   return (
     <>

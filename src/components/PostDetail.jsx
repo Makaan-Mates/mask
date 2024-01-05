@@ -47,6 +47,7 @@ const PostDetail = ({postEdited}) => {
     const json = await data.json()
     setPostData(json)
     setIsLoading()    
+    // setIsLoading(false)  ??  
   }
 
   useEffect(() => {

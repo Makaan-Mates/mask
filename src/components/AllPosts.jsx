@@ -126,11 +126,11 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
               <span onClick={handleTrendingSort} className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
                 <FaFire className="mr-1 text-orange-500" /> Trending
               </span>
-              <button className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
+              <button onClick={handleTrendingSort}  className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
                 <MdTimer className="mr-1" />
                 Latest
               </button>
-              <button className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
+              <button className="hidden md:flex w-full h-10  justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
                 <BiSolidUpvote className="mr-1" />
                 Top Voted
               </button>
