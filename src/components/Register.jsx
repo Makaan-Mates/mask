@@ -1,13 +1,23 @@
-import { useRef } from "react";
+import { useRef,useState,useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
-
+  const [errorMessage, setErrorMessage] = useState(null)
   const username = useRef();
   const email = useRef();
   const password = useRef();
+
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => {
+        setErrorMessage(null);
+      }, 6000); 
+
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -28,16 +38,21 @@ const Register = () => {
 
     localStorage.setItem("token", json.token);
     if (json?.message === "account created!") {
-      navigate("/register/topics-to-follow");
+      navigate("/verification");
+    } else {
+      setErrorMessage(json?.message)
     }
+
   };
+
+ 
 
   return (
     <div className="min-h-[100vh] flex justify-center items-center ">
       <div className="bg-[#f4f4f4] text-[#1c1c1c] p-8 rounded shadow-md 2xs:w-[90%] xs:w-[90%] md:w-3/4 sm:w-2/3 2xl:w-[28%] lg:w-2/6  h-auto mt-10">
-        <h2 className="text-3xl  font-semibold mb-4">Welcome to Mask</h2>
-        <form className="space-y-4 my-2" action="">
-          <div>
+        <h2 className="text-3xl  font-semibold mb-7">Welcome to Mask</h2>
+       
+          <div className="my-4">
             <label className="block mb-1" htmlFor="email">
               Username
             </label>
@@ -50,7 +65,7 @@ const Register = () => {
             />
           </div>
 
-          <div>
+          <div className="my-4">
             <label className="block mb-1" htmlFor="password">
               Email
             </label>
@@ -62,7 +77,7 @@ const Register = () => {
               placeholder="Enter your email"
             />
           </div>
-          <div>
+          <div className="my-4">
             <label className="block mb-1" htmlFor="password">
               Create Password
             </label>
@@ -76,15 +91,19 @@ const Register = () => {
           </div>
           <button
             onClick={registerUser}
-            className="w-full bg-zinc-800 text-white rounded py-2 px-4 hover:bg-zinc-900 transition duration-300"
+            className="w-full mt-4 mb-4 bg-zinc-800 text-white rounded py-2 px-4 hover:bg-zinc-900 transition duration-300"
           >
             Sign Up
           </button>
-        </form>
+    
         <a className="mt-4  hover:text-blue-900 hover:underline" href="/login">
-          <span>Already on Mask! Login.</span>
+          <span className="mt-4">Already on Mask! Login.</span>
         </a>
+        <div className="errormessage w-full flex justify-center mt-4 text-red-800">
+        {errorMessage}
       </div>
+      </div>
+     
     </div>
   );
 };
