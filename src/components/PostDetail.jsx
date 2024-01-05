@@ -47,6 +47,7 @@ const PostDetail = ({postEdited}) => {
     const json = await data.json()
     setPostData(json)
     setIsLoading()    
+    // setIsLoading(false)  ??  
   }
 
   useEffect(() => {
@@ -134,9 +135,6 @@ const PostDetail = ({postEdited}) => {
             </div>
             <div className="relative flex gap-3">
               <BookmarkButton />
-              {/*<span className="flex items-center cursor-pointer">
-              <FaRegBookmark className="mr-2 text-lg text-[#9B9B9B] hover:text-[#d2d2d2]" />
-              </span>*/}
               {userInfo?._id === postDetails?.user_id._id && (
                 <span
                   className=" flex items-center cursor-pointer"
@@ -167,7 +165,7 @@ const PostDetail = ({postEdited}) => {
           </div>
         </div>
         <div
-          className="desc-content text-lg text-[#d8d8d8] whitespace-pre-wrap flex break-words  "
+          className="desc-content text-lg text-[#d8d8d8] whitespace-pre-wrap break-words  "
           dangerouslySetInnerHTML={{
             __html: renderDescriptionWithLinks(postDetails?.description || ''),
           }}

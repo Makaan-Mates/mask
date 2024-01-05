@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 export const useFetchUserPosts = () => {
   const {userInfo} = useFetchUser()
+  console.log(userInfo)
   const navigate = useNavigate()
 
   const [userPosts, setUserPosts] = useState([])
@@ -25,6 +26,7 @@ export const useFetchUserPosts = () => {
     }
     const json = await data.json()
     setUserPosts(json)
+    // console.log(json)
     if (
       json?.message === 'invalid token' ||
       json?.message === 'token not found'
