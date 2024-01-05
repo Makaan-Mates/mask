@@ -37,6 +37,7 @@ const PostCard = ({
     ? " w-full  2xl:w-full "
     : "w-[96%]  md:[90%] lg:w-[47.5%] xl:w-[48.3%] 2xl:w-[31.8%]  rounded-md   ";
 
+
   return (
     <div
       onClick={handleShowPost}

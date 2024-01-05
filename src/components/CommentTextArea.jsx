@@ -7,11 +7,14 @@ const CommentTextArea = ({
   commentId,
   setCommentPosted,
   commentPosted,
+  setReplyPosted,
+  replyPosted
 }) => {
   const { postid } = useParams()
   const comment = useRef()
 
-  const handlePublishComment = async () => {
+  const handlePublishComment = async (e) => {
+    e.preventDefault()
     const token = localStorage.getItem('token')
     const data = await fetch(
       `https://mask-backend.up.railway.app/post/comment?isReplySection=${isReplySection}`,
@@ -28,12 +31,12 @@ const CommentTextArea = ({
         }),
       },
     )
-
-    setCommentPosted(!commentPosted)
-    comment.current.blur()
+    if (typeof setCommentPosted === 'function') {
+      setCommentPosted(!commentPosted);
+    }
     comment.current.value = ''
-    const response = await data.json()
-    console.log(response)
+    setReplyPosted(!replyPosted)
+    comment.current.blur()
   }
 
   return (
@@ -48,8 +51,8 @@ const CommentTextArea = ({
           rows="10"
           placeholder="Add a comment"
         ></textarea>
-        <div className=" m-4   items-end flex justify-end">
-          <button
+        <div className=" m-4  items-end flex justify-end">
+         <button
             onClick={handlePublishComment}
             className="border-[#1B1B1B] bg-[#292929]  rounded-xl hover:bg-[#2e2e2e]  h-[6vh] flex items-center text-[#d8d8d8] px-4 py-2  transition duration-300"
           >
