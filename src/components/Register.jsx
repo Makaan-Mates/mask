@@ -22,7 +22,7 @@ const Register = () => {
   const registerUser = async (e) => {
     e.preventDefault();
 
-    const data = await fetch("https://mask-backend.up.railway.app/register", {
+    const data = await fetch("http://localhost:4000/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
