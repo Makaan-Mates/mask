@@ -12,6 +12,7 @@ const Home = () => {
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
   const [reloadPosts, setReloadPosts] = useState(false);
   const [page, setPage] = useState(1);
+  const [postEdited, setPostEdited] = useState(null)
   const showEditPostCard = useSelector(
     (state) => state.addPost.displayEditMode
   );
@@ -42,6 +43,8 @@ const Home = () => {
           initialTitle={initialTitle}
           initialDescription={initialDescription}
           initialTopic={initialTopic}
+          setPostEdited={setPostEdited} 
+          postEdited={postEdited}
         />
       )}
 
@@ -54,7 +57,7 @@ const Home = () => {
         <div className="flex  ">
           <Asidebar />
           {isAllPosts && <AllPosts page={page} setPage={setPage} reloadPosts={reloadPosts} />}
-          {isPostDetail && <PostDetail />}
+          {isPostDetail && <PostDetail postEdited={postEdited}/>}
         </div>
       </div>
     </>

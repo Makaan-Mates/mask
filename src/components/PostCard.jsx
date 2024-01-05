@@ -13,6 +13,7 @@ const PostCard = ({
   customStyleSearch,
   timeSinceCreated,
   totalUpvotes,
+  collegeName
 }) => {
   const navigate = useNavigate();
 
@@ -36,6 +37,8 @@ const PostCard = ({
     ? " w-full  2xl:w-full "
     : "w-full  sm:w-[48.3%]  2xl:w-[31.8%]  rounded-md   ";
 
+    console.log(collegeName)
+
   return (
     <div
       onClick={handleShowPost}
@@ -49,6 +52,7 @@ const PostCard = ({
       </span>
       <div className="text-sm break-words text-[#858585] ">{truncatedDesc}</div>
       <div className="flex gap-4 justify-end px-2 items-center text-sm text-[#aeaeae]">
+        <span>{collegeName || null}</span>
         <span className="">
           {username
             ? `@${username}`

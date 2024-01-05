@@ -18,6 +18,8 @@ const AddPostCard = ({
   initialDescription,
   initialTopic,
   setReloadPosts,
+  setPostEdited,
+  postEdited
 }) => {
   const dispatch = useDispatch();
   const showEditPostCard = useSelector(
@@ -59,7 +61,7 @@ const AddPostCard = ({
 
   const handleUpdatePost = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(
+     await fetch(
       `https://mask-backend.up.railway.app/api/post/edit/${postid}`,
       {
         method: "POST",
@@ -70,16 +72,15 @@ const AddPostCard = ({
         body: JSON.stringify({
           newTitle: title.current.value,
           newDescription: description.current.value,
-          newTopic: selectedTopic.label,
+          newTopic: selectedTopic?.label,
         }),
       }
     );
 
-    const json = await data.json();
-    console.log(json);
-    dispatch(hideAddPostCard());
     dispatch(displayEditPostCard(false));
-    window.location.reload();
+    dispatch(hideAddPostCard());
+    setPostEdited(!postEdited)
+    
   };
 
   const options = topics.map((topic) => ({
@@ -101,7 +102,7 @@ const AddPostCard = ({
         <Select
           className="rounded-md w-full text-base sm:text-xl   bg-[#1C1C1C] border-[0.5px] border-[#282828] "
           options={options}
-          defaultValue={options.find((option) => option.value === initialTopic)}
+          defaultValue={options.find((option) => option.label === initialTopic)}
           onChange={selectedOption => setSelectedTopic(selectedOption)}
           styles={{
             option: (provided, state) => ({
