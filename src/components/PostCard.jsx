@@ -35,7 +35,7 @@ const PostCard = ({
     ? " w-full  2xl:w-full"
     : customStyleSearch
     ? " w-full  2xl:w-full "
-    : "w-full  md:[90%] lg:w-[47.5%] xl:w-[48.3%] 2xl:w-[31.8%]  rounded-md   ";
+    : "w-[96%]  md:[90%] lg:w-[47.5%] xl:w-[48.3%] 2xl:w-[31.8%]  rounded-md   ";
 
   console.log(collegeName);
 
@@ -52,7 +52,7 @@ const PostCard = ({
       </span>
       <div className="text-sm break-words text-[#858585] ">{truncatedDesc}</div>
       <div className="flex gap-4 justify-end px-2 items-center text-sm text-[#aeaeae]">
-        <div className=" flex  gap-1 items-center">
+        <div className=" flex flex-shrink-0  gap-1 items-center">
           <span className="text-xs text-[#aeaeae]">{collegeName || null}</span>
           <span className="text-xs text-[#aeaeae]">|</span>
           <span className="text-xs">

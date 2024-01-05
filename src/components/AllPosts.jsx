@@ -9,6 +9,8 @@ import ShimmerPostCard from "./ShimmerPostCard";
 import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { displayAddPostCard } from "../features/addPostCardSlice";
+import { FiPlus } from "react-icons/fi";
+
 
 const AllPosts = ({reloadPosts,page,setPage}) => {
   const dispatch = useDispatch();
@@ -16,6 +18,11 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
   const [card, setCard] = useState([]);
   const [displayFilterCategory, setDisplayFilterCategory] = useState(false);
   const [isTrending,setIsTrending] = useState(false)
+
+  const [showIcon, setShowIcon] = useState(true);
+
+  const [lastScrollPosition, setLastScrollPosition] = useState(0);
+
   
   const fetchAllPosts = async (topicFromStore) => {
     const token = localStorage.getItem("token");
@@ -83,6 +90,23 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
   }, [page, topicFromStore]);
 
 
+  const handleScroll = () => {
+    const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScrollPosition < lastScrollPosition){
+      // Scrolling UP
+      setShowIcon(true);
+    } else {
+      // Scrolling DOWN
+      setShowIcon(false);
+    }
+    setLastScrollPosition(currentScrollPosition);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollPosition]);
+
   return (
     <div className="relative shrink w-full  md:w-4/5 lg:w-4/6 xl:w-4/5 px-5 py-4 sm:py-8   bg-[#161616]">
       <div className="w-full flex items-center justify-between pb-5  sm:pb-11 border-b-[1px] border-[#282828]">
@@ -135,12 +159,14 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
     ))
   )}
       </div>
-      <div
-        onClick={handleToggleEvent}
-        className="md:hidden w-32 fixed bottom-10 right-3 z-50  text-sm  px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] rounded-md hover:bg-[#2e2e2e] cursor-pointer "
-      >
-        WRITE A POST
-      </div>
+      {showIcon && (
+        <div
+          onClick={handleToggleEvent}
+          className="md:hidden w-16 h-16 flex justify-center items-center fixed bottom-10 right-4 z-50   px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] rounded-full hover:bg-[#2e2e2e] cursor-pointer text-3xl shadow-lg shadow-grey-500/40 "
+        >
+          <FiPlus className="" />
+        </div>
+      )}
     </div>
 
   );
