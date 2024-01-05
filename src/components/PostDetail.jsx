@@ -17,12 +17,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
 import ShimmerPostDetail from "./ShimmerPostDetail";
 
-const PostDetail = () => {
+const PostDetail = ({postEdited}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useFetchUser();
   const { postid } = useParams();
   const [postData, setPostData] = useState();
+  const [isLoading,setIsLoading] = useState(true)
   const [showEditComponent, setShowEditComponent] = useState(false);
   const filteredCommentsLength = useSelector((state) => state.counter.value);
   const totalcomments = filteredCommentsLength;
@@ -45,14 +46,16 @@ const PostDetail = () => {
 
     const json = await data.json()
     setPostData(json)
+    setIsLoading()    
   }
 
   useEffect(() => {
     fetchPostDetails()
-  }, [postid])
+    setShowEditComponent(false)
+  }, [postid,postEdited])
 
 
-  if(!postData){
+  if(!postData || isLoading===true){
     return <ShimmerPostDetail/>
   }
   const { postDetails } = postData;
@@ -111,7 +114,7 @@ const PostDetail = () => {
             </h1>
           </div>
           <div className="writer text-sm flex gap-2 text-[#858585]">
-            <span>New</span>
+            <span>{postDetails?.user_id?.college || "New"}</span>
             <span>|</span>
             <span className="cursor-pointer hover:text-white">
               {postDetails?.user_id?.username || 'anonymous'}

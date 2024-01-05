@@ -130,6 +130,7 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
         username={post?.user_id?.username}
         timeSinceCreated={post?.timeSinceCreated}
         totalUpvotes={post?.upvotes?.length}
+        collegeName={post?.user_id?.college}
       />
     ))
   )}

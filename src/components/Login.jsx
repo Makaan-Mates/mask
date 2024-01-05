@@ -1,14 +1,24 @@
-import { useRef ,useState} from "react";
-import { useNavigate } from "react-router-dom";
+
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import {useRef,useState,useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 const Login = () => {
   const navigate = useNavigate();
-
   const email = useRef();
   const password = useRef();
-
+  const [errorMessage,setErrorMessage] = useState(null)
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => {
+        setErrorMessage(null);
+      }, 6000); 
+
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -27,6 +37,15 @@ const Login = () => {
       }),
     });
 
+   const json = await data.json()
+   localStorage.setItem('token' , json.token)
+   if(json.message==="logged in"){
+    navigate('/home')
+   } else {
+    setErrorMessage(json.message)
+   }
+
+
     const json = await data.json();
     localStorage.setItem("token", json.token);
     if (json.message === "logged in") {
@@ -38,8 +57,7 @@ const Login = () => {
     <div className=" h-[100vh] flex justify-center items-center ">
       <div className=" bg-[#f4f4f4] p-8 2xs:w-[90%] xs:w-[90%] md:w-3/4 sm:w-2/3 2xl:w-[28%] lg:w-2/6 h-auto rounded shadow-md mt-10  text-[#1c1c1c]">
         <h2 className="text-3xl  font-semibold mb-4">Welcome back to Mask</h2>
-        <form className="space-y-4 my-2">
-          <div>
+          <div className='my-6'>
             <label className="block mb-1 " htmlFor="email">
               Email
             </label>
@@ -51,8 +69,10 @@ const Login = () => {
               placeholder="Enter your email"
             />
           </div>
-          <div>
-            <label className="block mb-1 " htmlFor="password">
+
+
+          <div className='my-6'>
+            <label className="block mb-1" htmlFor="password">
               Password
               <div className="flex items-center  ">
                 <input
@@ -73,8 +93,8 @@ const Login = () => {
               </div>
             </label>
           </div>
-
-          <div className="flex justify-between items-center">
+          
+          <div className="flex my-4 justify-between items-center">
             <div>
               <input type="checkbox" id="remember" />
               <label className="ml-2" htmlFor="remember">
@@ -85,20 +105,14 @@ const Login = () => {
               Forgot Password?
             </a>
           </div>
-          <button
-            onClick={loginUser}
-            className="w-full bg-zinc-800 text-white rounded py-2 px-4 hover:bg-zinc-900 transition duration-300"
-          >
+
+          <button onClick={loginUser} className="w-full bg-zinc-800 text-white my-4 rounded py-2 px-4 hover:bg-zinc-900 transition duration-300">
             Login
           </button>
-        </form>
-        <a
-          className="mt-5 hover:underline hover:text-blue-900"
-          href="/register"
-        >
-          {" "}
-          Not on Mask yet! Sign up
-        </a>
+        <a className="mt-5 hover:underline hover:text-blue-900" href="/register"> Not on Mask yet! Sign up</a>
+        <div className="errormessage w-full flex justify-center mt-4 text-red-800">
+        {errorMessage}
+      </div>
       </div>
     </div>
   );
