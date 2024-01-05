@@ -18,7 +18,7 @@ const CommentSection = ({ commentPosted }) => {
     setIsLoading(true)
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `http://localhost:4000/comments/?postid=${postid}`,
+      `https://mask-backend.up.railway.app/comments/?postid=${postid}`,
       {
         method: "GET",
         headers: {
