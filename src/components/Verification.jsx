@@ -38,7 +38,7 @@ const Verification = () => {
 
   const handleVerifyUser = async ()=>{
     const token = localStorage.getItem("token");
-    const data = await fetch("http://localhost:4000/api/verification",{
+    const data = await fetch("https://mask-backend.up.railway.app/api/verification",{
         method: 'POST',
         headers: {
             "CONTENT-TYPE": "application/json",

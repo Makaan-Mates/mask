@@ -22,7 +22,7 @@ const Login = () => {
 
   const loginUser = async (e)=>{
    e.preventDefault()
-   const data = await fetch('http://localhost:4000/login' , {
+   const data = await fetch('https://mask-backend.up.railway.app/login' , {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json'
