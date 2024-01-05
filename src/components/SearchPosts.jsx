@@ -14,7 +14,6 @@ const SearchPosts = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
-  const scrollableDivRef = useRef();
 
   //fetch SearchResults
   useEffect(() => {
@@ -54,8 +53,8 @@ const SearchPosts = () => {
     };
   }, [dispatch]);
 
-  const handlePostCardClick = (index) => {
-    const postId = searchResults[index]._id;
+  
+  const handlePostCardClick = (postId) => {
     navigate(`/post/${postId}`);
     dispatch(displaySearchBar(false));
   };
@@ -70,7 +69,6 @@ const SearchPosts = () => {
       setHasSearched(false);
     }
   };
-
 
   return (
     <div
@@ -91,7 +89,6 @@ const SearchPosts = () => {
         </div>
       </div>
       <div
-        ref={scrollableDivRef}
         className="max-h-[450px] overflow-y-auto focus:outline-none scroll-smooth px-2 items-center flex flex-wrap"
       >
         {isLoading ? (
@@ -102,7 +99,7 @@ const SearchPosts = () => {
           searchResults.map((post) => (
             <div
               key={post._id}
-              onClick={handlePostCardClick}
+              onClick={() => handlePostCardClick(post._id)}
               className={`w-full flex flex-wrap my-0`}
             >
               <PostCard
