@@ -39,7 +39,6 @@ const BookmarkButton = () => {
   };
 
   const totalBookMarkedUsers = postDetails?.bookmarkedUsers?.length;
-  console.log(totalBookMarkedUsers);
 
   useEffect(() => {
     if (!loading) {
@@ -51,8 +50,6 @@ const BookmarkButton = () => {
   const handleBookmarkClick = () => {
     updateBookmark();
   };
-
-  console.log(isBookmarked);
 
   return (
     <div className="flex gap-4 py-2 items-center text-[#9B9B9B]">

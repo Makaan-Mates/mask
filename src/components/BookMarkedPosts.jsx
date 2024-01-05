@@ -26,15 +26,15 @@ const BookMarkedPosts = () => {
     fetchBookMarksDetails();
   }, []);
 
-//   console.log(bookMarkedPosts);
+  // console.log(bookMarkedPosts);
 
   return (
     <>
       {showAddPostCard && <AddPostCard />}
       <div className={`${showAddPostCard ? "blur-md" : ""}`}>
         <Header />
-        <div className="w-full flex   gap-6">
-          <div className="yourposts flex m-8 w-4/6">
+        <div className="w-full flex  items-center justify-center  gap-6">
+          <div className="yourposts flex m-8 md:w-4/6">
             <div className=" bg-[#1C1C1C] w-full rounded-md border-[0.2px] border-[#282828] text-white px-5 py-5 ">
               <div className=" w-full bg-[#161616] py-2 px-2 flex flex-wrap">
                 <h3 className="px-4 py-4 font-semibold text-xl text-[#9B9B9B]">BOOKMARKED POSTS</h3>

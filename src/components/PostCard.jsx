@@ -32,12 +32,10 @@ const PostCard = ({
   };
 
   const customStyleProfileClass = customStyleProfile
-    ? " w-full  2xl:w-full"
+    ? "w-[95%]  md:w-full  2xl:w-full"
     : customStyleSearch
     ? " w-full  2xl:w-full "
     : "w-[96%]  md:[90%] lg:w-[47.5%] xl:w-[48.3%] 2xl:w-[31.8%]  rounded-md   ";
-
-  console.log(collegeName);
 
   return (
     <div
