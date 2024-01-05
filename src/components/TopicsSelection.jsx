@@ -54,21 +54,21 @@ const TopicsSelection = () => {
   };
 
   return (
-    <div className="min-h-[100vh] flex justify-center items-center">
-      <div className="bg-zinc-100 text-zinc-900 p-8 rounded shadow-md w-2/3 h-auto mt-10">
-        <span className="flex flex-col mb-4 px-2">
-          <h2 className="text-3xl font-semibold">Topics To Follow</h2>
-          <h3 className="px-1">Select atleast 4</h3>
+    <div className="p-10 bg-[#1c1c1c] min-h-screen flex items-center justify-center ">
+    <div className="w-full  m-auto right-0 left-0 flex flex-col justify-center items-center  ">
+        <span className="flex flex-col  mb-4 px-2 text-[#f4f4f4] ">
+          <h2 className="text-lg  md:text-3xl font-bold">Topics To Follow</h2>
+          <h3 className="px-1  text-sm sm:text-base text-center">Select atleast 4</h3>
         </span>
-        <div className="flex flex-wrap gap-2">
+        <div className="cardparent  w-full md:w-[75%] lg:w-[80%] xl:w-[85%]  flex flex-wrap items-center justify-center ">
           {topics.map((topic) => (
             <div
               key={topic.id}
-              className={`min-w-20 text-sm  px-4 py-4 mx-2 my-2 rounded-md text-center  cursor-pointer transition-all duration-300 ${
+              className={`carddiv h-12 w-32 flex  flex-shrink-0 text-xs items-center justify-center  px-4 py-4 mx-2 my-2 rounded-lg text-center  cursor-pointer transition-all duration-300  ${
                 selectedTopics.find(
                   (selectedTopic) => selectedTopic.id === topic.id
                 )
-                  ? "bg-green-500 text-white"
+                  ? "bg-[#b96d1d] text-white"
                   : "bg-gray-200 text-gray-800"
               }`}
               onClick={() => toggleTopic(topic.name, topic.id)}
@@ -77,15 +77,15 @@ const TopicsSelection = () => {
             </div>
           ))}
         </div>
-        <div className="flex justify-end">
+        <div className="flex w-full justify-center">
           <button
             onClick={handleTopicsFollowing}
-            className="mt-4  bg-zinc-800 text-white rounded py-2 px-4 hover:bg-zinc-900 transition duration-300"
+            className="mt-4 w-[80%] sm:w-56 xl:w-80 bg-zinc-800 text-white rounded-lg py-2 px-4 hover:bg-zinc-900 transition duration-300 "
           >
             Continue
           </button>
         </div>
-      </div>
+    </div>
     </div>
   );
 };

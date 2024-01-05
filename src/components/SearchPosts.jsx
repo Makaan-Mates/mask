@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { ImSpinner9 } from "react-icons/im";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 import { useDispatch } from "react-redux";
 import { displaySearchBar } from "../features/addPostCardSlice";
@@ -14,10 +14,6 @@ const SearchPosts = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
-  const [activePostIndex, setActivePostIndex] = useState(0);
-  const postRefs = useRef([]);
-  const scrollableDivRef = useRef();
-  const searchDivRef = useRef();
 
   //fetch SearchResults
   useEffect(() => {
@@ -29,7 +25,6 @@ const SearchPosts = () => {
             `https://mask-backend.up.railway.app/api/searchposts/${searchQuery}`
           );
           setSearchResults(response.data.message);
-          scrollableDivRef.current?.focus();//focus on the scrollable div
         } catch (error) {
           console.error(error);
         }
@@ -41,7 +36,6 @@ const SearchPosts = () => {
     const fetchPostsAfterDelay = setTimeout(fetchPosts, 300);
     return () => clearTimeout(fetchPostsAfterDelay);
   }, [searchQuery]);
-
 
   //used for closing the search bar when clicked outside
   useEffect(() => {
@@ -59,13 +53,11 @@ const SearchPosts = () => {
     };
   }, [dispatch]);
 
-
-  const handlePostCardClick = (index) => {
-    const postId = searchResults[index]._id;
+  
+  const handlePostCardClick = (postId) => {
     navigate(`/post/${postId}`);
     dispatch(displaySearchBar(false));
   };
-
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -77,49 +69,6 @@ const SearchPosts = () => {
       setHasSearched(false);
     }
   };
-
-  useEffect(() => {
-  const handleKeyDown = (event) => {
-    if (event.key === "ArrowDown") {
-      setActivePostIndex((prevActivePostIndex) =>
-        Math.min(prevActivePostIndex + 1, searchResults.length - 1)
-      );
-    } else if (event.key === "ArrowUp") {
-      setActivePostIndex((prevActivePostIndex) =>
-        Math.max(prevActivePostIndex - 1, 0)
-      );
-    } else if (event.key === "Enter") {
-      handlePostCardClick(activePostIndex);
-    }
-  };
-
-  const scrollableDiv = scrollableDivRef.current;
-
-  if (scrollableDiv) {
-    scrollableDiv.addEventListener("keydown", handleKeyDown);
-  }
-
-  return () => {
-    if (scrollableDiv) {
-      scrollableDiv.removeEventListener("keydown", handleKeyDown);
-    }
-  };
-}, [searchResults, handlePostCardClick]);
-
-useEffect(() => {
-  const activePostRef = postRefs.current[activePostIndex];
-
-  if (activePostRef) {
- 
-    const topPosition = activePostRef.offsetTop - scrollableDivRef.current.offsetTop;
-
-    console.log('Active post offsetTop:', activePostRef.offsetTop);
-    console.log('Scrollable div offsetTop:', scrollableDivRef.current.offsetTop);
-    console.log('Calculated top position:', topPosition);
-
-    scrollableDivRef.current.scrollTop = topPosition;
-  }
-}, [activePostIndex]);
 
   return (
     <div
@@ -139,24 +88,19 @@ useEffect(() => {
           <span className="mb-1 text-[#9B9B9B]">esc</span>
         </div>
       </div>
-      <div 
-      ref={scrollableDivRef}
-      className="scrollable-div focus:outline-none scroll-smooth px-2 items-center flex flex-wrap"
-      tabIndex="0"
+      <div
+        className="max-h-[450px] overflow-y-auto focus:outline-none scroll-smooth px-2 items-center flex flex-wrap"
       >
         {isLoading ? (
-          <div className="w-full h-24 rounded-full flex items-center justify-center">
+          <div className="  w-full h-24 rounded-full flex items-center justify-center">
             <ImSpinner9 className="animate-spin text-4xl text-[#9B9B9B] " />
           </div>
         ) : searchResults.length > 0 ? (
-          searchResults.map((post, index) => (
+          searchResults.map((post) => (
             <div
               key={post._id}
-              ref={(el) => (postRefs.current[index] = el)}
-              onClick={() => handlePostCardClick(index)}
-              className={`w-full flex flex-wrap my-0 ${
-                index === activePostIndex ? "sm:bg-[#8a4a1d]" : ""
-              }`}
+              onClick={() => handlePostCardClick(post._id)}
+              className={`w-full flex flex-wrap my-0`}
             >
               <PostCard
                 key={post._id}
