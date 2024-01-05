@@ -101,7 +101,7 @@ const AddPostCard = ({
         <Select
           className="rounded-md w-full text-base sm:text-xl   bg-[#1C1C1C] border-[0.5px] border-[#282828] "
           options={options}
-          defaultValue={options.find((option) => option.value === initialTopic)}
+          defaultValue={options.find((option) => option.label === initialTopic)}
           onChange={selectedOption => setSelectedTopic(selectedOption)}
           styles={{
             option: (provided, state) => ({

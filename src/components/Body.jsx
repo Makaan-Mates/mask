@@ -4,6 +4,7 @@ import Register from "./Register";
 import Home from "./Home";
 import TopicsSelection from "./TopicsSelection";
 import Profile from "./Profile";
+import BookMarkedPosts from "./BookMarkedPosts";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -33,7 +34,11 @@ const Body = () => {
         element: <TopicsSelection/>
       },{
         path:"/profile",
-        element: <Profile/>     }
+        element: <Profile/>     },
+        {
+          path:"/user/bookmarks",
+          element: <BookMarkedPosts/>
+        }
   ]);
   return  (
     <div className="min-h-full bg-[#161616]">
