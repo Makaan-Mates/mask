@@ -8,6 +8,7 @@ import Register from "./Register";
 import Home from "./Home";
 import TopicsSelection from "./TopicsSelection";
 import Profile from "./Profile";
+import BookMarkedPosts from "./BookMarkedPosts";
 import Verification from "./Verification";
 
 const Body = () => {
@@ -26,19 +27,21 @@ const Body = () => {
     },
     {
       path: "/",
-      element: <Navigate to="/home" />,
-    },
-    {
-      path: "/post/:postid",
-      element: <Home />,
-    },
-    {
-      path: "/register/topics-to-follow",
-      element: <TopicsSelection />,
-    },
-    {
-      path: "/profile",
-      element: <Profile />,
+      element: <Navigate to="/home"/>
+      },
+      {
+        path:"/post/:postid",
+        element: <Home/>
+      },
+      {
+        path:"/register/topics-to-follow",
+        element: <TopicsSelection/>
+      },{
+        path:"/profile",
+        element: <Profile/>     },
+        {
+          path:"/user/bookmarks",
+          element: <BookMarkedPosts/>
     },
     {
       path: "/verification",

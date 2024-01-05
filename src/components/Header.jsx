@@ -40,6 +40,9 @@ const Header = () => {
   const handleProfile = () => {
     navigate("/profile");
   };
+  const handleBookMarks = () =>{
+    navigate("/user/bookmarks")
+  }
 
   const handleToggleSearch = useCallback(() => {
     dispatch(displaySearchBar(true));
@@ -76,10 +79,10 @@ const Header = () => {
         >
           Home{" "}
         </div>
-        <div className=" hidden sm:block text-base px-2 py-1 font-semibold hover:text-[#FFFFFF] cursor-pointer rounded-md ">
+        <div className=" hidden md:block text-base px-2 py-1 font-semibold hover:text-[#FFFFFF] cursor-pointer rounded-md ">
           Explore
         </div>
-        <div className="searchbox w-10/12 sm:w-72 px-3 sm:px-4 py-2 mx-4 rounded-full  flex items-center justify-between bg-[#1C1C1C] border-[1px]  border-[#282828] hover:border-[#363636] ">
+        <div className="searchbox w-10/12 md:w-64 lg:w-72 px-3 sm:px-4 py-2 mx-4 rounded-full  flex items-center justify-between bg-[#1C1C1C] border-[1px]  border-[#282828] hover:border-[#363636] ">
         <div className="w-full" onClick={handleToggleSearch}>
           Search
         </div>
@@ -112,7 +115,9 @@ const Header = () => {
                 <FaRegUserCircle className="mr-1" />
                 Profile
               </span>
-              <span className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer">
+              <span 
+              onClick={handleBookMarks}
+              className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer">
                 <FaRegBookmark className="mr-1" />
                 Bookmarks
               </span>
