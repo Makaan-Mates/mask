@@ -150,7 +150,7 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
             .map((_, i) => <ShimmerPostCard key={i} />)
         ) : card.length === 0 ? (
           <div className="flex w-full  mt-[10%] items-center justify-center">
-          <div className="text-3xl text-[#d5d5d5]">No posts available for this topic.</div>
+          <div className="lg:text-3xl md:2xl text-sm text-[#d5d5d5]">No posts available for this topic.</div>
           </div>
         ) : (
           card.map((post) => (
