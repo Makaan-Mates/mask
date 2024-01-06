@@ -52,7 +52,7 @@ const PostDetail = ({ postEdited }) => {
 
   const incrementViewCount = async () => {
     const token = localStorage.getItem("token");
-    await fetch(`http://localhost:4000/api/post/${postid}/views`, {
+    await fetch(`https://mask-backend.up.railway.app/api/post/${postid}/views`, {
       method: "PUT",
       headers: {
         "CONTENT-TYPE": "application/json",
