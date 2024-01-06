@@ -184,5 +184,7 @@ AddPostCard.propTypes = {
   initialDescription: PropTypes.string,
   initialTopic: PropTypes.string,
   setReloadPosts: PropTypes.func,
+  setPostEdited: PropTypes.func,
+  postEdited: PropTypes.bool, 
 };
 export default AddPostCard;

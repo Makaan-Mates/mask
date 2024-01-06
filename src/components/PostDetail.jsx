@@ -1,14 +1,14 @@
-import { FaRegEye, FaRegClock, FaEllipsisV } from 'react-icons/fa'
-import { MdModeEdit } from 'react-icons/md'
-import { RiDeleteBin6Fill } from 'react-icons/ri'
-import CommentSection from './CommentSection'
-import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import CommentTextArea from './CommentTextArea'
-import { useDeletePost } from '../custom-hooks/useDeletePost'
-import { useFetchUser } from '../custom-hooks/useFetchUser'
-import UpvoteContainer from './UpvoteContainer'
-import BookmarkButton from './BookmarkButton'
+import { FaRegEye, FaRegClock, FaEllipsisV } from "react-icons/fa";
+import { MdModeEdit } from "react-icons/md";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import CommentSection from "./CommentSection";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import CommentTextArea from "./CommentTextArea";
+import { useDeletePost } from "../custom-hooks/useDeletePost";
+import { useFetchUser } from "../custom-hooks/useFetchUser";
+import UpvoteContainer from "./UpvoteContainer";
+import BookmarkButton from "./BookmarkButton";
 import {
   displayEditPostCard,
   storePostDetail,
@@ -17,92 +17,105 @@ import { useDispatch, useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
 import ShimmerPostDetail from "./ShimmerPostDetail";
 
-const PostDetail = ({postEdited}) => {
+const PostDetail = ({ postEdited }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useFetchUser();
   const { postid } = useParams();
   const [postData, setPostData] = useState();
-  const [isLoading,setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [showEditComponent, setShowEditComponent] = useState(false);
   const filteredCommentsLength = useSelector((state) => state.counter.value);
   const totalcomments = filteredCommentsLength;
-  const [commentPosted,setCommentPosted] = useState(false)
+  const [commentPosted, setCommentPosted] = useState(false);
 
   const deletePost = useDeletePost();
 
   const fetchPostDetails = async () => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token");
     const data = await fetch(
       `https://mask-backend.up.railway.app/api/post/${postid}`,
       {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'CONTENT-TYPE': 'application/json',
+          "CONTENT-TYPE": "application/json",
           Authorization: `Bearer ${token}`,
         },
-      },
-    )
+      }
+    );
 
-    const json = await data.json()
-    setPostData(json)
-    setIsLoading()    
-    // setIsLoading(false)  ??  
-  }
+    const json = await data.json();
+    setPostData(json);
+    setIsLoading();
+    // setIsLoading(false)  ??
+  };
+
+  const incrementViewCount = async () => {
+    const token = localStorage.getItem("token");
+    await fetch(`http://localhost:4000/api/post/${postid}/views`, {
+      method: "PUT",
+      headers: {
+        "CONTENT-TYPE": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
 
   useEffect(() => {
-    fetchPostDetails()
-    setShowEditComponent(false)
-  }, [postid,postEdited])
+    fetchPostDetails();
 
+    // Increment view count
+    incrementViewCount();
 
-  if(!postData || isLoading===true){
-    return <ShimmerPostDetail/>
+    setShowEditComponent(false);
+  }, [postid, postEdited]);
+
+  if (!postData || isLoading === true) {
+    return <ShimmerPostDetail />;
   }
   const { postDetails } = postData;
 
-  const initialTitle = postDetails?.title
-  const initialDescription = postDetails?.description
-  const initialTopic = postDetails?.topic
+  const initialTitle = postDetails?.title;
+  const initialDescription = postDetails?.description;
+  const initialTopic = postDetails?.topic;
 
   dispatch(
     storePostDetail({
       title: initialTitle,
       description: initialDescription,
       topic: initialTopic,
-    }),
-  )
+    })
+  );
 
   const renderDescriptionWithLinks = (text) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.replace(
       urlRegex,
       (url) =>
-        `<a href="${url}" target="_blank" class="text-blue-400 hover:text-blue-300" rel="noopener noreferrer">${url}</a>`,
-    )
-  }
+        `<a href="${url}" target="_blank" class="text-blue-400 hover:text-blue-300" rel="noopener noreferrer">${url}</a>`
+    );
+  };
 
   const handleToggleEditComponent = () => {
-    setShowEditComponent(!showEditComponent)
-  }
+    setShowEditComponent(!showEditComponent);
+  };
 
   const handleEditPost = () => {
-    dispatch(displayEditPostCard(true))
-  }
+    dispatch(displayEditPostCard(true));
+  };
 
   const handleDeletePost = async () => {
-    await deletePost()
-    navigate('/home ')
-  }
+    await deletePost();
+    navigate("/home ");
+  };
 
   if (!userInfo) {
-    return <ShimmerPostDetail/>;
-
+    return <ShimmerPostDetail />;
   }
-  // console.log(postDetails)
+  console.log(postDetails)
 
   return (
-    <div className="w-full  sm:w-4/5 px-5 py-8  bg-[#161616] ">
+    <div className="w-full  md:w-4/5 px-5 py-8  bg-[#161616] ">
       <div className="topic text-sm font-semibold my-2 mx-4 text-[#aeaeae] ">
         <span>{postDetails?.topic}</span>
       </div>
@@ -110,7 +123,7 @@ const PostDetail = ({postEdited}) => {
       <div className="content-box w-[100%] sm:w-[90%] 2xl:w-[80%] flex flex-col gap-6 bg-[#1C1C1C]  justify-between  px-5 py-10  rounded-md border-[0.2px] border-[#282828] ">
         <div className="tit-area flex flex-col gap-2">
           <div className="title">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#F6F6F6]  ">
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-semibold text-[#F6F6F6]  ">
               {postDetails?.title}
             </h1>
           </div>
@@ -118,19 +131,19 @@ const PostDetail = ({postEdited}) => {
             <span>{postDetails?.user_id?.college || "New"}</span>
             <span>|</span>
             <span className="cursor-pointer hover:text-white">
-              {postDetails?.user_id?.username || 'anonymous'}
+              {postDetails?.user_id?.username || "anonymous"}
             </span>
           </div>
           <div className=" tit-info w-full  flex justify-between items-center text-[#9B9B9B] ">
             <div className="flex gap-3">
               <span className="flex gap-1 items-center">
-                {' '}
+                {" "}
                 <FaRegClock className=" mr-1 text-lg text-[#9B9B9B] " />
                 <span className="text-sm">{postData.timeSinceCreated}</span>
               </span>
               <span className="flex items-center">
                 <FaRegEye className="mr-2 text-lg text-[#9B9B9B] " />
-                857
+                {postDetails?.views}
               </span>
             </div>
             <div className="relative flex gap-3">
@@ -165,9 +178,9 @@ const PostDetail = ({postEdited}) => {
           </div>
         </div>
         <div
-          className="desc-content text-lg text-[#d8d8d8] whitespace-pre-wrap break-words  "
+          className="desc-content text-base md:text-lg text-[#d8d8d8] whitespace-pre-wrap break-words  "
           dangerouslySetInnerHTML={{
-            __html: renderDescriptionWithLinks(postDetails?.description || ''),
+            __html: renderDescriptionWithLinks(postDetails?.description || ""),
           }}
         ></div>
         <div className="flex items-center">
@@ -176,14 +189,18 @@ const PostDetail = ({postEdited}) => {
           <span className="text-[#9B9B9B]">{totalcomments}</span>
         </div>
       </div>
-      <CommentTextArea isReplySection={false} commentPosted={commentPosted} setCommentPosted={setCommentPosted} />
+      <CommentTextArea
+        isReplySection={false}
+        commentPosted={commentPosted}
+        setCommentPosted={setCommentPosted}
+      />
       <div className="commentsection w-full h-auto bg-[#161616]  px-5 py-4 rounded-md">
         <div>
           <CommentSection commentPosted={commentPosted} />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PostDetail
+export default PostDetail;

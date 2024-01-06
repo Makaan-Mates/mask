@@ -8,7 +8,7 @@ import PostCard from "./PostCard";
 const Profile = () => {
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
   const fetchUserPosts = useFetchUserPosts();
-  console.log(fetchUserPosts);
+  // console.log(fetchUserPosts);
 
   return (
     <>
