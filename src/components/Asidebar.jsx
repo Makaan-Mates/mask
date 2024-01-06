@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { IoIosArrowBack } from "react-icons/io";
+import { useSelector } from 'react-redux'
 
 const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
   const navigate = useNavigate();
   const { userInfo, loading } = useFetchUser();
   const dispatch = useDispatch();
+  const activeTopic = useSelector((state) => state.posts.data.topic)
   const [selectedTopic, setSelectedTopic] = useState(null);
 
   const handleTopicSelection = (selectedTopic) => {
@@ -20,6 +22,7 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
     setSelectedTopic(selectedTopic);
     hideAsideBar();
   };
+
 
   const handleToggleEvent = () => {
     dispatch(displayAddPostCard());
@@ -74,9 +77,8 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
           <div className="text-[#9B9B9B] text-sm ">
             {topicsFollowing.map((topic) => (
               <div
-                className={`hover:text-white w-fit px-4 py-2 rounded-lg ${
-                  topic.name === selectedTopic ? "bg-[#282828] " : ""
-                }`}
+                className={`hover:text-white w-fit px-4 py-2 rounded-lg ${topic.name === activeTopic ? "bg-[#282828] " : ""
+                  }`}
                 key={topic.id}
               >
                 <button onClick={() => handleTopicSelection(topic.name)}>
@@ -104,9 +106,8 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
         ) : (
           exploreMoreTopics.map((moreTopic) => (
             <div
-              className={`text-[#9B9B9B] w-fit px-4 text-sm py-2 rounded-lg ${
-                moreTopic.name === selectedTopic ? "bg-[#2B2B2B]" : ""
-              }`}
+              className={`text-[#9B9B9B] w-fit px-4 text-sm py-2 rounded-lg ${moreTopic.name === activeTopic ? "bg-[#2B2B2B]" : ""
+                }`}
               key={moreTopic.id}
             >
               <button
