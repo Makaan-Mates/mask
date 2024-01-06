@@ -6,23 +6,24 @@ import { FaFire } from "react-icons/fa";
 import { MdTimer } from "react-icons/md";
 import { BiSolidUpvote } from "react-icons/bi";
 import ShimmerPostCard from "./ShimmerPostCard";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { displayAddPostCard } from "../features/addPostCardSlice";
 import { FiPlus } from "react-icons/fi";
+
 
 const AllPosts = ({ reloadPosts, page, setPage }) => {
   const dispatch = useDispatch();
   const topicFromStore = useSelector((state) => state.posts.data.topic);
   const [card, setCard] = useState([]);
   const [displayFilterCategory, setDisplayFilterCategory] = useState(false);
-  const [isTrending, setIsTrending] = useState(false);
+  const [isTrending, setIsTrending] = useState(false)
   const [showIcon, setShowIcon] = useState(true);
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  
+
 
   const fetchAllPosts = async (topicFromStore) => {
-    setIsLoading(true);
     const token = localStorage.getItem("token");
     const data = await fetch(
       `https://mask-backend.up.railway.app/api/posts?_limit=14&_page=${page}&topic=${topicFromStore}&trending=${isTrending}`,
@@ -36,7 +37,6 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
     );
 
     const json = await data.json();
-    setIsLoading(false);
 
     if (json.posts && Array.isArray(json.posts)) {
       if (page === 1) {
@@ -75,9 +75,9 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
   };
 
   const handleTrendingSort = () => {
-    setIsTrending(!isTrending);
-    setDisplayFilterCategory(false);
-  };
+    setIsTrending(!isTrending)
+    setDisplayFilterCategory(false)
+  }
 
   const handleToggleEvent = () => {
     dispatch(displayAddPostCard());
@@ -88,9 +88,9 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
     return () => window.removeEventListener("scroll", handelInfiniteScroll);
   }, [page, topicFromStore]);
 
+
   const handleScroll = () => {
-    const currentScrollPosition =
-      window.pageYOffset || document.documentElement.scrollTop;
+    const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     if (currentScrollPosition < lastScrollPosition) {
       // Scrolling UP
       setShowIcon(true);
@@ -102,8 +102,8 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollPosition]);
 
   return (
@@ -122,16 +122,10 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
           </button>
           {displayFilterCategory && (
             <div className="absolute top-10 -left-14  w-40 h-30 flex flex-col items-center  rounded-lg bg-[#1C1C1C] overflow-hidden ">
-              <span
-                onClick={handleTrendingSort}
-                className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"
-              >
+              <span onClick={handleTrendingSort} className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
                 <FaFire className="mr-1 text-orange-500" /> Trending
               </span>
-              <button
-                onClick={handleTrendingSort}
-                className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"
-              >
+              <button onClick={handleTrendingSort} className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
                 <MdTimer className="mr-1" />
                 Latest
               </button>
@@ -144,14 +138,10 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
         </div>
       </div>
       <div className="postcards w-full flex flex-wrap py-5 ">
-        {isLoading ? (
+        {card.length === 0 ? (
           Array(10)
             .fill()
             .map((_, i) => <ShimmerPostCard key={i} />)
-        ) : card.length === 0 ? (
-          <div className="flex w-full  mt-[10%] items-center justify-center">
-          <div className="text-3xl text-[#d5d5d5]">No posts available for this topic.</div>
-          </div>
         ) : (
           card.map((post) => (
             <PostCard
@@ -177,6 +167,7 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
         </div>
       )}
     </div>
+
   );
 };
 
