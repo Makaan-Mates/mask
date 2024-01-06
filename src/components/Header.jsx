@@ -1,10 +1,5 @@
-import {
-  FaRegUserCircle,
-  FaBell,
-  FaRegEdit,
-  FaEllipsisV,
-  FaSearch,
-} from "react-icons/fa";
+import { FaRegUserCircle, FaBell, FaRegEdit, FaSearch } from "react-icons/fa";
+import { IoIosArrowBack } from "react-icons/io";
 import { MdFeedback, MdKeyboardCommandKey } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState, useEffect, useCallback } from "react";
@@ -54,6 +49,9 @@ const Header = () => {
   const handleBookMarks = () => {
     navigate("/user/bookmarks");
   };
+  const handleFeedback = () => {
+    navigate("/user/feedback");
+  };
 
   const handleToggleSearch = useCallback(() => {
     dispatch(displaySearchBar(true));
@@ -82,9 +80,9 @@ const Header = () => {
     setShowListsDiv(!showListsDiv);
     setShowAsideBar(false);
     if (!showListsDiv) {
-      setNavBarMobileStyle({transform: 'translateX(0)'});
+      setNavBarMobileStyle({ transform: "translateX(0)" });
     } else {
-      setNavBarMobileStyle({transform: 'translateX(-100%)'});
+      setNavBarMobileStyle({ transform: "translateX(-100%)" });
     }
   };
 
@@ -142,18 +140,15 @@ const Header = () => {
             Search
           </div>
           <div className="hidden sm:flex  items-center border-[1px] border-[#363636] rounded-md text-sm px-1 ">
-            <MdKeyboardCommandKey
-              onClick={handleToggleSearch}
-              className=" text-[#9B9B9B]  "
-            />
+            <MdKeyboardCommandKey className=" text-[#9B9B9B]  " />
             <span>K</span>
           </div>
         </div>
-        <div
-          onClick={handleToggleSearch}
-          className="w-full   sm:hidden  flex items-center  justify-end"
-        >
-          <FaSearch className=" text-[#9B9B9B] text-xl" />
+        <div className="searchboxsmalldevice  w-full  sm:hidden  flex items-center  justify-end">
+          <FaSearch
+            onClick={handleToggleSearch}
+            className=" text-[#9B9B9B] text-xl"
+          />
         </div>
       </div>
       <div className="hidden  md:flex md:gap-3 md:items-center md:space-x-4 ">
@@ -197,7 +192,10 @@ const Header = () => {
           )}
         </div>
         <FaBell className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]" />
-        <FaEllipsisV className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]" />
+        <MdFeedback
+          onClick={handleFeedback}
+          className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]"
+        />
       </div>
       <div className="hamburger  flex gap-3  space-x-4  md:hidden cursor-pointer ">
         <RxHamburgerMenu onClick={toggleListsDiv} className="text-2xl" />
@@ -213,13 +211,16 @@ const Header = () => {
           <div
             {...handlers}
             style={{ ...navBarMobileStyle, transition: "left 1s" }}
-            className="Navbarmobile w-[65%] h-[100vh] absolute top-0 left-0 px-2 flex flex-col  space-y-4 py-10 bg-[#161616] z-50"
+            className="Navbarmobile w-[65%] h-[100vh] absolute top-0 left-0 px-2 flex flex-col  space-y-4 py-5 bg-[#161616] z-50"
           >
+            <div onClick={toggleListsDiv} className="flex justify-end ">
+              <IoIosArrowBack className="text-2xl text-[#313131] animate-bounce-x" />
+            </div>
             <div className="flex flex-col">
-              <div className="mx-4 mt-2 text-base font-semibold">
+              <div className="mx-4  text-base font-semibold">
                 {userInfo?.username}
               </div>
-              <div className="mx-4  text-xs font-semibold">SDE</div>
+              <div className="mx-4  text-xs font-semibold">new</div>
             </div>
             <div className="flex flex-col mx-4 p-4 gap-4">
               <div onClick={handleProfile} className="flex items-center gap-2">
@@ -240,12 +241,12 @@ const Header = () => {
                 <TbActivityHeartbeat />
                 <span className="font-semibold">Topics</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div onClick={handleFeedback} className="flex items-center gap-2">
                 <MdFeedback />
                 <span className="font-semibold">Feedback</span>
               </div>
-              <hr className="border-b-[0.2px]  w-full  border-[#f4f4f4]"></hr>
-              <div onClick={handleLogOut} className="flex items-center gap-2">
+              <hr className="border-b-[0.2px]  w-full  border-[#313131]"></hr>
+              <div onClick={handleLogOut} className="flex  items-center gap-2">
                 <TbLogout2 /> <span className="font-semibold">Logout</span>
               </div>
             </div>

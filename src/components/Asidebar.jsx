@@ -5,9 +5,10 @@ import { topics } from "../utils/topics";
 import { filterByTopic } from "../features/postSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { IoIosArrowBack } from "react-icons/io";
 
-const Asidebar = ({customStyleAsidebarMobile,hideAsideBar}) => {
+const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
   const navigate = useNavigate();
   const { userInfo, loading } = useFetchUser();
   const dispatch = useDispatch();
@@ -35,7 +36,9 @@ const Asidebar = ({customStyleAsidebarMobile,hideAsideBar}) => {
       )
   );
 
-  const customstyle = customStyleAsidebarMobile ? "w-[65%] h-[100vh] absolute top-0 left-0 px-2 flex flex-col   z-50 " : "hidden";
+  const customstyle = customStyleAsidebarMobile
+    ? "w-[65%] h-[100vh] absolute top-0 left-0 px-2 flex flex-col   z-50 "
+    : "hidden";
 
   return (
     <div
@@ -47,7 +50,14 @@ const Asidebar = ({customStyleAsidebarMobile,hideAsideBar}) => {
       >
         WRITE A POST
       </div>
-      <span className="md:hidden text-center pt-1 text-xl text-[#f4f4f4] ">Topics</span>
+      <div className="flex items-center justify-between px-2">
+        <span className="md:hidden text-center pt-3 text-xl text-[#f4f4f4] ">
+          {" "}
+          Topics
+        </span>
+        <IoIosArrowBack onClick={hideAsideBar} className="text-2xl text-[#313131] md:hidden mt-3 animate-bounce-x" />
+      </div>
+
       <div className="md:scrollable-div max-h-[90vh]  md:max-h-[70vh] mt-4 md:mt-8 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300 ">
         <div className="border-t-[1px] font-semibold border-[#282828]"></div>
         <h1 className=" border-[#aeaeae] py-2 mt-4 font-semibold text-[#d5d5d5] text-sm">

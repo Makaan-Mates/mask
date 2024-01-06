@@ -10,6 +10,7 @@ import TopicsSelection from "./TopicsSelection";
 import Profile from "./Profile";
 import BookMarkedPosts from "./BookMarkedPosts";
 import Verification from "./Verification";
+import FeedBack from "./FeedBack";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -46,6 +47,10 @@ const Body = () => {
     {
       path: "/verification",
       element: <Verification/>
+    },
+    {
+      path:"/user/feedback",
+      element: <FeedBack/>
     }
   ]);
   return (

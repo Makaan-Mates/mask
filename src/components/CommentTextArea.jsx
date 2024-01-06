@@ -54,7 +54,7 @@ const CommentTextArea = ({
         <div className=" m-4  items-end flex justify-end">
          <button
             onClick={handlePublishComment}
-            className="border-[#1B1B1B] bg-[#292929]  rounded-xl hover:bg-[#2e2e2e]  h-[6vh] flex items-center text-[#d8d8d8] px-4 py-2  transition duration-300"
+            className="border-[#1B1B1B] bg-[#292929]  rounded-xl hover:bg-[#2e2e2e]  h-[6vh] flex items-center text-[#d8d8d8] px-4 py-2  transition duration-300 text-xs md:text-base"
           >
             Comment
           </button>
