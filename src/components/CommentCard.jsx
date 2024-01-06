@@ -18,21 +18,16 @@ const CommentCard = ({
   userid,
   setCommentDeleted,
   commentDeleted,
-  customStyleReplies
-
+  customStyleReplies,
 }) => {
-
-
   const [displayReplyTextArea, setDisplayReplyTextArea] = useState(false);
   const [isReplySection, setIsReplySection] = useState(false);
   const [showDeleteButton, setShowDeleteButton] = useState(false);
-  const { userInfo,loading } = useFetchUser();
+  const { userInfo, loading } = useFetchUser();
   const handleCommentReply = () => {
     setDisplayReplyTextArea(!displayReplyTextArea);
     setIsReplySection(true);
   };
-
-  
 
   const deleteComment = async () => {
     const token = localStorage.getItem("token");
@@ -49,7 +44,7 @@ const CommentCard = ({
     );
 
     setShowDeleteButton(!showDeleteButton);
-    setCommentDeleted(!commentDeleted)
+    setCommentDeleted(!commentDeleted);
     const json = await data.json();
     console.log(json);
   };
@@ -74,15 +69,16 @@ const CommentCard = ({
     setShowDeleteButton(!showDeleteButton);
   };
 
-  const customStyle = customStyleReplies ? `bg-[#1c1c1c]  border-y-0 border-r-0 border-[0.5px] rounded-none` : `` 
-
+  const customStyle = customStyleReplies
+    ? `bg-[#1c1c1c]  border-y-0 border-r-0 border-[0.5px] rounded-none`
+    : ``;
 
   return (
     <div
       className={` ${
         commentId === undefined
           ? " px-2 py-2  "
-          : ` w-full my-4 flex flex-col bg-[#1C1C1C] justify-between  px-5 py-5 gap-3 rounded-lg border-[0.2px] border-[#282828] ${customStyle} text-zinc-200`
+          : ` w-full my-4 flex flex-col bg-[#1C1C1C] justify-between  px-5 py-5 gap-3 rounded-lg border-[0.2px] border-[#282828] ${customStyle} text-zinc-200 relative`
       }`}
     >
       <div className="flex justify-between  items-center gap-2">
@@ -139,27 +135,29 @@ const CommentCard = ({
       </div>
 
       {displayReplyTextArea && (
-        <CommentTextArea
-          isReplySection={isReplySection}
-          commentId={commentId}
-          setReplyPosted={setReplyPosted}
-          replyPosted={replyPosted}
-        />
-      )}
+          <CommentTextArea
+            isReplySection={isReplySection}
+            commentId={commentId}
+            setReplyPosted={setReplyPosted}
+            replyPosted={replyPosted}
+            customStyleReplies={true}
+          />
+        )}
+
       {replies &&
         replies.map((reply) => (
-          <div key={reply._id} className="ml-2">
+          <div key={reply._id} className=" md:ml-2">
             <CommentCard
               content={reply.content}
-              commentId={reply._id} // pass commentId for reply
+              commentId={reply._id}
               replyId={reply._id}
-              filteredComments={filteredComments} // pass filteredComments for reply
+              filteredComments={filteredComments}
               username={reply.user_id.username}
               setReplyPosted={setReplyPosted}
-              replyPosted={replyPosted} // pass replyPosted for reply
-              userid={reply.user_id._id} // pass userid for reply
-              setCommentDeleted={setCommentDeleted} // pass setCommentDeleted for reply
-              commentDeleted={commentDeleted} // pass commentDeleted for reply
+              replyPosted={replyPosted}
+              userid={reply.user_id._id}
+              setCommentDeleted={setCommentDeleted}
+              commentDeleted={commentDeleted}
               customStyleReplies={true}
             />
           </div>
@@ -167,7 +165,6 @@ const CommentCard = ({
     </div>
   );
 };
-
 CommentCard.propTypes = {
   content: PropTypes.string.isRequired,
   commentId: PropTypes.string.isRequired,
@@ -178,6 +175,12 @@ CommentCard.propTypes = {
     })
   ),
   username: PropTypes.string,
+  replyPosted: PropTypes.bool,
+  setReplyPosted: PropTypes.func,
+  userid: PropTypes.string,
+  setCommentDeleted: PropTypes.func,
+  commentDeleted: PropTypes.bool,
+  customStyleReplies: PropTypes.bool,
 };
 
 export default CommentCard;

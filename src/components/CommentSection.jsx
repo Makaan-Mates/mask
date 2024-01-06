@@ -48,7 +48,7 @@ const CommentSection = ({ commentPosted }) => {
     return (
       <>
         <div className="w-[90%] flex justify-center ">
-          <div className="text-[#d5d5d5] flex gap-3 items-center mx-4">
+          <div className="text-[#d5d5d5] flex gap-3 items-center justify-center mx-4">
             <span>Loading Comments</span>
             <ImSpinner9 className="text-lg animate-spin text-[#9B9B9B]" />
           </div>
@@ -62,7 +62,7 @@ const CommentSection = ({ commentPosted }) => {
       {comments.length > 0 ? (
         <h1 className="px-2 pb-2 font-semibold">All Comments</h1>
       ) : (
-        <div className="flex w-[90%] justify-center">
+        <div className="flex w-[90%]  justify-center">
           <h1 className="px-2 pb-2  font-semibold">
             No comments, be the first to comment
           </h1>
