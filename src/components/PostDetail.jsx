@@ -167,7 +167,7 @@ const PostDetail = ({ postEdited }) => {
                   </span>
                   <button
                     onClick={handleDeletePost}
-                    className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"
+                    className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] hover:bg-red-900 text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"
                   >
                     <RiDeleteBin6Fill className="mr-1" />
                     Delete

@@ -36,7 +36,7 @@ const Home = () => {
 
   return (
     <>
-      {showAddPostCard && <AddPostCard setReloadPosts={setReloadPosts} />}
+      {showAddPostCard && <AddPostCard reloadPosts={reloadPosts} setReloadPosts={setReloadPosts} />}
       {showSearchBar && <SearchPosts />}
       {showEditPostCard && (
         <AddPostCard
@@ -49,9 +49,8 @@ const Home = () => {
       )}
 
       <div
-        className={`${
-          showAddPostCard || showEditPostCard || showSearchBar ? "blur-md" : ""
-        }`}
+        className={`${showAddPostCard || showEditPostCard || showSearchBar ? "blur-md" : ""
+          }`}
       >
         <Header />
         <div className="flex  ">
