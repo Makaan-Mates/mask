@@ -112,8 +112,7 @@ const PostDetail = ({ postEdited }) => {
   if (!userInfo) {
     return <ShimmerPostDetail />;
   }
-  console.log(postDetails)
-
+  
   return (
     <div className="w-full  md:w-4/5 px-5 py-8  bg-[#161616] ">
       <div className="topic text-sm font-semibold my-2 mx-4 text-[#aeaeae] ">
@@ -194,7 +193,7 @@ const PostDetail = ({ postEdited }) => {
         commentPosted={commentPosted}
         setCommentPosted={setCommentPosted}
       />
-      <div className="commentsection w-full h-auto bg-[#161616]  px-5 py-4 rounded-md">
+      <div className="commentsection w-full h-auto bg-[#161616]   md:px-5 md:py-4 rounded-md">
         <div>
           <CommentSection commentPosted={commentPosted} />
         </div>

@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 import { useDispatch } from "react-redux";
 import { displaySearchBar } from "../features/addPostCardSlice";
+import { RxCross2 } from "react-icons/rx";
+
 
 const SearchPosts = () => {
   const searchPostsRef = useRef();
@@ -53,6 +55,10 @@ const SearchPosts = () => {
     };
   }, [dispatch]);
 
+  const handleSearchHide = ()=>{
+    dispatch(displaySearchBar(false));
+  }
+
   
   const handlePostCardClick = (postId) => {
     navigate(`/post/${postId}`);
@@ -84,8 +90,12 @@ const SearchPosts = () => {
           placeholder="Search Posts"
           autoFocus
         />
-        <div className="flex items-center border-[1px] border-[#363636] rounded-md text-sm px-1 ">
-          <span className="mb-1 text-[#9B9B9B]">esc</span>
+        <div className="hidden  md:flex items-center border-[1px] border-[#363636] rounded-md text-sm px-1 ">
+          <span className="mb-1  text-[#9B9B9B]">esc</span>
+            
+        </div>
+        <div onClick={handleSearchHide} className="md:hidden flex items-center px-2 ">
+          <RxCross2  className="text-xl text-[#747474]"/>
         </div>
       </div>
       <div
