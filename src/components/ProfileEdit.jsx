@@ -67,7 +67,7 @@ const ProfileEdit = () => {
 
   return (
     <div className="userinfo mx-8 md:relative w-full md:w-2/6  ">
-      <div className="mt-8 h-[35vh] md:h-[51vh] sticky top-36  bg-[#1C1C1C] rounded-md border-[0.2px] border-[#282828] text-[#f4f4f4] px-5 py-5 ">
+      <div className="mt-8 h-[50vh] md:h-[51vh] sticky top-36  bg-[#1C1C1C] rounded-md border-[0.2px] border-[#282828] text-[#f4f4f4] px-5 py-5 ">
         <div className="flex gap-10 items-center">
           <div className="w-24 h-24 rounded-full overflow-hidden">
             <img
@@ -93,7 +93,7 @@ const ProfileEdit = () => {
             <div className="text-xl font-semibold">{userInfo?.username}</div>
           )}
         </div>
-        <div className="mt-2">
+        <div className="mt-2 ">
           <div className="text-sm font-semibold flex gap-2 items-center">
             <span>New</span>
             <span>
@@ -113,7 +113,7 @@ const ProfileEdit = () => {
               <button
                 onClick={handleEditProfile}
                 disabled={!newUsername?.trim()}
-                className={`bg-[#292929] text-[#f4f4f4] px-4 py-2 rounded-md mt-4 
+                className={`bg-[#292929] text-[#f4f4f4] px-4 py-2 text-sm md:text-base rounded-md mt-4 
                 ${usernamEdited ? "bg-green-800 text-[#f4f4f4]" : ""}
                 } ${
                   !newUsername?.trim() ? "opacity-50 cursor-not-allowed" : ""
@@ -130,14 +130,14 @@ const ProfileEdit = () => {
             ) : (
               <button
                 onClick={handleEditClick}
-                className="bg-[#292929] text-[#f4f4f4] px-4 py-2  rounded-md mt-4 hover:bg-[#2e2e2e]"
+                className="bg-[#292929] text-[#f4f4f4] px-4 py-2  text-sm md:text-base  rounded-md mt-4 hover:bg-[#2e2e2e]"
               >
                 Edit username
               </button>
             )}
           </div>
 
-          <span className="text-red-400 text-base mt-4">{errorMessage}</span>
+          <span className="text-red-400 text-sm  md:text-base mt-4">{errorMessage}</span>
         </div>
       </div>
     </div>
