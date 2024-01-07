@@ -1,14 +1,12 @@
 import Header from "./Header";
 import { useSelector } from "react-redux";
 import AddPostCard from "./AddPostCard";
-import { GoDotFill } from "react-icons/go";
 import { useFetchUserPosts } from "../custom-hooks/useFetchUserPosts";
 import PostCard from "./PostCard";
-
+import ProfileEdit from "./ProfileEdit";
 const Profile = () => {
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
   const fetchUserPosts = useFetchUserPosts();
-  // console.log(fetchUserPosts);
 
   return (
     <>
@@ -16,46 +14,13 @@ const Profile = () => {
       <div className={`${showAddPostCard ? "blur-md" : ""}`}>
         <Header />
         <div className=" flex flex-col max-md:items-center max-md:px-10 md:flex-row   gap-6">
-          <div className="userinfo mx-8 md:relative w-full md:w-2/6 ">
-            <div className="mt-8 h-[40vh] md:h-[60vh] sticky top-36  bg-[#1C1C1C] rounded-md border-[0.2px] border-[#282828] text-white px-5 py-5">
-              <div className="flex gap-10 items-center">
-                <div className="w-24 h-24 rounded-full overflow-hidden">
-                  <img
-                    src="https://i.pinimg.com/564x/16/0e/44/160e44f4fa8a509958d2cb9fc46b5c16.jpg"
-                    alt=""
-                  />
-                </div>
-                <div className="text-xl font-semibold">
-                  {fetchUserPosts[0]?.user_id?.username}
-                </div>
-              </div>
-              <div className="mt-2">
-                <div className="text-sm font-semibold flex gap-2 items-center">
-                  <span>New</span>
-                  <span>
-                    <GoDotFill className="text-xs" />
-                  </span>
-                  <span>Student</span>
-                  <span>
-                    <GoDotFill className="text-xs" />
-                  </span>
-                  <span>India</span>
-                </div>
-                <div className="text-sm font-semibold mt-4">
-                  i am a student at {fetchUserPosts[0]?.user_id?.college}
-                </div>
-                <div>
-                    <button
-                      onClick={() => alert('Coming soon!')}
-                     className="bg-[#292929] text-[#9B9B9B] px-4 py-2 rounded-md mt-4">Edit Profile</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ProfileEdit />
           <div className="your posts m-8 w-full  md:w-4/6">
             <div className=" bg-[#1C1C1C] w-full rounded-md border-[0.2px] border-[#282828] text-white px-5 py-5 ">
               <div className=" w-full bg-[#161616] py-2 px-2 flex flex-wrap">
-                <h3 className="px-4 py-4 font-semibold text-xl text-[#9B9B9B]">YOUR POSTS</h3>
+                <h3 className="px-4 py-4 font-semibold text-xl text-[#9B9B9B]">
+                  YOUR POSTS
+                </h3>
                 {fetchUserPosts &&
                   fetchUserPosts.map((post) => (
                     <PostCard
@@ -76,6 +41,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      
     </>
   );
 };

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 
 export const useFetchUserPosts = () => {
   const {userInfo} = useFetchUser()
-  console.log(userInfo)
   const navigate = useNavigate()
 
   const [userPosts, setUserPosts] = useState([])
