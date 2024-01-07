@@ -191,7 +191,7 @@ const Header = () => {
             </div>
           )}
         </div>
-        <FaBell className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]" />
+        <FaBell onClick={()=>{alert("Coming soon, will notify you!")}} className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]" />
         <MdFeedback
           onClick={handleFeedback}
           className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]"
