@@ -38,7 +38,7 @@ const Body = () => {
         path:"/register/topics-to-follow",
         element: <TopicsSelection/>
       },{
-        path:"/profile",
+        path:"/profile/",
         element: <Profile/>     },
         {
           path:"/user/bookmarks",

@@ -80,8 +80,7 @@ const AddPostCard = ({
 
     dispatch(displayEditPostCard(false));
     dispatch(hideAddPostCard());
-    setPostEdited(!postEdited)
-
+    setPostEdited(!postEdited) 
   };
 
   const options = topics.map((topic) => ({

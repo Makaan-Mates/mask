@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export const useFetchUser = () => {
   const navigate = useNavigate()
 
   const [userInfo, setUserInfo] = useState(null)
   const [loading, setLoading] = useState(true) 
-
+  const profileEdited = useSelector((state) => state.user.profileEdited)
+  console.log(profileEdited)
 
   useEffect(() => {
     fetchUser()
-  }, [])
+  }, [profileEdited])
 
   const fetchUser = async () => {
     const token = localStorage.getItem('token')

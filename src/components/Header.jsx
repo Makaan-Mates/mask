@@ -44,7 +44,7 @@ const Header = () => {
   };
 
   const handleProfile = () => {
-    navigate("/profile");
+    navigate("/profile/");
   };
   const handleBookMarks = () => {
     navigate("/user/bookmarks");
