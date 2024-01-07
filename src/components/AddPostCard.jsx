@@ -19,7 +19,8 @@ const AddPostCard = ({
   initialTopic,
   setReloadPosts,
   setPostEdited,
-  postEdited
+  postEdited,
+  reloadPosts
 }) => {
   const dispatch = useDispatch();
   const showEditPostCard = useSelector(
@@ -56,12 +57,12 @@ const AddPostCard = ({
     console.log(json);
     dispatch(hideAddPostCard());
     navigate("/home");
-    setReloadPosts(true);
+    setReloadPosts(!reloadPosts);
   };
 
   const handleUpdatePost = async () => {
     const token = localStorage.getItem("token");
-     await fetch(
+    await fetch(
       `https://mask-backend.up.railway.app/api/post/edit/${postid}`,
       {
         method: "POST",
@@ -80,7 +81,7 @@ const AddPostCard = ({
     dispatch(displayEditPostCard(false));
     dispatch(hideAddPostCard());
     setPostEdited(!postEdited)
-    
+
   };
 
   const options = topics.map((topic) => ({
@@ -90,7 +91,7 @@ const AddPostCard = ({
 
   return (
     <>
-      <div className="w-[90%]  sm:w-[70%] h-[85vh] pb-2 fixed top-[12vh] left-0  right-0 m-auto  bg-[#161616] z-50 ">
+      <div className="w-[90%]  sm:w-[70%] h-[85vh] pb-2 fixed top-[12vh] left-0 rounded-lg  right-0 m-auto  bg-[#161616] z-50 ">
         <div className="w-full h-[8vh] sm:h-[10vh] flex justify-end px-6 py-4 border-b-[0.5px] border-[#282828]">
           <RxCross2
             className="text-2xl  sm:text-4xl cursor-pointer text-[#8c8c8c] hover:text-[#d2d2d2]"
@@ -115,7 +116,7 @@ const AddPostCard = ({
               backgroundColor: "#161616",
               borderWidth: "0.5px",
               borderColor: "#282828",
-              
+
             }),
             placeholder: (provided) => ({
               ...provided,
@@ -123,7 +124,7 @@ const AddPostCard = ({
             }),
             singleValue: (provided) => ({
               ...provided,
-              color: '#f4f4f4', 
+              color: '#f4f4f4',
             }),
             menu: (provided) => ({
               ...provided,
@@ -185,6 +186,6 @@ AddPostCard.propTypes = {
   initialTopic: PropTypes.string,
   setReloadPosts: PropTypes.func,
   setPostEdited: PropTypes.func,
-  postEdited: PropTypes.bool, 
+  postEdited: PropTypes.bool,
 };
 export default AddPostCard;

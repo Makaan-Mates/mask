@@ -12,18 +12,17 @@ import { displayAddPostCard } from "../features/addPostCardSlice";
 import { FiPlus } from "react-icons/fi";
 
 
-const AllPosts = ({reloadPosts,page,setPage}) => {
+const AllPosts = ({ reloadPosts, page, setPage }) => {
   const dispatch = useDispatch();
   const topicFromStore = useSelector((state) => state.posts.data.topic);
   const [card, setCard] = useState([]);
   const [displayFilterCategory, setDisplayFilterCategory] = useState(false);
-  const [isTrending,setIsTrending] = useState(false)
-
+  const [isTrending, setIsTrending] = useState(false)
   const [showIcon, setShowIcon] = useState(true);
-
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
-
   
+
+
   const fetchAllPosts = async (topicFromStore) => {
     const token = localStorage.getItem("token");
     const data = await fetch(
@@ -55,7 +54,7 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
 
   useEffect(() => {
     fetchAllPosts(topicFromStore);
-  }, [page, topicFromStore,isTrending,reloadPosts]);
+  }, [page, topicFromStore, isTrending, reloadPosts]);
 
   const handelInfiniteScroll = async () => {
     try {
@@ -75,7 +74,7 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
     setDisplayFilterCategory(!displayFilterCategory);
   };
 
-  const handleTrendingSort = ()=>{
+  const handleTrendingSort = () => {
     setIsTrending(!isTrending)
     setDisplayFilterCategory(false)
   }
@@ -92,7 +91,7 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
 
   const handleScroll = () => {
     const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    if (currentScrollPosition < lastScrollPosition){
+    if (currentScrollPosition < lastScrollPosition) {
       // Scrolling UP
       setShowIcon(true);
     } else {
@@ -126,7 +125,7 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
               <span onClick={handleTrendingSort} className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
                 <FaFire className="mr-1 text-orange-500" /> Trending
               </span>
-              <button onClick={handleTrendingSort}  className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
+              <button onClick={handleTrendingSort} className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer">
                 <MdTimer className="mr-1" />
                 Latest
               </button>
@@ -139,25 +138,25 @@ const AllPosts = ({reloadPosts,page,setPage}) => {
         </div>
       </div>
       <div className="postcards w-full flex flex-wrap py-5 ">
-      {card.length === 0 ? (
-    Array(10)
-      .fill()
-      .map((_, i) => <ShimmerPostCard key={i} />)
-  ) : (
-    card.map((post) => (
-      <PostCard
-        key={post._id}
-        postid={post._id}
-        title={post.title}
-        description={post.description}
-        topic={post.topic}
-        username={post?.user_id?.username}
-        timeSinceCreated={post?.timeSinceCreated}
-        totalUpvotes={post?.upvotes?.length}
-        collegeName={post?.user_id?.college}
-      />
-    ))
-  )}
+        {card.length === 0 ? (
+          Array(10)
+            .fill()
+            .map((_, i) => <ShimmerPostCard key={i} />)
+        ) : (
+          card.map((post) => (
+            <PostCard
+              key={post._id}
+              postid={post._id}
+              title={post.title}
+              description={post.description}
+              topic={post.topic}
+              username={post?.user_id?.username}
+              timeSinceCreated={post?.timeSinceCreated}
+              totalUpvotes={post?.upvotes?.length}
+              collegeName={post?.user_id?.college}
+            />
+          ))
+        )}
       </div>
       {showIcon && (
         <div
