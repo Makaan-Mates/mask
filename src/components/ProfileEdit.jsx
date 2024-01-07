@@ -16,7 +16,7 @@ const ProfileEdit = () => {
   const handleEditProfile = async () => {
     try {
     const token = localStorage.getItem("token");
-    const data = await fetch(`http://localhost:4000/api/profile/edit/${userId}`, {
+    const data = await fetch(`https://mask-backend.up.railway.app/api/profile/edit/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json", 
