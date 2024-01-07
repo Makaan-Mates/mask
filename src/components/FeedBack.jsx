@@ -11,6 +11,7 @@ const FeedBack = () => {
     "We value your feedback! Please share your thoughts with us to help improve this platform."
   );
   const [feedbackText, setFeedbackText] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const feedback = useRef();
   const handleFeedbackChange = (event) => {
@@ -22,16 +23,19 @@ const FeedBack = () => {
       return;
     }
     const token = localStorage.getItem("token");
-    const data = await fetch("https://mask-backend.up.railway.app/api/user/feedback", {
-      method: "POST",
-      headers: {
-        "CONTENT-TYPE": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        feedback: feedback.current.value,
-      }),
-    });
+    const data = await fetch(
+      "https://mask-backend.up.railway.app/api/user/feedback",
+      {
+        method: "POST",
+        headers: {
+          "CONTENT-TYPE": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          feedback: feedback.current.value,
+        }),
+      }
+    );
     const json = await data.json();
     console.log(json);
     feedback.current.value = "";
@@ -42,6 +46,11 @@ const FeedBack = () => {
         "We value your feedback! Please share your thoughts with us to help improve this platform."
       );
     }, 5000);
+
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setIsSubmitted(false);
+    }, 2000);
   };
 
   return (
@@ -52,12 +61,12 @@ const FeedBack = () => {
         <div className="w-full flex  items-center justify-center  gap-6">
           <div className="yourfeedbacks w-full flex m-8 md:w-4/6">
             <div className=" bg-[#1C1C1C] w-full h-[70vh] rounded-md border-[0.2px] border-[#282828] text-white px-5 py-5 ">
-              <div className=" w-full h-[90%] bg-[#161616] py-2 px-2 flex flex-col gap-2">
+              <div className=" w-full h-[100%] bg-[#161616] py-2 px-2 flex flex-col gap-2">
                 <h3 className="px-2 py-2 font-semibold text-xl text-[#9B9B9B]">
-                  GIVE YOUR FEEDBACK!
+                  Any Feedback!
                 </h3>
                 <textarea
-                  className="w-[96%] h-[60%]  text-base sm:text-xl  bg-[#1C1C1C] rounded px-3 py-2 focus:outline-none resize-none text-[#d8d8d8] placeholder:text-[#9B9B9B] scrollbar-thin scrollbar-thumb-zinc-500  placeholder:text-base"
+                  className="w-[96%] h-[60%]  text-base sm:text-xl  bg-[#161616] rounded px-3 py-2 focus:outline-none resize-none text-[#d8d8d8] placeholder:text-[#9B9B9B] scrollbar-thin scrollbar-thumb-zinc-500  placeholder:text-base"
                   type="text"
                   ref={feedback}
                   id="feedback"
@@ -69,10 +78,12 @@ const FeedBack = () => {
                   <button
                     onClick={handleSubmitFeedback}
                     disabled={!feedbackText.trim()}
-                    className=" h-[6vh] flex gap-2 text-sm sm:text-lg items-center  px-6 py-2 border-[1px] border-[#1B1B1B] bg-[#292929] rounded-xl hover:bg-[#2e2e2e] transition duration-300  text-[#d5d5d5] "
+                    className={`h-[6vh] flex gap-2 text-sm sm:text-lg items-center  px-6 py-2 border-[1px] border-[#1B1B1B] bg-[#292929] rounded-xl hover:bg-[#2e2e2e] transition duration-300  text-[#d5d5d5] ${
+                      isSubmitted ? "bg-[#b96d1d] text-black" : ""
+                    }`}
                   >
                     <IoSend className="" />
-                    Submit
+                    {isSubmitted ? "Thanks" : "Submit"}
                   </button>
                 </div>
               </div>

@@ -130,6 +130,10 @@ const AddPostCard = ({
               marginTop: '0',
             }),
             menuPortal: base => ({ ...base, zIndex: 9999, marginTop: '-2px' }),
+            input: (provided) => ({
+              ...provided,
+              color: '#f4f4f4', 
+            }),
           }}
           myFontSize="20px"
           placeholder="Select a topic"
