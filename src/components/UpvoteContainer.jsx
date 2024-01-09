@@ -3,33 +3,40 @@ import { BiUpvote, BiSolidUpvote } from "react-icons/bi";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 import PropTypes from "prop-types";
 
-const UpvoteContainer = ({ type, id }) => {
+const UpvoteContainer = ({
+  type,
+  id,
+  socket,
+  senderName,
+  postData,
+  notificationAction,
+  
+}) => {
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [postDetails, setPostDetails] = useState();
   const { userInfo, loading } = useFetchUser();
 
   const updateUpvoteCounter = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(
-      `https://mask-backend.up.railway.app/api/${type}/upvote/${id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const data = await fetch(`https://mask-backend.up.railway.app/api/${type}/upvote/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
 
     const info = await data.json();
     setIsUpvoted(info?.message?.upvotes?.includes(userInfo?._id));
   };
+
   useEffect(() => {
     const getPostDetails = async () => {
       const data = await fetch(
         `https://mask-backend.up.railway.app/api/${type}/upvote/${id}`
       );
       const json = await data.json();
+      // console.log(json);
       setPostDetails(json);
       setIsUpvoted(json?.upvotes?.includes(userInfo?._id));
     };
@@ -39,9 +46,20 @@ const UpvoteContainer = ({ type, id }) => {
     }
   }, [loading, isUpvoted, type, id, userInfo, setPostDetails, setIsUpvoted]);
 
-  // console.log(postid);
-
   const handleClick = () => {
+    updateUpvoteCounter();
+    if (postData && senderName) {
+      socket?.emit("sendNotification", {
+        senderName: senderName,
+        receiverName: postData?.postDetails?.user_id?.username,
+        postId: postData?.postDetails?._id,
+        postTitle: postData?.postDetails?.title,
+        notificationAction: notificationAction,
+      });
+    }
+  };
+
+  const handleDownVote = () => {
     updateUpvoteCounter();
   };
 
@@ -51,7 +69,7 @@ const UpvoteContainer = ({ type, id }) => {
         {" "}
         {isUpvoted ? (
           <BiSolidUpvote
-            onClick={handleClick}
+            onClick={handleDownVote}
             className="mx-1 text-2xl text-orange-500 "
           />
         ) : (
@@ -69,6 +87,10 @@ const UpvoteContainer = ({ type, id }) => {
 UpvoteContainer.propTypes = {
   type: PropTypes.string.isRequired,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  socket: PropTypes.object,
+  senderName: PropTypes.string,
+  postData: PropTypes.object,
+  notificationAction: PropTypes.string,
 };
 
 export default UpvoteContainer;

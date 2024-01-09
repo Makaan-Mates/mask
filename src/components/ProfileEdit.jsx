@@ -54,7 +54,7 @@ const ProfileEdit = () => {
   };
 
   useEffect(() => {
-    if (errorMessage) {
+    if (errorMessage && window.innerWidth > 640) {
       username.current.focus();
     }
   }, [errorMessage]);
@@ -137,7 +137,9 @@ const ProfileEdit = () => {
             )}
           </div>
 
-          <span className="text-red-400 text-sm  md:text-base mt-4">{errorMessage}</span>
+          <span className="text-red-400 text-sm  md:text-base mt-4">
+            {errorMessage}
+          </span>
         </div>
       </div>
     </div>
