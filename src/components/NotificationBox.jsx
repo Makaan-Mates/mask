@@ -4,15 +4,26 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 const NotificationBox = ({ socket }) => {
+  const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
   const [openNoti, setOpenNoti] = useState(false);
-  const navigate = useNavigate();
+  const [broadcastMessage, setBroadcastMessage] = useState(
+    "🎉 We just shipped notification feature, check it out! "
+  );
+
+  useEffect(() => {
+    if (localStorage.getItem("broadcastMessage") !== "shadev") {
+      localStorage.setItem("broadcastMessage", broadcastMessage);
+      // setBroadcastMessage("");
+    }
+  }, []);
+
   //socket.io client
   useEffect(() => {
     const fetchNotifications = async () => {
       const token = localStorage.getItem("token");
       try {
-        const data = await fetch(`https://mask-backend.up.railway.app/api/notification`, {
+        const data = await fetch(`http://localhost:4000/api/notification`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -33,18 +44,21 @@ const NotificationBox = ({ socket }) => {
     });
   }, [socket, notifications]);
 
-  //   console.log("Notification fetched", notifications);
+  // console.log("Notification fetched", notifications);
 
   const handleClearNotifications = async () => {
-    console.log("clearing notifications");
+    localStorage.setItem("broadcastMessage", "shadev");
     const token = localStorage.getItem("token");
-    const data = await fetch(`https://mask-backend.up.railway.app/api/notification/clear`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    });
+    const data = await fetch(
+      `https://mask-backend.up.railway.app/api/notification/clear`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const json = await data.json();
     console.log(json);
@@ -55,6 +69,9 @@ const NotificationBox = ({ socket }) => {
     setOpenNoti(false);
   };
 
+  const message = localStorage.getItem("broadcastMessage");
+  console.log(message);
+
   return (
     <div className="">
       <div className="relative  ">
@@ -62,13 +79,13 @@ const NotificationBox = ({ socket }) => {
           onClick={() => setOpenNoti(!openNoti)}
           className="text-2xl md:text-2xl cursor-pointer transition-transform transform text-[#9B9B9B] hover:text-white "
         />
-        {notifications.length !== 0 && (
+        {notifications.length !== 0 || message !== "shadev" ? (
           <div className="absolute w-5 h-5 bg-red-800 rounded-full flex items-center justify-center  -top-3 -right-2">
             <span className="text-white  text-xs  md:text-sm font-medium text-center  rounded-full items-center">
-              {notifications?.length}
+              {notifications.length === 0 ? "1" : notifications.length}
             </span>
           </div>
-        )}
+        ) : null}
       </div>
 
       {openNoti && (
@@ -84,6 +101,14 @@ const NotificationBox = ({ socket }) => {
               </button>
             </div>
           </div>
+          {message === "shadev" ? (
+            " "
+          ) : (
+            <div className="text-lg pt-4 text-yellow-200 text-center">
+              {message}
+            </div>
+          )}
+
           <div className="mt-2 p-2 overflow-y-auto">
             {notifications &&
               notifications.map((notification) => {

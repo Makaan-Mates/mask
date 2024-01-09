@@ -42,7 +42,7 @@ const Home = () => {
 
   //socket.io client
   useEffect(() => {
-    const newSocket = io("https://mask-backend.up.railway.app");
+    const newSocket = io("http://localhost:4000");
     console.log(`Socket connection established`, newSocket);
     setSocket(newSocket);
   }, []);
