@@ -14,6 +14,7 @@ const CommentTextArea = ({
   senderName,
   postData,
   notificationAction,
+  receiverName
 }) => {
   const { postid } = useParams();
   const comment = useRef();
@@ -21,7 +22,7 @@ const CommentTextArea = ({
   const handlePublishComment = async (e) => {
     socket?.emit("sendNotification", {
       senderName: senderName,
-      receiverName: postData?.postDetails?.user_id?.username,
+      receiverName: isReplySection ? receiverName : postData?.postDetails?.user_id?.username,
       postId: postData?.postDetails?._id,
       postTitle: postData?.postDetails?.title,
       notificationAction: notificationAction,
