@@ -16,8 +16,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
 import ShimmerPostDetail from "./ShimmerPostDetail";
+import PropTypes from "prop-types";
 
-const PostDetail = ({ postEdited }) => {
+const PostDetail = ({ postEdited, socket, senderName }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useFetchUser();
@@ -29,20 +30,19 @@ const PostDetail = ({ postEdited }) => {
   const totalcomments = filteredCommentsLength;
   const [commentPosted, setCommentPosted] = useState(false);
 
+  console.log(senderName);
+
   const deletePost = useDeletePost();
 
   const fetchPostDetails = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(
-      `https://mask-backend.up.railway.app/api/post/${postid}`,
-      {
-        method: "GET",
-        headers: {
-          "CONTENT-TYPE": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const data = await fetch(`https://mask-backend.up.railway.app/api/post/${postid}`, {
+      method: "GET",
+      headers: {
+        "CONTENT-TYPE": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const json = await data.json();
     setPostData(json);
@@ -112,7 +112,9 @@ const PostDetail = ({ postEdited }) => {
   if (!userInfo) {
     return <ShimmerPostDetail />;
   }
-  
+
+  // console.log("PostDetails", postData);
+
   return (
     <div className="w-full  md:w-4/5 px-5 py-8  bg-[#161616] ">
       <div className="topic text-sm font-semibold my-2 mx-4 text-[#aeaeae] ">
@@ -166,7 +168,7 @@ const PostDetail = ({ postEdited }) => {
                   </span>
                   <button
                     onClick={handleDeletePost}
-                    className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] hover:bg-red-900 text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"
+                    className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] hover:bg-red-900 text-[#d5d5d5]  cursor-pointer"
                   >
                     <RiDeleteBin6Fill className="mr-1" />
                     Delete
@@ -183,7 +185,14 @@ const PostDetail = ({ postEdited }) => {
           }}
         ></div>
         <div className="flex items-center">
-          <UpvoteContainer type="post" id={postid} />
+          <UpvoteContainer
+            type="post"
+            id={postid}
+            socket={socket}
+            senderName={senderName}
+            postData={postData}
+            notificationAction="upvote"
+          />
           <BiComment className="ml-4 mr-2 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
           <span className="text-[#9B9B9B]">{totalcomments}</span>
         </div>
@@ -192,14 +201,29 @@ const PostDetail = ({ postEdited }) => {
         isReplySection={false}
         commentPosted={commentPosted}
         setCommentPosted={setCommentPosted}
+        socket={socket}
+        senderName={senderName}
+        postData={postData}
+        notificationAction="comment"
       />
       <div className="commentsection w-full h-auto bg-[#161616]   md:px-5 md:py-4 rounded-md">
         <div>
-          <CommentSection commentPosted={commentPosted} />
+          <CommentSection
+            commentPosted={commentPosted}
+            socket={socket}
+            senderName={senderName}
+            postData={postData}
+          />
         </div>
       </div>
     </div>
   );
+};
+
+PostDetail.propTypes = {
+  postEdited: PropTypes.bool.isRequired,
+  socket: PropTypes.object.isRequired,
+  senderName: PropTypes.string.isRequired,
 };
 
 export default PostDetail;

@@ -19,6 +19,9 @@ const CommentCard = ({
   setCommentDeleted,
   commentDeleted,
   customStyleReplies,
+  socket,
+  senderName,
+  postData,
 }) => {
   const [displayReplyTextArea, setDisplayReplyTextArea] = useState(false);
   const [isReplySection, setIsReplySection] = useState(false);
@@ -119,7 +122,14 @@ const CommentCard = ({
       />
 
       <div className="flex items-center ml-6 text-sm gap-3 ">
-        <UpvoteContainer type="comment" id={replyId || commentId} />
+        <UpvoteContainer
+          type="comment"
+          id={replyId || commentId}
+          socket={socket}
+          senderName={senderName}
+          postData={postData}
+          notificationAction="commentUpvote" //action is type for notification of commentUpvote
+        />
 
         {commentId === undefined ? (
           <span></span>
@@ -135,14 +145,18 @@ const CommentCard = ({
       </div>
 
       {displayReplyTextArea && (
-          <CommentTextArea
-            isReplySection={isReplySection}
-            commentId={commentId}
-            setReplyPosted={setReplyPosted}
-            replyPosted={replyPosted}
-            customStyleReplies={true}
-          />
-        )}
+        <CommentTextArea
+          isReplySection={isReplySection}
+          commentId={commentId}
+          setReplyPosted={setReplyPosted}
+          replyPosted={replyPosted}
+          customStyleReplies={true}
+          socket={socket}
+          senderName={senderName}
+          postData={postData}
+          notificationAction="reply"
+        />
+      )}
 
       {replies &&
         replies.map((reply) => (
@@ -181,6 +195,10 @@ CommentCard.propTypes = {
   setCommentDeleted: PropTypes.func,
   commentDeleted: PropTypes.bool,
   customStyleReplies: PropTypes.bool,
+  socket: PropTypes.object.isRequired,
+  senderName: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  postData: PropTypes.object.isRequired,
 };
 
 export default CommentCard;

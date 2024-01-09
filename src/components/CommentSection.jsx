@@ -6,16 +6,16 @@ import { totalPostComments } from "../features/counterSlice";
 import { ImSpinner9 } from "react-icons/im";
 import PropTypes from "prop-types";
 
-const CommentSection = ({ commentPosted }) => {
+const CommentSection = ({ commentPosted,socket,senderName,postData }) => {
   const { postid } = useParams();
   const [comments, setComments] = useState([]);
-  const [isLoading , setIsLoading ] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [replyPosted, setReplyPosted] = useState(false);
   const dispatch = useDispatch();
-  const [commentDeleted, setCommentDeleted] = useState(false)
+  const [commentDeleted, setCommentDeleted] = useState(false);
 
   const fetchComments = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     const token = localStorage.getItem("token");
     const data = await fetch(
       `https://mask-backend.up.railway.app/comments/?postid=${postid}`,
@@ -30,19 +30,18 @@ const CommentSection = ({ commentPosted }) => {
 
     const json = await data.json();
     setComments(json);
-    setIsLoading(false)
+    setIsLoading(false);
   };
-
 
   useEffect(() => {
     fetchComments();
-  }, [commentPosted,replyPosted,commentDeleted]);
+  }, [commentPosted, replyPosted, commentDeleted]);
 
   useEffect(() => {
     dispatch(totalPostComments(comments?.length));
   }, [comments]);
 
-  console.log(comments)
+  console.log(comments);
 
   if (isLoading) {
     return (
@@ -56,6 +55,8 @@ const CommentSection = ({ commentPosted }) => {
       </>
     );
   }
+
+  // const reversedComments = comments?.toReversed()
 
   return (
     <div className="w-full  text-[#d5d5d5]  h-auto bg-[#161616] ">
@@ -71,7 +72,7 @@ const CommentSection = ({ commentPosted }) => {
 
       {comments &&
         comments
-          .toReversed()
+          ?.toReversed()
           .map(
             (comment) =>
               comment.parentId === null && (
@@ -88,6 +89,9 @@ const CommentSection = ({ commentPosted }) => {
                   userid={comment?.user_id?._id}
                   setCommentDeleted={setCommentDeleted}
                   commentDeleted={commentDeleted}
+                  socket={socket}
+                  senderName={senderName}
+                  postData={postData}
                 />
               )
           )}
@@ -97,6 +101,9 @@ const CommentSection = ({ commentPosted }) => {
 
 CommentSection.propTypes = {
   commentPosted: PropTypes.bool.isRequired,
+  socket: PropTypes.object.isRequired,
+  senderName: PropTypes.string.isRequired,
+  postData: PropTypes.object.isRequired,
 };
 
 export default CommentSection;

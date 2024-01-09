@@ -7,6 +7,8 @@ import SearchPosts from "./SearchPosts";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import PostDetail from "./PostDetail";
+import { io } from "socket.io-client";
+import { useFetchUser } from "../custom-hooks/useFetchUser";
 
 const Home = () => {
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
@@ -22,6 +24,10 @@ const Home = () => {
   );
   const initialTopic = useSelector((state) => state.addPost.postDetails.topic);
   const showSearchBar = useSelector((state) => state.addPost.searchPoppedUp);
+  const [socket, setSocket] = useState(null);
+  const { userInfo } = useFetchUser();
+  // const senderName = userInfo?.username;
+  // console.log(senderName);
 
   const location = useLocation();
   const isAllPosts = location.pathname === "/home";
@@ -29,14 +35,32 @@ const Home = () => {
 
   useEffect(() => {
     if (isPostDetail) {
-      window.scrollTo(0, 0);
+      window?.scrollTo(0, 0);
       setPage(1);
     }
   }, [isPostDetail]);
 
+  //socket.io client
+  useEffect(() => {
+    const newSocket = io("https://mask-backend.up.railway.app");
+    console.log(`Socket connection established`, newSocket);
+    setSocket(newSocket);
+  }, []);
+
+  useEffect(() => {
+    if (userInfo) {
+      socket?.emit("newUser", userInfo?.username);
+    }
+  }, [socket, userInfo]);
+
   return (
     <>
-      {showAddPostCard && <AddPostCard reloadPosts={reloadPosts} setReloadPosts={setReloadPosts} />}
+      {showAddPostCard && (
+        <AddPostCard
+          reloadPosts={reloadPosts}
+          setReloadPosts={setReloadPosts}
+        />
+      )}
       {showSearchBar && <SearchPosts />}
       {showEditPostCard && (
         <AddPostCard
@@ -49,16 +73,23 @@ const Home = () => {
       )}
 
       <div
-        className={`${showAddPostCard || showEditPostCard || showSearchBar ? "blur-md" : ""
-          }`}
+        className={`${
+          showAddPostCard || showEditPostCard || showSearchBar ? "blur-md" : ""
+        }`}
       >
-        <Header />
+        <Header socket={socket}  />
         <div className="flex  ">
           <Asidebar />
           {isAllPosts && (
             <AllPosts page={page} setPage={setPage} reloadPosts={reloadPosts} />
           )}
-          {isPostDetail && <PostDetail postEdited={postEdited} />}
+          {isPostDetail && (
+            <PostDetail
+              postEdited={postEdited}
+              socket={socket}
+              senderName={userInfo && userInfo?.username  }
+            />
+          )}
         </div>
       </div>
     </>

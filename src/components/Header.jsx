@@ -1,4 +1,4 @@
-import { FaRegUserCircle, FaBell, FaRegEdit, FaSearch } from "react-icons/fa";
+import { FaRegUserCircle, FaRegEdit, FaSearch } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdFeedback, MdKeyboardCommandKey } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -13,8 +13,11 @@ import { displaySearchBar } from "../features/addPostCardSlice";
 import { useSwipeable } from "react-swipeable";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 import Asidebar from "./Asidebar";
+import PropTypes from "prop-types";
+import NotificationBox from "./NotificationBox";
+import { GrHomeRounded } from "react-icons/gr";
 
-const Header = () => {
+const Header = ({ socket }) => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const dispatch = useDispatch();
@@ -41,6 +44,7 @@ const Header = () => {
   const handleNavigateHome = () => {
     navigate("/home");
     dispatch(filterByTopic("home"));
+    setShowListsDiv(!showListsDiv);
   };
 
   const handleProfile = () => {
@@ -116,7 +120,7 @@ const Header = () => {
 
   return (
     <div className="bg-[#1C1C1C] w-full z-20 sticky top-0 h-[10vh] sm:h-[12vh] py-4 px-6  flex items-center justify-between  border-b-[1px] border-[#282828] text-[#9B9B9B] ">
-      <div className="logohome w-10/12 flex items-center  space-x-2 sm:space-x-4 gap-5">
+      <div className="logohome w-10/12 flex items-center   sm:space-x-4 gap-2 md:gap-5">
         <div
           onClick={handleNavigateHome}
           className="w-2/12 sm:w-auto text-2xl sm:text-4xl  cursor-pointer  font-bold transition-transform transform hover:scale-105 text-[#FFFFFF] flex-none"
@@ -144,11 +148,8 @@ const Header = () => {
             <span>K</span>
           </div>
         </div>
-        <div className="searchboxsmalldevice  w-full  sm:hidden  flex items-center  justify-end">
-          <FaSearch
-            onClick={handleToggleSearch}
-            className=" text-[#9B9B9B] text-xl"
-          />
+        <div className="md:hidden w-full  sm:hidden  flex items-center   justify-end">
+          <NotificationBox socket={socket} />
         </div>
       </div>
       <div className="hidden  md:flex md:gap-3 md:items-center md:space-x-4 ">
@@ -191,7 +192,7 @@ const Header = () => {
             </div>
           )}
         </div>
-        <FaBell onClick={()=>{alert("Coming soon, will notify you!")}} className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]" />
+        <NotificationBox socket={socket} />
         <MdFeedback
           onClick={handleFeedback}
           className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]"
@@ -223,9 +224,23 @@ const Header = () => {
               <div className="mx-4  text-xs font-semibold">new</div>
             </div>
             <div className="flex flex-col mx-4 p-4 gap-4">
+              <div
+                onClick={handleNavigateHome}
+                className="flex items-center gap-2"
+              >
+                <GrHomeRounded />
+                <span className="font-semibold">Home</span>
+              </div>
               <div onClick={handleProfile} className="flex items-center gap-2">
                 <FaRegUserCircle />
                 <span className="font-semibold">Profile</span>
+              </div>
+              <div
+                onClick={handleToggleSearch}
+                className="flex items-center gap-2"
+              >
+                <FaSearch className=" font-semibold" />
+                <span className="font-semibold">Search</span>
               </div>
               <div
                 onClick={handleBookMarks}
@@ -253,8 +268,18 @@ const Header = () => {
           </div>
         )
       )}
+      {/* {
+        openNoti &&(
+          <NotificationBox socket={socket} userId={userId}/>
+        )
+      } */}
     </div>
   );
+};
+
+Header.propTypes = {
+  socket: PropTypes.object.isRequired,
+  // senderName: PropTypes.string.isRequired,
 };
 
 export default Header;

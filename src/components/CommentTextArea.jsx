@@ -10,11 +10,23 @@ const CommentTextArea = ({
   setReplyPosted,
   replyPosted,
   customStyleReplies,
+  socket,
+  senderName,
+  postData,
+  notificationAction,
 }) => {
   const { postid } = useParams();
   const comment = useRef();
 
   const handlePublishComment = async (e) => {
+    socket?.emit("sendNotification", {
+      senderName: senderName,
+      receiverName: postData?.postDetails?.user_id?.username,
+      postId: postData?.postDetails?._id,
+      postTitle: postData?.postDetails?.title,
+      notificationAction: notificationAction,
+    });
+
     e.preventDefault();
     const token = localStorage.getItem("token");
     const data = await fetch(
@@ -85,6 +97,10 @@ CommentTextArea.propTypes = {
   setReplyPosted: PropTypes.func,
   replyPosted: PropTypes.bool,
   customStyleReplies: PropTypes.bool,
+  socket: PropTypes.object,
+  postData: PropTypes.object,
+  senderName: PropTypes.string.isRequired,
+  notificationAction: PropTypes.string.isRequired,
 };
 
 export default CommentTextArea;

@@ -8,7 +8,7 @@ export const useFetchUser = () => {
   const [userInfo, setUserInfo] = useState(null)
   const [loading, setLoading] = useState(true) 
   const profileEdited = useSelector((state) => state.user.profileEdited)
-  console.log(profileEdited)
+  // console.log(profileEdited)
 
   useEffect(() => {
     fetchUser()
