@@ -23,13 +23,16 @@ const NotificationBox = ({ socket }) => {
     const fetchNotifications = async () => {
       const token = localStorage.getItem("token");
       try {
-        const data = await fetch(`http://localhost:4000/api/notification`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${token}`,
-          },
-        });
+        const data = await fetch(
+          `https://mask-backend.up.railway.app/api/notification`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const json = await data.json();
         // console.log(json);
         setNotifications(json);
