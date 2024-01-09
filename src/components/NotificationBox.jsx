@@ -47,7 +47,7 @@ const NotificationBox = ({ socket }) => {
     });
   }, [socket, notifications]);
 
-  // console.log("Notification fetched", notifications);
+  console.log("Notification fetched", notifications);
 
   const handleClearNotifications = async () => {
     localStorage.setItem("broadcastMessage", "shadev");
@@ -73,7 +73,10 @@ const NotificationBox = ({ socket }) => {
   };
 
   const message = localStorage.getItem("broadcastMessage");
-  console.log(message);
+
+  const filteredNotifications = notifications?.filter(
+    (notification) => notification?.senderName !== notification?.receiverName
+  );
 
   return (
     <div className="">
@@ -82,10 +85,12 @@ const NotificationBox = ({ socket }) => {
           onClick={() => setOpenNoti(!openNoti)}
           className="text-2xl md:text-2xl cursor-pointer transition-transform transform text-[#9B9B9B] hover:text-white "
         />
-        {notifications.length !== 0 || message !== "shadev" ? (
+        {filteredNotifications.length !== 0 || message !== "shadev" ? (
           <div className="absolute w-5 h-5 bg-red-800 rounded-full flex items-center justify-center  -top-3 -right-2">
             <span className="text-white  text-xs  md:text-sm font-medium text-center  rounded-full items-center">
-              {notifications.length === 0 ? "1" : notifications.length}
+              {filteredNotifications.length === 0
+                ? "1"
+                : filteredNotifications.length}
             </span>
           </div>
         ) : null}
@@ -113,8 +118,8 @@ const NotificationBox = ({ socket }) => {
           )}
 
           <div className="mt-2 p-2 overflow-y-auto">
-            {notifications &&
-              notifications.map((notification) => {
+            {filteredNotifications &&
+              filteredNotifications?.map((notification) => {
                 return (
                   <div
                     onClick={() => handleNavigatePost(notification?.postId)}

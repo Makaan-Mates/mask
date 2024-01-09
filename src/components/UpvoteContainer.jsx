@@ -10,11 +10,14 @@ const UpvoteContainer = ({
   senderName,
   postData,
   notificationAction,
+  receiverName,
   
 }) => {
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [postDetails, setPostDetails] = useState();
   const { userInfo, loading } = useFetchUser();
+
+
 
   const updateUpvoteCounter = async () => {
     const token = localStorage.getItem("token");
@@ -51,7 +54,7 @@ const UpvoteContainer = ({
     if (postData && senderName) {
       socket?.emit("sendNotification", {
         senderName: senderName,
-        receiverName: postData?.postDetails?.user_id?.username,
+        receiverName: type==="post"? postData?.postDetails?.user_id?.username : receiverName,
         postId: postData?.postDetails?._id,
         postTitle: postData?.postDetails?.title,
         notificationAction: notificationAction,

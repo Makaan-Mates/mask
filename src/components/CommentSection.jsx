@@ -92,6 +92,7 @@ const CommentSection = ({ commentPosted,socket,senderName,postData }) => {
                   socket={socket}
                   senderName={senderName}
                   postData={postData}
+                  receiverName={comment.user_id.username}
                 />
               )
           )}

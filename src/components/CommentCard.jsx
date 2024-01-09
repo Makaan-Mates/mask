@@ -22,6 +22,7 @@ const CommentCard = ({
   socket,
   senderName,
   postData,
+  receiverName,
 }) => {
   const [displayReplyTextArea, setDisplayReplyTextArea] = useState(false);
   const [isReplySection, setIsReplySection] = useState(false);
@@ -128,6 +129,7 @@ const CommentCard = ({
           socket={socket}
           senderName={senderName}
           postData={postData}
+          receiverName={receiverName}
           notificationAction="commentUpvote" //action is type for notification of commentUpvote
         />
 
@@ -154,6 +156,7 @@ const CommentCard = ({
           socket={socket}
           senderName={senderName}
           postData={postData}
+          receiverName={receiverName}
           notificationAction="reply"
         />
       )}
