@@ -2,7 +2,7 @@ import { FaRegUserCircle, FaRegEdit, FaSearch } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdFeedback, MdKeyboardCommandKey } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { displayAddPostCard } from "../features/addPostCardSlice";
@@ -29,9 +29,27 @@ const Header = ({ socket }) => {
     transform: "translateX(-100%)",
   });
 
+  const hideProfileref = useRef(null);
+
   const toggleDropdown = () => {
     setShowDropdown((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        hideProfileref.current &&
+        !hideProfileref.current.contains(event.target)
+      ) {
+        setShowDropdown((prevState) => !prevState);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
@@ -163,7 +181,10 @@ const Header = ({ socket }) => {
         >
           <FaRegUserCircle />
           {showDropdown && (
-            <div className="absolute top-10 -right-14 text-base w-40 h-auto flex flex-col items-center rounded-lg bg-[#1C1C1C] overflow-hidden ">
+            <div
+              ref={hideProfileref}
+              className="absolute top-10 -right-14 text-base w-40 h-auto flex flex-col items-center rounded-lg bg-[#1C1C1C] overflow-hidden "
+            >
               <span
                 onClick={handleProfile}
                 className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer"

@@ -2,7 +2,7 @@ import { FaRegEye, FaRegClock, FaEllipsisV } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import CommentSection from "./CommentSection";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import CommentTextArea from "./CommentTextArea";
 import { useDeletePost } from "../custom-hooks/useDeletePost";
@@ -29,20 +29,37 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
   const filteredCommentsLength = useSelector((state) => state.counter.value);
   const totalcomments = filteredCommentsLength;
   const [commentPosted, setCommentPosted] = useState(false);
+  const hideeditRef = useRef(null);
 
-  console.log(senderName);
+  // console.log(senderName);
 
   const deletePost = useDeletePost();
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (hideeditRef.current && !hideeditRef.current.contains(event.target)) {
+        setShowEditComponent((prevState) => !prevState);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const fetchPostDetails = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`https://mask-backend.up.railway.app/api/post/${postid}`, {
-      method: "GET",
-      headers: {
-        "CONTENT-TYPE": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const data = await fetch(
+      `https://mask-backend.up.railway.app/api/post/${postid}`,
+      {
+        method: "GET",
+        headers: {
+          "CONTENT-TYPE": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const json = await data.json();
     setPostData(json);
@@ -52,13 +69,16 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
 
   const incrementViewCount = async () => {
     const token = localStorage.getItem("token");
-    await fetch(`https://mask-backend.up.railway.app/api/post/${postid}/views`, {
-      method: "PUT",
-      headers: {
-        "CONTENT-TYPE": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    await fetch(
+      `https://mask-backend.up.railway.app/api/post/${postid}/views`,
+      {
+        method: "PUT",
+        headers: {
+          "CONTENT-TYPE": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   };
 
   useEffect(() => {
@@ -159,7 +179,10 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
               )}
 
               {showEditComponent && (
-                <div className="absolute top-6 -left-7  w-40 h-30 flex flex-col items-center  rounded-lg bg-[#1C1C1C] overflow-hidden ">
+                <div
+                  ref={hideeditRef}
+                  className="absolute top-6 -left-7  w-40 h-30 flex flex-col items-center  rounded-lg bg-[#1C1C1C] overflow-hidden "
+                >
                   <span
                     onClick={handleEditPost}
                     className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#d5d5d5] hover:bg-[#2e2e2e] cursor-pointer"
