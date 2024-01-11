@@ -5,14 +5,12 @@ import {
   hideAddPostCard,
   displayEditPostCard,
 } from "../features/addPostCardSlice";
-import { useRef } from "react";
 import { topics } from "../utils/topics";
 import { IoSend } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Select from "react-select";
-import { useState } from "react";
-import { useFetchUser } from "../custom-hooks/useFetchUser";
+import { useState,useEffect, useRef } from "react";
 
 const AddPostCard = ({
   initialTitle,
@@ -21,7 +19,7 @@ const AddPostCard = ({
   setReloadPosts,
   setPostEdited,
   postEdited,
-    reloadPosts,
+  reloadPosts
 }) => {
 
   const dispatch = useDispatch();
@@ -31,15 +29,32 @@ const AddPostCard = ({
   );
 
   const navigate = useNavigate();
-  const handleHidePostCard = () => {
-    dispatch(hideAddPostCard());
-    dispatch(displayEditPostCard(false));
-  };
+
   const [selectedTopic, setSelectedTopic] = useState(null);
 
   const { postid } = useParams();
   const title = useRef();
   const description = useRef();
+  const addPostRef = useRef(null);
+
+  const handleHidePostCard = () => {
+    dispatch(hideAddPostCard());
+    dispatch(displayEditPostCard(false));
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (addPostRef.current && !addPostRef.current.contains(event.target)) {
+        dispatch(hideAddPostCard());
+        dispatch(displayEditPostCard(false));
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handlePublishPost = async () => {
     const token = localStorage.getItem("token");
@@ -107,7 +122,10 @@ const AddPostCard = ({
 
   return (
     <>
-      <div className="w-[90%]  sm:w-[70%] h-[85vh] pb-2 fixed top-[12vh] left-0 rounded-lg  right-0 m-auto  bg-[#161616] z-50 ">
+      <div
+        ref={addPostRef}
+        className="w-[90%]  sm:w-[70%] h-[85vh] pb-2 fixed top-[12vh] left-0 rounded-lg  right-0 m-auto  bg-[#161616] z-50 "
+      >
         <div className="w-full h-[8vh] sm:h-[10vh] flex justify-end px-6 py-4 border-b-[0.5px] border-[#282828]">
           <RxCross2
             className="text-2xl  sm:text-4xl cursor-pointer text-[#8c8c8c] hover:text-[#d2d2d2]"
@@ -116,11 +134,9 @@ const AddPostCard = ({
         </div>
         <Select
           className="rounded-md w-full text-base sm:text-xl   bg-[#1C1C1C] border-[0.5px] border-[#282828] "
-          options={sortedOptions}
-          defaultValue={sortedOptions.find(
-            (option) => option?.label === initialTopic
-          )}
-          onChange={(selectedOption) => setSelectedTopic(selectedOption)}
+          options={options}
+          defaultValue={options.find((option) => option?.label === initialTopic)}
+          onChange={selectedOption => setSelectedTopic(selectedOption)}
           styles={{
             option: (provided, state) => ({
               ...provided,

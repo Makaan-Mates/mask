@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaBell } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,24 @@ const NotificationBox = ({ socket }) => {
   const [broadcastMessage, setBroadcastMessage] = useState(
     "🎉 We just shipped notification feature, check it out! "
   );
+
+  const notificationRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target)
+      ) {
+        setOpenNoti(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (localStorage.getItem("broadcastMessage") !== "shadev") {
@@ -79,7 +97,7 @@ const NotificationBox = ({ socket }) => {
   );
 
   return (
-    <div className="">
+    <div ref={notificationRef} className="">
       <div className="relative  ">
         <FaBell
           onClick={() => setOpenNoti(!openNoti)}
