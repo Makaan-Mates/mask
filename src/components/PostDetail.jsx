@@ -30,7 +30,7 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
   const totalcomments = filteredCommentsLength;
   const [commentPosted, setCommentPosted] = useState(false);
 
-  console.log(senderName);
+  //console.log(senderName);
 
   const deletePost = useDeletePost();
 

@@ -11,7 +11,8 @@ import { IoSend } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Select from "react-select";
-import { useState } from 'react';
+import { useState } from "react";
+import { useFetchUser } from "../custom-hooks/useFetchUser";
 
 const AddPostCard = ({
   initialTitle,
@@ -20,9 +21,11 @@ const AddPostCard = ({
   setReloadPosts,
   setPostEdited,
   postEdited,
-  reloadPosts
+    reloadPosts,
 }) => {
+
   const dispatch = useDispatch();
+  const { userInfo } = useFetchUser();
   const showEditPostCard = useSelector(
     (state) => state.addPost.displayEditMode
   );
@@ -40,7 +43,7 @@ const AddPostCard = ({
 
   const handlePublishPost = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch("https://mask-backend.up.railway.app/post", {
+    const data = await fetch("http://localhost:4000/post", {
       method: "POST",
       headers: {
         "CONTENT-TYPE": "application/json",
@@ -62,31 +65,45 @@ const AddPostCard = ({
 
   const handleUpdatePost = async () => {
     const token = localStorage.getItem("token");
-    await fetch(
-      `https://mask-backend.up.railway.app/api/post/edit/${postid}`,
-      {
-        method: "POST",
-        headers: {
-          "CONTENT-TYPE": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          newTitle: title.current.value,
-          newDescription: description.current.value,
-          newTopic: selectedTopic?.label,
-        }),
-      }
-    );
+    await fetch(`https://mask-backend.up.railway.app/api/post/edit/${postid}`, {
+      method: "POST",
+      headers: {
+        "CONTENT-TYPE": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        newTitle: title.current.value,
+        newDescription: description.current.value,
+        newTopic: selectedTopic?.label,
+      }),
+    });
 
     dispatch(displayEditPostCard(false));
     dispatch(hideAddPostCard());
-    setPostEdited(!postEdited) 
+    setPostEdited(!postEdited);
   };
 
   const options = topics.map((topic) => ({
     value: topic.id,
     label: topic.name,
   }));
+
+
+  const { topicsFollowing } = userInfo || {};
+  console.log(typeof topicsFollowing);
+
+  
+  const followedTopics = options.filter((option) => {
+    topicsFollowing?.some((followedtopic) => followedtopic === option.label);
+  });
+
+
+  const nonFollowedTopics = options.filter(
+    (option) => !topicsFollowing?.includes(option.label)
+  );
+ 
+  const sortedOptions = followedTopics?.concat(nonFollowedTopics);
+  console.log(sortedOptions);
 
   return (
     <>
@@ -99,23 +116,24 @@ const AddPostCard = ({
         </div>
         <Select
           className="rounded-md w-full text-base sm:text-xl   bg-[#1C1C1C] border-[0.5px] border-[#282828] "
-          options={options}
-          defaultValue={options.find((option) => option?.label === initialTopic)}
-          onChange={selectedOption => setSelectedTopic(selectedOption)}
+          options={sortedOptions}
+          defaultValue={sortedOptions.find(
+            (option) => option?.label === initialTopic
+          )}
+          onChange={(selectedOption) => setSelectedTopic(selectedOption)}
           styles={{
             option: (provided, state) => ({
               ...provided,
               fontSize: state.selectProps.myFontSize,
               backgroundColor: state.isSelected ? "#1C1C1C" : "#161616",
-              color: '#f4f4f4',
-              border: '1px solid #282828',
+              color: "#f4f4f4",
+              border: "1px solid #282828",
             }),
             control: (provided) => ({
               ...provided,
               backgroundColor: "#161616",
               borderWidth: "0.5px",
               borderColor: "#282828",
-
             }),
             placeholder: (provided) => ({
               ...provided,
@@ -123,16 +141,20 @@ const AddPostCard = ({
             }),
             singleValue: (provided) => ({
               ...provided,
-              color: '#f4f4f4',
+              color: "#f4f4f4",
             }),
             menu: (provided) => ({
               ...provided,
-              marginTop: '0',
+              marginTop: "0",
             }),
-            menuPortal: base => ({ ...base, zIndex: 9999, marginTop: '-2px' }),
+            menuPortal: (base) => ({
+              ...base,
+              zIndex: 9999,
+              marginTop: "-2px",
+            }),
             input: (provided) => ({
               ...provided,
-              color: '#f4f4f4', 
+              color: "#f4f4f4",
             }),
           }}
           myFontSize="20px"
