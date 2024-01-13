@@ -6,7 +6,7 @@ Mask is an innovative platform designed for verified college students to engage 
 
 ## Project Link
 
-Visit Mask at [maskers.vercel.app/home](maskers.vercel.app/home)
+Visit Mask at [maskers.vercel.app/home](https://maskers.vercel.app/home)
 
 ## Technology Stack
 
