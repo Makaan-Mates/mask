@@ -61,7 +61,7 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
         <IoIosArrowBack onClick={hideAsideBar} className="text-2xl text-[#313131] md:hidden mt-3 animate-bounce-x" />
       </div>
 
-      <div className="md:scrollable-div max-h-[90vh]  md:max-h-[70vh] mt-4 md:mt-8 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300 ">
+      <div className="md:scrollable-div max-h-[90vh]  md:max-h-[70vh] mt-4 md:mt-8 overflow-y-auto scrollbar-custom-width scrollbar-thumb-gray-500 scrollbar-track-gray-300 ">
         <div className="border-t-[1px] font-semibold border-[#282828]"></div>
         <h1 className=" border-[#aeaeae] py-2 mt-4 font-semibold text-[#d5d5d5] text-sm">
           FOLLOWING
