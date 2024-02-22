@@ -13,9 +13,13 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 /* Other styles */
-.scrollbar-thin {
-  scrollbar-width: thin;
+
+
+
+.scrollbar-custom-width::-webkit-scrollbar {
+  width: 4px; /* Adjust as needed for WebKit browsers */
 }
+
 
 .scrollbar-thumb-zinc-500 {
   scrollbar-color: #d1d5db #6b7280; /* Adjust colors */
