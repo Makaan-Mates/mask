@@ -56,7 +56,7 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
 
   const handelInfiniteScroll = async () => {
     try {
-      const threshold = 200; // Adjust this value as needed
+      const threshold = 200; 
       if (
         window.innerHeight + document.documentElement.scrollTop + threshold >=
         document.documentElement.scrollHeight
@@ -78,17 +78,15 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
     setSelectedFilter("Trending");
   };
 
-  // Add a new handler for the Latest filter
+  //handler for the Latest filter
   const handleLatestSort = () => {
-    // Add your sorting logic here
     setIsTrending(false);
     setDisplayFilterCategory(false);
     setSelectedFilter("Latest");
   };
 
-  // Add a new handler for the Top Voted filter
+  //handler for the Top Voted filter
   const handleTopVotedSort = () => {
-    // Add your sorting logic here
     setDisplayFilterCategory(false);
     setSelectedFilter("Top Voted");
   };
@@ -104,7 +102,7 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
 
   const handleScroll = () => {
     const currentScrollPosition =
-      window.pageYOffset || document.documentElement.scrollTop;
+      window.scrollY || document.documentElement.scrollTop;
     if (currentScrollPosition < lastScrollPosition) {
       // Scrolling UP
       setShowIcon(true);
@@ -119,6 +117,7 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollPosition]);
+
 
   return (
     <div className="relative shrink w-full md:w-4/5 lg:w-4/6 xl:w-4/5 px-5 py-4 sm:py-8   bg-[#161616]">
@@ -161,11 +160,11 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
         </div>
       </div>
       <div className="postcards w-full flex flex-wrap py-5 ">
-        {card.length === 0
+        {Array.isArray(card) && card?.length === 0
           ? Array(10)
               .fill()
               .map((_, i) => <ShimmerPostCard key={i} />)
-          : card.map((post) => (
+          : Array.isArray(card) && card?.map((post) => (
               <PostCard
                 key={post._id}
                 postid={post._id}

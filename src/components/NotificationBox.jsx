@@ -137,6 +137,7 @@ const NotificationBox = ({ socket }) => {
 
           <div className="mt-2 p-2 overflow-y-auto">
             {filteredNotifications &&
+            Array.isArray(filteredNotifications) &&
               filteredNotifications?.map((notification) => {
                 return (
                   <div

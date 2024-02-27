@@ -70,7 +70,7 @@ const CommentSection = ({ commentPosted,socket,senderName,postData }) => {
         </div>
       )}
 
-      {comments &&
+      {comments && Array.isArray(comments) && 
         comments
           ?.toReversed()
           .map(
