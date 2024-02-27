@@ -7,13 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { IoIosArrowBack } from "react-icons/io";
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 
 const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
   const navigate = useNavigate();
   const { userInfo, loading } = useFetchUser();
   const dispatch = useDispatch();
-  const activeTopic = useSelector((state) => state.posts.data.topic)
+  const activeTopic = useSelector((state) => state.posts.data.topic);
   const [selectedTopic, setSelectedTopic] = useState(null);
 
   const handleTopicSelection = (selectedTopic) => {
@@ -23,7 +23,6 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
     hideAsideBar();
   };
 
-
   const handleToggleEvent = () => {
     dispatch(displayAddPostCard());
   };
@@ -32,7 +31,7 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
 
   const { topicsFollowing = [] } = userInfo || {};
 
-  const exploreMoreTopics = allTopics.filter(
+  const exploreMoreTopics = allTopics?.filter(
     (topic) =>
       !topicsFollowing.some(
         (followedTopic) => followedTopic.name === topic.name
@@ -58,10 +57,13 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
           {" "}
           Topics
         </span>
-        <IoIosArrowBack onClick={hideAsideBar} className="text-2xl text-[#313131] md:hidden mt-3 animate-bounce-x" />
+        <IoIosArrowBack
+          onClick={hideAsideBar}
+          className="text-2xl text-[#313131] md:hidden mt-3 animate-bounce-x"
+        />
       </div>
 
-      <div className="md:scrollable-div max-h-[90vh]  md:max-h-[70vh] mt-4 md:mt-8 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300 ">
+      <div className=" overflow-y-auto max-h-[90vh]  md:max-h-[70vh] mt-4 md:mt-8  scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300 ">
         <div className="border-t-[1px] font-semibold border-[#282828]"></div>
         <h1 className=" border-[#aeaeae] py-2 mt-4 font-semibold text-[#d5d5d5] text-sm">
           FOLLOWING
@@ -75,10 +77,11 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
           </div>
         ) : (
           <div className="text-[#9B9B9B] text-sm ">
-            {topicsFollowing.map((topic) => (
+            {Array.isArray(topicsFollowing) && topicsFollowing.map((topic) => (
               <div
-                className={`hover:text-white w-fit px-4 py-2 rounded-lg ${topic.name === activeTopic ? "bg-[#282828] " : ""
-                  }`}
+                className={`hover:text-white w-fit px-4 py-2 rounded-lg ${
+                  topic.name === activeTopic ? "bg-[#282828] " : ""
+                }`}
                 key={topic.id}
               >
                 <button onClick={() => handleTopicSelection(topic.name)}>
@@ -106,8 +109,9 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
         ) : (
           exploreMoreTopics.map((moreTopic) => (
             <div
-              className={`text-[#9B9B9B] w-fit px-4 text-sm py-2 rounded-lg ${moreTopic.name === activeTopic ? "bg-[#2B2B2B]" : ""
-                }`}
+              className={`text-[#9B9B9B] w-fit px-4 text-sm py-2 rounded-lg ${
+                moreTopic.name === activeTopic ? "bg-[#2B2B2B]" : ""
+              }`}
               key={moreTopic.id}
             >
               <button
