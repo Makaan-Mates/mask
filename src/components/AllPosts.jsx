@@ -120,7 +120,7 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
 
 
   return (
-    <div className="relative shrink w-full  md:w-4/5 lg:w-4/6 xl:w-4/5 px-5 py-4 sm:py-8   bg-[#161616]">
+    <div className="relative shrink w-full md:w-4/5 lg:w-4/6 xl:w-4/5 px-5 py-4 sm:py-8   bg-[#161616]">
       <div className="w-full flex items-center justify-between pb-5  sm:pb-11 border-b-[1px] border-[#282828]">
         <h1 className="text-lg sm:text-2xl font-semibold text-[#F6F6F6]">
           {topicFromStore === "home" ? `All Posts` : topicFromStore}

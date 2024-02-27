@@ -63,7 +63,8 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
         />
       </div>
 
-      <div className=" overflow-y-auto max-h-[90vh]  md:max-h-[70vh] mt-4 md:mt-8  scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300 ">
+
+      <div className="md:scrollable-div max-h-[90vh]  md:max-h-[70vh] mt-4 md:mt-8 overflow-y-auto scrollbar-custom-width scrollbar-thumb-gray-500 scrollbar-track-gray-300 ">
         <div className="border-t-[1px] font-semibold border-[#282828]"></div>
         <h1 className=" border-[#aeaeae] py-2 mt-4 font-semibold text-[#d5d5d5] text-sm">
           FOLLOWING
