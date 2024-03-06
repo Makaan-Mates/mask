@@ -50,7 +50,7 @@ const Register = () => {
 
   const loginGuest = async (e) => {
     e.preventDefault();
-    const data = await fetch("http://localhost:4000/guest_login", {
+    const data = await fetch("https://mask-backend.up.railway.app/guest_login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
