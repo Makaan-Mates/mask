@@ -39,30 +39,32 @@ const NotificationBox = ({ socket }) => {
   //socket.io client
   useEffect(() => {
     const fetchNotifications = async () => {
-      const token = localStorage.getItem("token");
-      try {
-        const data = await fetch(
-          `https://mask-backend.up.railway.app/api/notification`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const json = await data.json();
-        // console.log(json);
-        setNotifications(json);
-      } catch (error) {
-        console.error("Failed to fetch notifications:", error);
+      if (localStorage.getItem("isGuest") !== "true") {
+        const token = localStorage.getItem("token");
+        try {
+          const data = await fetch(
+            `https://mask-backend.up.railway.app/api/notification`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const json = await data.json();
+          // console.log(json);
+          setNotifications(json);
+        } catch (error) {
+          console.error("Failed to fetch notifications:", error);
+        }
       }
-    };
-    fetchNotifications();
+      fetchNotifications();
 
-    socket?.on("getNotification", (data) => {
-      setNotifications((prev) => [...prev, data]);
-    });
+      socket?.on("getNotification", (data) => {
+        setNotifications((prev) => [...prev, data]);
+      });
+    };
   }, [socket, notifications]);
 
   // console.log("Notification fetched", notifications);
@@ -92,9 +94,11 @@ const NotificationBox = ({ socket }) => {
 
   const message = localStorage.getItem("broadcastMessage");
 
-  const filteredNotifications = notifications?.filter(
-    (notification) => notification?.senderName !== notification?.receiverName
-  );
+  const filteredNotifications =
+    Array.isArray(notifications) &&
+    notifications?.filter(
+      (notification) => notification?.senderName !== notification?.receiverName
+    );
 
   return (
     <div ref={notificationRef} className="">
@@ -137,7 +141,7 @@ const NotificationBox = ({ socket }) => {
 
           <div className="mt-2 p-2 overflow-y-auto">
             {filteredNotifications &&
-            Array.isArray(filteredNotifications) &&
+              Array.isArray(filteredNotifications) &&
               filteredNotifications?.map((notification) => {
                 return (
                   <div

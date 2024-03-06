@@ -4,6 +4,7 @@ import { useFetchUser } from "../custom-hooks/useFetchUser";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { totalPostBookMarks } from "../features/counterSlice";
+import { toast } from "react-toastify";
 
 const BookmarkButton = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -15,7 +16,7 @@ const BookmarkButton = () => {
   const updateBookmark = async () => {
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `https://mask-backend.up.railway.app/api/user/bookmark/${postid}`,
+      `http://localhost:4000/api/user/bookmark/${postid}`,
       {
         method: "POST",
         headers: {
@@ -31,7 +32,7 @@ const BookmarkButton = () => {
 
   const getUserDetails = async () => {
     const data = await fetch(
-      `https://mask-backend.up.railway.app/api/post/bookmark/${postid}`
+      `http://localhost:4000/api/post/bookmark/${postid}`
     );
     const json = await data.json();
     setPostDetails(json);
@@ -48,6 +49,11 @@ const BookmarkButton = () => {
   }, [loading, isBookmarked]);
 
   const handleBookmarkClick = () => {
+    if (localStorage.getItem("isGuest") === "true") {
+      toast("Please Login with college email to save post.", {
+        className: "bg-[#161616]",
+      });
+    }
     updateBookmark();
   };
 

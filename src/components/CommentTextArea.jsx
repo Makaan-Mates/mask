@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 const CommentTextArea = ({
   isReplySection,
@@ -14,15 +15,23 @@ const CommentTextArea = ({
   senderName,
   postData,
   notificationAction,
-  receiverName
+  receiverName,
 }) => {
   const { postid } = useParams();
   const comment = useRef();
 
   const handlePublishComment = async (e) => {
+    if (localStorage.getItem("isGuest") === "true") {
+      toast("Please Login with college email to comment.", {
+        className: "bg-[#161616]",
+      });
+      return;
+    }
     socket?.emit("sendNotification", {
       senderName: senderName,
-      receiverName: isReplySection ? receiverName : postData?.postDetails?.user_id?.username,
+      receiverName: isReplySection
+        ? receiverName
+        : postData?.postDetails?.user_id?.username,
       postId: postData?.postDetails?._id,
       postTitle: postData?.postDetails?.title,
       notificationAction: notificationAction,
@@ -31,7 +40,7 @@ const CommentTextArea = ({
     e.preventDefault();
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `https://mask-backend.up.railway.app/post/comment?isReplySection=${isReplySection}`,
+      `http://localhost:4000/post/comment?isReplySection=${isReplySection}`,
       {
         method: "POST",
         headers: {

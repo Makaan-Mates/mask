@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
 import ShimmerPostDetail from "./ShimmerPostDetail";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 const PostDetail = ({ postEdited, socket, senderName }) => {
   const navigate = useNavigate();
@@ -50,35 +51,30 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
 
   const fetchPostDetails = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(
-      `https://mask-backend.up.railway.app/api/post/${postid}`,
-      {
-        method: "GET",
-        headers: {
-          "CONTENT-TYPE": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const data = await fetch(`http://localhost:4000/api/post/${postid}`, {
+      method: "GET",
+      headers: {
+        "CONTENT-TYPE": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-    const json = await data.json();
+    const json = await data?.json();
     setPostData(json);
+    console.log(json);
     setIsLoading();
     // setIsLoading(false)  ??
   };
 
   const incrementViewCount = async () => {
     const token = localStorage.getItem("token");
-    await fetch(
-      `https://mask-backend.up.railway.app/api/post/${postid}/views`,
-      {
-        method: "PUT",
-        headers: {
-          "CONTENT-TYPE": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    await fetch(`http://localhost:4000/api/post/${postid}/views`, {
+      method: "PUT",
+      headers: {
+        "CONTENT-TYPE": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   useEffect(() => {
@@ -128,6 +124,8 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
     await deletePost();
     navigate("/home ");
   };
+
+  console.log("userInfo", userInfo);
 
   if (!userInfo) {
     return <ShimmerPostDetail />;
