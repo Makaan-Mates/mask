@@ -14,12 +14,9 @@ textarea::-webkit-scrollbar-thumb {
 
 /* Other styles */
 
-
-
 .scrollbar-custom-width::-webkit-scrollbar {
   width: 4px; /* Adjust as needed for WebKit browsers */
 }
-
 
 .scrollbar-thumb-zinc-500 {
   scrollbar-color: #d1d5db #6b7280; /* Adjust colors */
@@ -66,7 +63,6 @@ textarea::-webkit-scrollbar-thumb {
 .scrollable-div::-moz-scrollbar-track {
   background-color: #1c1c1c;
 }
-
 
 /* global-styles.css */
 

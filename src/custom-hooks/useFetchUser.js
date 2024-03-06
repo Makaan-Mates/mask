@@ -16,7 +16,7 @@ export const useFetchUser = () => {
 
   const fetchUser = async () => {
     const token = localStorage.getItem('token')
-    const data = await fetch('https://mask-backend.up.railway.app/api/home', {
+    const data = await fetch('http://localhost:4000/api/home', {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',

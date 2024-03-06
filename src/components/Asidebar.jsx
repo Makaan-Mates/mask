@@ -8,6 +8,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { IoIosArrowBack } from "react-icons/io";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
   const navigate = useNavigate();
@@ -24,7 +25,13 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
   };
 
   const handleToggleEvent = () => {
-    dispatch(displayAddPostCard());
+    if (localStorage.getItem("isGuest") !== "true") {
+      dispatch(displayAddPostCard());
+    } else {
+      toast("Please Login with college email to post on mask.", {
+        className: "bg-[#161616]",
+      });
+    }
   };
 
   const allTopics = topics;
@@ -63,7 +70,6 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
         />
       </div>
 
-
       <div className="md:scrollable-div max-h-[90vh]  md:max-h-[70vh] mt-4 md:mt-8 overflow-y-auto scrollbar-custom-width scrollbar-thumb-gray-500 scrollbar-track-gray-300 ">
         <div className="border-t-[1px] font-semibold border-[#282828]"></div>
         <h1 className=" border-[#aeaeae] py-2 mt-4 font-semibold text-[#d5d5d5] text-sm">
@@ -78,18 +84,36 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
           </div>
         ) : (
           <div className="text-[#9B9B9B] text-sm ">
-            {Array.isArray(topicsFollowing) && topicsFollowing.map((topic) => (
-              <div
-                className={`hover:text-white w-fit px-4 py-2 rounded-lg ${
-                  topic.name === activeTopic ? "bg-[#282828] " : ""
-                }`}
-                key={topic.id}
-              >
-                <button onClick={() => handleTopicSelection(topic.name)}>
-                  {topic.name}
-                </button>
-              </div>
-            ))}
+            {localStorage.getItem("isGuest") === "true" && (
+              <>
+                <div
+                  className={`hover:text-[#d1d1d1]  bg-[#292929] w-fit px-4 py-2 rounded-lg `}
+                  key={1}
+                >
+                  <button
+                    onClick={() => {
+                      navigate("/login");
+                      localStorage.removeItem("isGuest");
+                    }}
+                  >
+                    Login to follow topics
+                  </button>
+                </div>
+              </>
+            )}
+            {Array.isArray(topicsFollowing) &&
+              topicsFollowing.map((topic) => (
+                <div
+                  className={`hover:text-white w-fit px-4 py-2 rounded-lg ${
+                    topic.name === activeTopic ? "bg-[#282828] " : ""
+                  }`}
+                  key={topic.id}
+                >
+                  <button onClick={() => handleTopicSelection(topic.name)}>
+                    {topic.name}
+                  </button>
+                </div>
+              ))}
           </div>
         )}
 

@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { displayAddPostCard } from "../features/addPostCardSlice";
 import { FiPlus } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 const AllPosts = ({ reloadPosts, page, setPage }) => {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
 
   const handelInfiniteScroll = async () => {
     try {
-      const threshold = 200; 
+      const threshold = 200;
       if (
         window.innerHeight + document.documentElement.scrollTop + threshold >=
         document.documentElement.scrollHeight
@@ -92,6 +93,13 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
   };
 
   const handleToggleEvent = () => {
+    if (localStorage.getItem("isGuest") === "true") {
+      toast("Login to add a post", {
+        position: "top-center",
+        className: "bg-[#161616]",
+      });
+      return;
+    }
     dispatch(displayAddPostCard());
   };
 
@@ -117,7 +125,6 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollPosition]);
-
 
   return (
     <div className="relative shrink w-full md:w-4/5 lg:w-4/6 xl:w-4/5 px-5 py-4 sm:py-8   bg-[#161616]">
@@ -164,7 +171,8 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
           ? Array(10)
               .fill()
               .map((_, i) => <ShimmerPostCard key={i} />)
-          : Array.isArray(card) && card?.map((post) => (
+          : Array.isArray(card) &&
+            card?.map((post) => (
               <PostCard
                 key={post._id}
                 postid={post._id}
