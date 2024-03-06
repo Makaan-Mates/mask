@@ -40,7 +40,7 @@ const CommentTextArea = ({
     e.preventDefault();
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `http://localhost:4000/post/comment?isReplySection=${isReplySection}`,
+      `https://mask-backend.up.railway.app/post/comment?isReplySection=${isReplySection}`,
       {
         method: "POST",
         headers: {
