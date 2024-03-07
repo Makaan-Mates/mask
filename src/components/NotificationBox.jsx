@@ -67,7 +67,7 @@ const NotificationBox = ({ socket }) => {
     };
   }, [socket, notifications]);
 
-  // console.log("Notification fetched", notifications);
+  //console.log("Notification fetched", notifications);
 
   const handleClearNotifications = async () => {
     localStorage.setItem("broadcastMessage", "shadev");

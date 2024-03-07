@@ -164,16 +164,16 @@ const CommentCard = ({
       {replies &&
         Array.isArray(replies) &&
         replies.map((reply) => (
-          <div key={reply._id} className=" md:ml-2">
+          <div key={reply?._id} className=" md:ml-2">
             <CommentCard
-              content={reply.content}
-              commentId={reply._id}
-              replyId={reply._id}
+              content={reply?.content}
+              commentId={reply?._id}
+              replyId={reply?._id}
               filteredComments={filteredComments}
-              username={reply.user_id.username}
+              username={reply?.user_id?.username}
               setReplyPosted={setReplyPosted}
               replyPosted={replyPosted}
-              userid={reply.user_id._id}
+              userid={reply?.user_id?._id}
               setCommentDeleted={setCommentDeleted}
               commentDeleted={commentDeleted}
               customStyleReplies={true}

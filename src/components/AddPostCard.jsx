@@ -19,9 +19,11 @@ const AddPostCard = ({
   setReloadPosts,
   setPostEdited,
   postEdited,
-  reloadPosts,
+  reloadPosts
 }) => {
+
   const dispatch = useDispatch();
+  const { userInfo } = useFetchUser();
   const showEditPostCard = useSelector(
     (state) => state.addPost.displayEditMode
   );
@@ -56,7 +58,7 @@ const AddPostCard = ({
 
   const handlePublishPost = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch("https://mask-backend.up.railway.app/post", {
+    const data = await fetch("http://localhost:4000/post", {
       method: "POST",
       headers: {
         "CONTENT-TYPE": "application/json",
@@ -101,6 +103,23 @@ const AddPostCard = ({
     label: topic.name,
   }));
 
+
+  const { topicsFollowing } = userInfo || {};
+  console.log(typeof topicsFollowing);
+
+  
+  const followedTopics = options.filter((option) => {
+    topicsFollowing?.some((followedtopic) => followedtopic === option.label);
+  });
+
+
+  const nonFollowedTopics = options.filter(
+    (option) => !topicsFollowing?.includes(option.label)
+  );
+ 
+  const sortedOptions = followedTopics?.concat(nonFollowedTopics);
+  console.log(sortedOptions);
+
   return (
     <>
       <div
@@ -116,10 +135,8 @@ const AddPostCard = ({
         <Select
           className="rounded-md w-full text-base sm:text-xl   bg-[#1C1C1C] border-[0.5px] border-[#282828] "
           options={options}
-          defaultValue={options.find(
-            (option) => option?.label === initialTopic
-          )}
-          onChange={(selectedOption) => setSelectedTopic(selectedOption)}
+          defaultValue={options.find((option) => option?.label === initialTopic)}
+          onChange={selectedOption => setSelectedTopic(selectedOption)}
           styles={{
             option: (provided, state) => ({
               ...provided,

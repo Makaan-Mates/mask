@@ -79,7 +79,7 @@ const CommentSection = ({ commentPosted, socket, senderName, postData }) => {
               comment.parentId === null && (
                 <CommentCard
                   key={comment?._id}
-                  commentId={comment._id}
+                  commentId={comment?._id}
                   content={comment?.content}
                   postid={postid}
                   filteredComments={comments}
