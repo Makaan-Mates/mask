@@ -77,13 +77,13 @@ const CommentSection = ({ commentPosted,socket,senderName,postData }) => {
             (comment) =>
               comment.parentId === null && (
                 <CommentCard
-                  key={comment._id}
-                  commentId={comment._id}
-                  content={comment.content}
+                  key={comment?._id}
+                  commentId={comment?._id}
+                  content={comment?.content}
                   postid={postid}
                   filteredComments={comments}
-                  username={comment.user_id.username}
-                  totalcomments={comments.length}
+                  username={comment?.user_id?.username}
+                  totalcomments={comments?.length}
                   setReplyPosted={setReplyPosted}
                   replyPosted={replyPosted}
                   userid={comment?.user_id?._id}
@@ -92,7 +92,7 @@ const CommentSection = ({ commentPosted,socket,senderName,postData }) => {
                   socket={socket}
                   senderName={senderName}
                   postData={postData}
-                  receiverName={comment.user_id.username}
+                  receiverName={comment?.user_id?.username}
                 />
               )
           )}
