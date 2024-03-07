@@ -40,11 +40,13 @@ const Home = () => {
     }
   }, [isPostDetail]);
 
-  //socket.io client
   useEffect(() => {
-    const newSocket = io("https://mask-backend.up.railway.app");
-    console.log(`Socket connection established`, newSocket);
-    setSocket(newSocket);
+    // Check if not logged in as a guest
+    if (localStorage.getItem("isGuest") !== "true") {
+      const newSocket = io("https://mask-backend.up.railway.app");
+      console.log(`Socket connection established`, newSocket);
+      setSocket(newSocket);
+    }
   }, []);
 
   useEffect(() => {
@@ -77,7 +79,7 @@ const Home = () => {
           showAddPostCard || showEditPostCard || showSearchBar ? "blur-md" : ""
         }`}
       >
-        <Header socket={socket}  />
+        <Header socket={socket} />
         <div className="flex  ">
           <Asidebar />
           {isAllPosts && (
@@ -87,7 +89,7 @@ const Home = () => {
             <PostDetail
               postEdited={postEdited}
               socket={socket}
-              senderName={userInfo && userInfo?.username  }
+              senderName={userInfo && userInfo?.username}
             />
           )}
         </div>

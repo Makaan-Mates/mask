@@ -16,6 +16,7 @@ import Asidebar from "./Asidebar";
 import PropTypes from "prop-types";
 import NotificationBox from "./NotificationBox";
 import { GrHomeRounded } from "react-icons/gr";
+import { toast } from "react-toastify";
 
 const Header = ({ socket }) => {
   const navigate = useNavigate();
@@ -53,10 +54,17 @@ const Header = ({ socket }) => {
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("isGuest");
     navigate("/login");
   };
 
   const handleToggleEvent = () => {
+    if (localStorage.getItem("isGuest") === "true") {
+      toast("Please Login with college email to post on mask.", {
+        className: "bg-[#161616]",
+      });
+      return;
+    }
     dispatch(displayAddPostCard());
   };
   const handleNavigateHome = () => {
@@ -66,9 +74,21 @@ const Header = ({ socket }) => {
   };
 
   const handleProfile = () => {
+    if (localStorage.getItem("isGuest") === "true") {
+      toast("Please Login with college email to view profile", {
+        className: "bg-[#161616]",
+      });
+      return;
+    }
     navigate("/profile/");
   };
   const handleBookMarks = () => {
+    if (localStorage.getItem("isGuest") === "true") {
+      toast("Please Login with college email to view bookmarks", {
+        className: "bg-[#161616]",
+      });
+      return;
+    }
     navigate("/user/bookmarks");
   };
   const handleFeedback = () => {
@@ -175,44 +195,57 @@ const Header = ({ socket }) => {
           onClick={handleToggleEvent}
           className="  text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF] "
         />
-        <div
-          className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]"
-          onClick={toggleDropdown}
-        >
-          <FaRegUserCircle />
-          {showDropdown && (
-            <div
-              ref={hideProfileref}
-              className="absolute top-10 -right-14 text-base w-40 h-auto flex flex-col items-center rounded-lg bg-[#1C1C1C] overflow-hidden "
-            >
-              <span
-                onClick={handleProfile}
-                className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer"
+        {localStorage.getItem("isGuest") === "true" ? (
+          <div
+            onClick={() => {
+              navigate("/login");
+              localStorage.removeItem("isGuest");
+            }}
+            className="text-lg flex gap-1 items-center cursor-pointer transition-transform transform hover:text-[#FFFFFF] rounded-2xl border-[1px] border-[#d1d1d1] px-2 py-[0.5px] hover:border-[#FFFFFF]"
+          >
+            <FaRegUserCircle />
+            <span className=" whitespace-nowrap"> Sign in</span>
+          </div>
+        ) : (
+          <div
+            className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]"
+            onClick={toggleDropdown}
+          >
+            <FaRegUserCircle />
+            {showDropdown && (
+              <div
+                ref={hideProfileref}
+                className="absolute top-10 -right-14 text-base w-40 h-auto flex flex-col items-center rounded-lg bg-[#1C1C1C] overflow-hidden "
               >
-                <FaRegUserCircle className="mr-1" />
-                Profile
-              </span>
-              <span
-                onClick={handleBookMarks}
-                className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer"
-              >
-                <FaRegBookmark className="mr-1" />
-                Bookmarks
-              </span>
-              <span className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer">
-                <TbActivityHeartbeat className="mr-1" />
-                Activity
-              </span>
-              <span
-                onClick={handleLogOut}
-                className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#9B9B9B] hover:bg-[#982c2c] hover:text-white cursor-pointer text-lg"
-              >
-                <TbLogout2 className="mr-1" />
-                Logout
-              </span>
-            </div>
-          )}
-        </div>
+                <span
+                  onClick={handleProfile}
+                  className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer"
+                >
+                  <FaRegUserCircle className="mr-1" />
+                  Profile
+                </span>
+                <span
+                  onClick={handleBookMarks}
+                  className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer"
+                >
+                  <FaRegBookmark className="mr-1" />
+                  Bookmarks
+                </span>
+                <span className="w-full h-9 flex justify-center items-center px-2 py-2 text-center font-semibold  bg-[#292929] text-[#9B9B9B] hover:bg-[#2e2e2e] cursor-pointer">
+                  <TbActivityHeartbeat className="mr-1" />
+                  Activity
+                </span>
+                <span
+                  onClick={handleLogOut}
+                  className="w-full h-10 flex justify-center items-center px-2 py-2 text-center font-semibold border-[1px] border-[#1B1B1B] bg-[#292929] text-[#9B9B9B] hover:bg-[#982c2c] hover:text-white cursor-pointer text-lg"
+                >
+                  <TbLogout2 className="mr-1" />
+                  Logout
+                </span>
+              </div>
+            )}
+          </div>
+        )}
         <NotificationBox socket={socket} />
         <MdFeedback
           onClick={handleFeedback}

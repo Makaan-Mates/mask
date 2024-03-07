@@ -46,6 +46,25 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+  const loginGuest = async (e) => {
+    e.preventDefault();
+    const data = await fetch("https://mask-backend.up.railway.app/guest_login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const response = await data.json();
+    localStorage.setItem("token", response.token);
+    console.log(response);
+    localStorage.setItem("isGuest", "true");
+    if (response.message === "Guest login successful") {
+      navigate("/home");
+    } else {
+      setErrorMessage(response.message);
+    }
+  };
+
   return (
     <div className=" h-[100vh] flex justify-center items-center ">
       <div className=" bg-[#f4f4f4] p-8 2xs:w-[90%] xs:w-[90%] md:w-3/4 sm:w-2/3 2xl:w-[28%] lg:w-2/6 h-auto rounded shadow-md mt-10  text-[#1c1c1c]">
@@ -104,6 +123,12 @@ const Login = () => {
           className="w-full bg-zinc-800 text-white my-4 rounded py-2 px-4 hover:bg-zinc-900 transition duration-300"
         >
           Login
+        </button>
+        <button
+          onClick={loginGuest}
+          className="w-full bg-blue-800 text-white my-4 rounded py-2 px-4 hover:bg-blue-900 transition duration-300"
+        >
+          Login as Guest
         </button>
         <a
           className="mt-5 hover:underline hover:text-blue-900"

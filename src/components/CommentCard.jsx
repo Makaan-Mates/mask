@@ -162,6 +162,7 @@ const CommentCard = ({
       )}
 
       {replies &&
+        Array.isArray(replies) &&
         replies.map((reply) => (
           <div key={reply?._id} className=" md:ml-2">
             <CommentCard

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { BiUpvote, BiSolidUpvote } from "react-icons/bi";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 const UpvoteContainer = ({
   type,
@@ -11,13 +12,10 @@ const UpvoteContainer = ({
   postData,
   notificationAction,
   receiverName,
-  
 }) => {
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [postDetails, setPostDetails] = useState();
   const { userInfo, loading } = useFetchUser();
-
-
 
   const updateUpvoteCounter = async () => {
     const token = localStorage.getItem("token");
@@ -50,11 +48,19 @@ const UpvoteContainer = ({
   }, [loading, isUpvoted, type, id, userInfo, setPostDetails, setIsUpvoted]);
 
   const handleClick = () => {
+    if (localStorage.getItem("isGuest") === "true") {
+      toast("Please Login with college email to upvote.", {
+        className: "bg-[#161616]",
+      });
+    }
     updateUpvoteCounter();
     if (postData && senderName) {
       socket?.emit("sendNotification", {
         senderName: senderName,
-        receiverName: type==="post"? postData?.postDetails?.user_id?.username : receiverName,
+        receiverName:
+          type === "post"
+            ? postData?.postDetails?.user_id?.username
+            : receiverName,
         postId: postData?.postDetails?._id,
         postTitle: postData?.postDetails?.title,
         notificationAction: notificationAction,

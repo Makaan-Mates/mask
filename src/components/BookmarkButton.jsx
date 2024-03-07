@@ -4,6 +4,7 @@ import { useFetchUser } from "../custom-hooks/useFetchUser";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { totalPostBookMarks } from "../features/counterSlice";
+import { toast } from "react-toastify";
 
 const BookmarkButton = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -48,6 +49,11 @@ const BookmarkButton = () => {
   }, [loading, isBookmarked]);
 
   const handleBookmarkClick = () => {
+    if (localStorage.getItem("isGuest") === "true") {
+      toast("Please Login with college email to save post.", {
+        className: "bg-[#161616]",
+      });
+    }
     updateBookmark();
   };
 
