@@ -163,7 +163,7 @@ const CommentCard = ({
 
       {replies &&
         replies.map((reply) => (
-          <div key={reply._id} className=" md:ml-2">
+          <div key={reply?._id} className=" md:ml-2">
             <CommentCard
               content={reply?.content}
               commentId={reply?._id}
