@@ -39,13 +39,11 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
   const { topicsFollowing = [] } = userInfo || {};
 
   const exploreMoreTopics = allTopics?.filter(
-
     (topic) =>
       !topicsFollowing.some(
         (followedTopic) => followedTopic.name === topic.name
       )
   );
-  console.log(exploreMoreTopics)
 
   const customstyle = customStyleAsidebarMobile
     ? "w-[65%] h-[100vh] absolute top-0 left-0 px-2 flex flex-col   z-50 "
