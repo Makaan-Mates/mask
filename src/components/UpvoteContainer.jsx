@@ -16,10 +16,11 @@ const UpvoteContainer = ({
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [postDetails, setPostDetails] = useState();
   const { userInfo, loading } = useFetchUser();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const updateUpvoteCounter = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`https://mask-backend.up.railway.app/api/${type}/upvote/${id}`, {
+    const data = await fetch(`${apiUrl}/api/${type}/upvote/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +35,7 @@ const UpvoteContainer = ({
   useEffect(() => {
     const getPostDetails = async () => {
       const data = await fetch(
-        `https://mask-backend.up.railway.app/api/${type}/upvote/${id}`
+        `${apiUrl}/api/${type}/upvote/${id}`
       );
       const json = await data.json();
       // console.log(json);

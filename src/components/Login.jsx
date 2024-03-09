@@ -6,6 +6,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (errorMessage) {
@@ -22,7 +23,7 @@ const Login = () => {
 
   const loginUser = async (e) => {
     e.preventDefault();
-    const data = await fetch("https://mask-backend.up.railway.app/login", {
+    const data = await fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +49,7 @@ const Login = () => {
 
   const loginGuest = async (e) => {
     e.preventDefault();
-    const data = await fetch("https://mask-backend.up.railway.app/guest_login", {
+    const data = await fetch(`${apiUrl}/guest_login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

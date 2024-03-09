@@ -16,6 +16,7 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
   const dispatch = useDispatch();
   const activeTopic = useSelector((state) => state.posts.data.topic);
   const [selectedTopic, setSelectedTopic] = useState(null);
+ 
 
   const handleTopicSelection = (selectedTopic) => {
     dispatch(filterByTopic(selectedTopic));

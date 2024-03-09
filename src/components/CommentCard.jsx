@@ -28,6 +28,8 @@ const CommentCard = ({
   const [isReplySection, setIsReplySection] = useState(false);
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const { userInfo, loading } = useFetchUser();
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const handleCommentReply = () => {
     setDisplayReplyTextArea(!displayReplyTextArea);
     setIsReplySection(true);
@@ -37,7 +39,7 @@ const CommentCard = ({
     const token = localStorage.getItem("token");
 
     const data = await fetch(
-      `https://mask-backend.up.railway.app/api/comment/delete/${commentId}`,
+      `${apiUrl}/api/comment/delete/${commentId}`,
       {
         method: "DELETE",
         headers: {

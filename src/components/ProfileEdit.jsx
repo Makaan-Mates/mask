@@ -14,12 +14,13 @@ const ProfileEdit = () => {
   const username = useRef();
   const [usernamEdited, setUsernameEdited] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleEditProfile = async () => {
     try {
       const token = localStorage.getItem("token");
       const data = await fetch(
-        `https://mask-backend.up.railway.app/api/profile/edit/${userId}`,
+        `${apiUrl}/api/profile/edit/${userId}`,
         {
           method: "POST",
           headers: {

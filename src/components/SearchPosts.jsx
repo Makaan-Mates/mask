@@ -16,6 +16,7 @@ const SearchPosts = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   //fetch SearchResults
   useEffect(() => {
@@ -24,7 +25,7 @@ const SearchPosts = () => {
       if (searchQuery) {
         try {
           const response = await axios.get(
-            `https://mask-backend.up.railway.app/api/searchposts/${searchQuery}`
+            `${apiUrl}/api/searchposts/${searchQuery}`
           );
           setSearchResults(response.data.message);
         } catch (error) {

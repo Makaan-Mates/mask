@@ -10,6 +10,8 @@ const NotificationBox = ({ socket }) => {
   const [broadcastMessage, setBroadcastMessage] = useState(
     "🎉 We just shipped notification feature, check it out! "
   );
+  const apiUrl = import.meta.env.VITE_API_URL;
+
 
   const notificationRef = useRef(null);
 
@@ -43,7 +45,7 @@ const NotificationBox = ({ socket }) => {
         const token = localStorage.getItem("token");
         try {
           const data = await fetch(
-            `https://mask-backend.up.railway.app/api/notification`,
+            `${apiUrl}/api/notification`,
             {
               method: "GET",
               headers: {
@@ -73,7 +75,7 @@ const NotificationBox = ({ socket }) => {
     localStorage.setItem("broadcastMessage", "shadev");
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `https://mask-backend.up.railway.app/api/notification/clear`,
+      `${apiUrl}/api/notification/clear`,
       {
         method: "DELETE",
         headers: {

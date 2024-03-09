@@ -12,6 +12,7 @@ const FeedBack = () => {
   );
   const [feedbackText, setFeedbackText] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const feedback = useRef();
   const handleFeedbackChange = (event) => {
@@ -24,7 +25,7 @@ const FeedBack = () => {
     }
     const token = localStorage.getItem("token");
     const data = await fetch(
-      "https://mask-backend.up.railway.app/api/user/feedback",
+      `${apiUrl}/api/user/feedback`,
       {
         method: "POST",
         headers: {

@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import Select from "react-select";
 import { useState,useEffect, useRef } from "react";
 
+
 const AddPostCard = ({
   initialTitle,
   initialDescription,
@@ -27,6 +28,7 @@ const AddPostCard = ({
   );
 
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const [selectedTopic, setSelectedTopic] = useState(null);
 
@@ -56,7 +58,7 @@ const AddPostCard = ({
 
   const handlePublishPost = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch("https://mask-backend.up.railway.app/post", {
+    const data = await fetch(`${apiUrl}/post`, {
       method: "POST",
       headers: {
         "CONTENT-TYPE": "application/json",
@@ -78,7 +80,7 @@ const AddPostCard = ({
 
   const handleUpdatePost = async () => {
     const token = localStorage.getItem("token");
-    await fetch(`https://mask-backend.up.railway.app/api/post/edit/${postid}`, {
+    await fetch(`${apiUrl}/api/post/edit/${postid}`, {
       method: "POST",
       headers: {
         "CONTENT-TYPE": "application/json",
