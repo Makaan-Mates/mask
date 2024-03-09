@@ -55,7 +55,9 @@ const Header = ({ socket }) => {
   const handleLogOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("isGuest");
-    navigate("/login");
+    setTimeout(() => {
+      window.location.href = "https://masklabs.vercel.app";
+    }, 100);
   };
 
   const handleToggleEvent = () => {
