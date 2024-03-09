@@ -13,12 +13,13 @@ const CommentSection = ({ commentPosted, socket, senderName, postData }) => {
   const [replyPosted, setReplyPosted] = useState(false);
   const dispatch = useDispatch();
   const [commentDeleted, setCommentDeleted] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const fetchComments = async () => {
     setIsLoading(true);
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `https://mask-backend.up.railway.app/comments/?postid=${postid}`,
+      `${apiUrl}/comments/?postid=${postid}`,
       {
         method: "GET",
         headers: {

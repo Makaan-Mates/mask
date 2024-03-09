@@ -26,6 +26,7 @@ const Home = () => {
   const showSearchBar = useSelector((state) => state.addPost.searchPoppedUp);
   const [socket, setSocket] = useState(null);
   const { userInfo } = useFetchUser();
+  const apiUrl = import.meta.env.VITE_API_URL;
   // const senderName = userInfo?.username;
   // console.log(senderName);
 
@@ -43,7 +44,7 @@ const Home = () => {
   useEffect(() => {
     // Check if not logged in as a guest
     if (localStorage.getItem("isGuest") !== "true") {
-      const newSocket = io("https://mask-backend.up.railway.app");
+      const newSocket = io(`${apiUrl}`);
       console.log(`Socket connection established`, newSocket);
       setSocket(newSocket);
     }

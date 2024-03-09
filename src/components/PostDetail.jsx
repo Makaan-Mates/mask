@@ -31,6 +31,7 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
   const totalcomments = filteredCommentsLength;
   const [commentPosted, setCommentPosted] = useState(false);
   const hideeditRef = useRef(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // console.log(senderName);
 
@@ -51,7 +52,7 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
 
   const fetchPostDetails = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(`https://mask-backend.up.railway.app/api/post/${postid}`, {
+    const data = await fetch(`${apiUrl}/api/post/${postid}`, {
       method: "GET",
       headers: {
         "CONTENT-TYPE": "application/json",
@@ -68,7 +69,7 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
 
   const incrementViewCount = async () => {
     const token = localStorage.getItem("token");
-    await fetch(`https://mask-backend.up.railway.app/api/post/${postid}/views`, {
+    await fetch(`${apiUrl}/api/post/${postid}/views`, {
       method: "PUT",
       headers: {
         "CONTENT-TYPE": "application/json",

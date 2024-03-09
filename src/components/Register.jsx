@@ -9,6 +9,8 @@ const Register = () => {
   const username = useRef();
   const email = useRef();
   const password = useRef();
+  const apiUrl = import.meta.env.VITE_API_URL;
+
 
   useEffect(() => {
     if (errorMessage) {
@@ -23,7 +25,7 @@ const Register = () => {
   const registerUser = async (e) => {
     e.preventDefault();
 
-    const data = await fetch("https://mask-backend.up.railway.app/register", {
+    const data = await fetch(`${apiUrl}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +52,7 @@ const Register = () => {
 
   const loginGuest = async (e) => {
     e.preventDefault();
-    const data = await fetch("https://mask-backend.up.railway.app/guest_login", {
+    const data = await fetch(`${apiUrl}/guest_login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -7,11 +7,12 @@ import PostCard from "./PostCard";
 const BookMarkedPosts = () => {
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
   const [bookMarkedPosts, setBookMarkedPosts] = useState();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const fetchBookMarksDetails = async () => {
     const token = localStorage.getItem("token");
     const data = await fetch(
-      "https://mask-backend.up.railway.app/api/user/bookmarks",
+      `${apiUrl}/api/user/bookmarks`,
       {
         method: "GET",
         headers: {

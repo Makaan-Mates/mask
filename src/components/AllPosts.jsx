@@ -21,11 +21,12 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
   const [showIcon, setShowIcon] = useState(true);
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
   const [selectedFilter, setSelectedFilter] = useState("Sort By");
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const fetchAllPosts = async (topicFromStore) => {
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `https://mask-backend.up.railway.app/api/posts?_limit=14&_page=${page}&topic=${topicFromStore}&trending=${isTrending}`,
+      `${apiUrl}/api/posts?_limit=14&_page=${page}&topic=${topicFromStore}&trending=${isTrending}`,
       {
         method: "GET",
         headers: {

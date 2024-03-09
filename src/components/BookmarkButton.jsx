@@ -12,11 +12,12 @@ const BookmarkButton = () => {
   const { userInfo, loading } = useFetchUser();
   const { postid } = useParams();
   const dispatch = useDispatch();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const updateBookmark = async () => {
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `https://mask-backend.up.railway.app/api/user/bookmark/${postid}`,
+      `${apiUrl}/api/user/bookmark/${postid}`,
       {
         method: "POST",
         headers: {
@@ -32,7 +33,7 @@ const BookmarkButton = () => {
 
   const getUserDetails = async () => {
     const data = await fetch(
-      `https://mask-backend.up.railway.app/api/post/bookmark/${postid}`
+      `${apiUrl}/api/post/bookmark/${postid}`
     );
     const json = await data.json();
     setPostDetails(json);

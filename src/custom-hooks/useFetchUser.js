@@ -8,6 +8,7 @@ export const useFetchUser = () => {
   const [userInfo, setUserInfo] = useState(null)
   const [loading, setLoading] = useState(true) 
   const profileEdited = useSelector((state) => state.user.profileEdited)
+  const apiUrl = import.meta.env.VITE_API_URL;
   // console.log(profileEdited)
 
   useEffect(() => {
@@ -16,7 +17,7 @@ export const useFetchUser = () => {
 
   const fetchUser = async () => {
     const token = localStorage.getItem('token')
-    const data = await fetch('https://mask-backend.up.railway.app/api/home', {
+    const data = await fetch(`${apiUrl}/api/home`, {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',

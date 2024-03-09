@@ -19,6 +19,7 @@ const CommentTextArea = ({
 }) => {
   const { postid } = useParams();
   const comment = useRef();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handlePublishComment = async (e) => {
     if (localStorage.getItem("isGuest") === "true") {
@@ -40,7 +41,7 @@ const CommentTextArea = ({
     e.preventDefault();
     const token = localStorage.getItem("token");
     const data = await fetch(
-      `https://mask-backend.up.railway.app/post/comment?isReplySection=${isReplySection}`,
+      `${apiUrl}/post/comment?isReplySection=${isReplySection}`,
       {
         method: "POST",
         headers: {

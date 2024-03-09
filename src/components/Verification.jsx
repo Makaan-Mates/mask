@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Verification = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (errorMessage) {
@@ -36,7 +37,7 @@ const Verification = () => {
 
   const handleVerifyUser = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch("https://mask-backend.up.railway.app/api/verification", {
+    const data = await fetch(`${apiUrl}/api/verification`, {
       method: "POST",
       headers: {
         "CONTENT-TYPE": "application/json",

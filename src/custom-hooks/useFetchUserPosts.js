@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom'
 export const useFetchUserPosts = () => {
   const {userInfo} = useFetchUser()
   const navigate = useNavigate()
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const [userPosts, setUserPosts] = useState([])
   const userId = userInfo?._id
 
   const fetchUserPosts = async () => {
     const token = localStorage.getItem('token')
-    const data = await fetch(`https://mask-backend.up.railway.app/api/posts/user/${userId}`, {
+    const data = await fetch(`${apiUrl}/api/posts/user/${userId}`, {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',

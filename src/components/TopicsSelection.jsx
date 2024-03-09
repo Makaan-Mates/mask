@@ -7,10 +7,11 @@ import { topics } from "../utils/topics";
 const TopicsSelection = () => {
   const navigate = useNavigate();
   const [selectedTopics, setSelectedTopics] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const saveSelectedTopics = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch("https://mask-backend.up.railway.app/topics", {
+    const data = await fetch(`${apiUrl}/topics`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -2,11 +2,12 @@ import { useParams } from 'react-router-dom'
 
 export const useDeletePost = () => {
   const { postid } = useParams()
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const deletePost = async () => {
     const token = localStorage.getItem('token')
     const data = await fetch(
-      `https://mask-backend.up.railway.app/api/post/delete/${postid}`,
+      `${apiUrl}/api/post/delete/${postid}`,
       {
         method: 'DELETE',
         headers: {
