@@ -11,8 +11,11 @@ import Profile from "./Profile";
 import BookMarkedPosts from "./BookMarkedPosts";
 import Verification from "./Verification";
 import FeedBack from "./FeedBack";
+import NotFoundPage from "./NotFoundPage";
 
 const Body = () => {
+
+
   const appRouter = createBrowserRouter([
     {
       path: "/login",
@@ -28,30 +31,37 @@ const Body = () => {
     },
     {
       path: "/",
-      element: <Navigate to="/home"/>
-      },
-      {
-        path:"/post/:postid",
-        element: <Home/>
-      },
-      {
-        path:"/register/topics-to-follow",
-        element: <TopicsSelection/>
-      },{
-        path:"/profile/",
-        element: <Profile/>     },
-        {
-          path:"/user/bookmarks",
-          element: <BookMarkedPosts/>
+      element: <Navigate to="/home" />,
+    },
+    {
+      path: "/post/:postid",
+      element: <Home />,
+    },
+    {
+      path: "/register/topics-to-follow",
+      element: <TopicsSelection />,
+    },
+    {
+      path: "/profile/",
+      element: <Profile />,
+    },
+    {
+      path: "/user/bookmarks",
+      element: <BookMarkedPosts />,
     },
     {
       path: "/verification",
-      element: <Verification/>
+      element: <Verification />,
     },
     {
-      path:"/user/feedback",
-      element: <FeedBack/>
-    }
+      path: "/user/feedback",
+      element: <FeedBack />,
+    },
+    {
+      path: "*",
+      element: <NotFoundPage />
+    },
+    
   ]);
   return (
     <div className="min-h-full bg-[#161616]">
@@ -60,5 +70,4 @@ const Body = () => {
   );
 };
 
-//bug fix
 export default Body;

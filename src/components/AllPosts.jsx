@@ -175,11 +175,11 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
           : Array.isArray(card) &&
             card?.map((post) => (
               <PostCard
-                key={post._id}
-                postid={post._id}
-                title={post.title}
-                description={post.description}
-                topic={post.topic}
+                key={post?._id}
+                postid={post?._id}
+                title={post?.title}
+                description={post?.description}
+                topic={post?.topic}
                 username={post?.user_id?.username}
                 timeSinceCreated={post?.timeSinceCreated}
                 totalUpvotes={post?.upvotes?.length}
