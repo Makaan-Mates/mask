@@ -62,7 +62,7 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
 
     const json = await data?.json();
     setPostData(json);
-    console.log(json);
+    // console.log(json);
     setIsLoading();
     // setIsLoading(false)  ??
   };
@@ -126,7 +126,7 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
     navigate("/home ");
   };
 
-  console.log("userInfo", userInfo);
+  // console.log("userInfo", userInfo);
 
   if (!userInfo) {
     return <ShimmerPostDetail />;

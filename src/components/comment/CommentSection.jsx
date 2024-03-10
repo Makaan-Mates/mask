@@ -39,7 +39,7 @@ const CommentSection = ({ commentPosted, socket, senderName, postData }) => {
     dispatch(totalPostComments(comments?.length));
   }, [comments]);
 
-  console.log(comments);
+  // console.log(comments);
 
   if (isLoading) {
     return (

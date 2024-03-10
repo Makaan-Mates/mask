@@ -49,7 +49,7 @@ const CommentCard = ({
     setShowDeleteButton(!showDeleteButton);
     setCommentDeleted(!commentDeleted);
     const json = await data.json();
-    console.log(json);
+    // console.log(json);
   };
 
   const replies = filteredComments?.filter(

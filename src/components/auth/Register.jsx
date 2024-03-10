@@ -59,7 +59,7 @@ const Register = () => {
     });
     const response = await data.json();
     localStorage.setItem("token", response.token);
-    console.log(response);
+    // console.log(response);
     localStorage.setItem("isGuest", "true");
     if (response.message === "Guest login successful") {
       navigate("/home");

@@ -71,7 +71,7 @@ const AddPostCard = ({
     });
 
     const json = await data.json();
-    console.log(json);
+    // console.log(json);
     dispatch(hideAddPostCard());
     navigate("/home");
     setReloadPosts(!reloadPosts);
