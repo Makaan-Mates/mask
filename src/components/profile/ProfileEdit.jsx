@@ -31,7 +31,7 @@ const ProfileEdit = () => {
       });
 
       const json = await data.json();
-      console.log(json);
+      // console.log(json);
 
       if (json?.message !== "Profile Updated") {
         setErrorMessage(json?.message);

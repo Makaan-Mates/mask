@@ -35,7 +35,7 @@ const FeedBack = () => {
       }),
     });
     const json = await data.json();
-    console.log(json);
+    // console.log(json);
     feedback.current.value = "";
     setFeedbackText("");
     setPlaceholder("Thank you for your feedback!");

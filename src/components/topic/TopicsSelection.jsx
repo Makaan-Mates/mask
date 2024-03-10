@@ -45,7 +45,7 @@ const TopicsSelection = () => {
         ];
         return updatedTopics;
       }
-      console.log(selectedTopics);
+      // console.log(selectedTopics);
       return selectedTopics;
     });
   };

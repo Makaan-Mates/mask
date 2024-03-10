@@ -12,7 +12,6 @@ const NotificationBox = ({ socket }) => {
   );
   const apiUrl = import.meta.env.VITE_API_URL;
 
-
   const notificationRef = useRef(null);
 
   useEffect(() => {
@@ -41,49 +40,43 @@ const NotificationBox = ({ socket }) => {
   //socket.io client
   useEffect(() => {
     const fetchNotifications = async () => {
-      if (localStorage.getItem("isGuest") !== "true") {
-        const token = localStorage.getItem("token");
-        try {
-          const data = await fetch(
-            `${apiUrl}/api/notification`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          const json = await data.json();
-          // console.log(json);
-          setNotifications(json);
-        } catch (error) {
-          console.error("Failed to fetch notifications:", error);
-        }
+      if (localStorage.getItem("isGuest") === "true") {
+        return;
       }
-      fetchNotifications();
-
-      socket?.on("getNotification", (data) => {
-        setNotifications((prev) => [...prev, data]);
-      });
+      const token = localStorage.getItem("token");
+      try {
+        const response = await fetch(`${apiUrl}/api/notification`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        });
+        const json = await response.json();
+        setNotifications(json);
+      } catch (error) {
+        console.error("Failed to fetch notifications:", error);
+      }
     };
-  }, [socket, notifications]);
 
-  // console.log("Notification fetched", notifications);
+    // Initial fetch
+    fetchNotifications();
+
+    const intervalId = setInterval(fetchNotifications, 15000);
+
+    return () => clearInterval(intervalId);
+  }, [apiUrl]);
 
   const handleClearNotifications = async () => {
     localStorage.setItem("broadcastMessage", "shadev");
     const token = localStorage.getItem("token");
-    const data = await fetch(
-      `${apiUrl}/api/notification/clear`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const data = await fetch(`${apiUrl}/api/notification/clear`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
 
     const json = await data.json();
     console.log(json);

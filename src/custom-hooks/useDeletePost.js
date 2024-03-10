@@ -17,7 +17,7 @@ export const useDeletePost = () => {
       },
     )
     const json = await data.json()
-    console.log(json)
+    // console.log(json)
   }
 
   return deletePost
