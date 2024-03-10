@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Header from "./Header";
+import Header from "../navbar/Header";
 import { useSelector } from "react-redux";
-import AddPostCard from "./AddPostCard";
-import PostCard from "./PostCard";
+import AddPostCard from "../post/AddPostCard";
+import PostCard from "../post/PostCard";
 
 const BookMarkedPosts = () => {
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
@@ -11,16 +11,13 @@ const BookMarkedPosts = () => {
 
   const fetchBookMarksDetails = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(
-      `${apiUrl}/api/user/bookmarks`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const data = await fetch(`${apiUrl}/api/user/bookmarks`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
     const json = await data.json();
     setBookMarkedPosts(json);
   };
@@ -55,7 +52,9 @@ const BookMarkedPosts = () => {
                     />
                   ))
                 ) : (
-                  <div className="text-xs sm:text-base flex items-center text-[#9B9B9B]">(NONE!)</div>
+                  <div className="text-xs sm:text-base flex items-center text-[#9B9B9B]">
+                    (NONE!)
+                  </div>
                 )}
               </div>
             </div>

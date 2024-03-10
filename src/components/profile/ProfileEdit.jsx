@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { GoDotFill } from "react-icons/go";
-import { useFetchUser } from "../custom-hooks/useFetchUser";
+import { useFetchUser } from "../../custom-hooks/useFetchUser";
 import { useDispatch } from "react-redux";
-import { isProfileEdited } from "../features/userSlice";
+import { isProfileEdited } from "../../features/userSlice";
 
 const ProfileEdit = () => {
   const { userInfo } = useFetchUser();
@@ -19,19 +19,16 @@ const ProfileEdit = () => {
   const handleEditProfile = async () => {
     try {
       const token = localStorage.getItem("token");
-      const data = await fetch(
-        `${apiUrl}/api/profile/edit/${userId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            newUsername: username.current.value,
-          }),
-        }
-      );
+      const data = await fetch(`${apiUrl}/api/profile/edit/${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          newUsername: username.current.value,
+        }),
+      });
 
       const json = await data.json();
       console.log(json);

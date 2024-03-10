@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
-import { useFetchUser } from "../custom-hooks/useFetchUser";
+import { useFetchUser } from "../../custom-hooks/useFetchUser";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { totalPostBookMarks } from "../features/counterSlice";
+import { totalPostBookMarks } from "../../features/counterSlice";
 import { toast } from "react-toastify";
 
 const BookmarkButton = () => {
@@ -16,25 +16,20 @@ const BookmarkButton = () => {
 
   const updateBookmark = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetch(
-      `${apiUrl}/api/user/bookmark/${postid}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const data = await fetch(`${apiUrl}/api/user/bookmark/${postid}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
     const json = await data.json();
     const isBookmarked = json?.message?.bookmarks?.includes(postid);
     setIsBookmarked(isBookmarked);
   };
 
   const getUserDetails = async () => {
-    const data = await fetch(
-      `${apiUrl}/api/post/bookmark/${postid}`
-    );
+    const data = await fetch(`${apiUrl}/api/post/bookmark/${postid}`);
     const json = await data.json();
     setPostDetails(json);
     setIsBookmarked(json?.bookmarkedUsers?.includes(userInfo?._id));

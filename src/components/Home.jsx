@@ -1,12 +1,12 @@
-import Asidebar from "./Asidebar";
-import Header from "./Header";
+import Asidebar from "./sidebar/Asidebar";
+import Header from "./navbar/Header";
 import { useSelector } from "react-redux";
-import AddPostCard from "./AddPostCard";
-import AllPosts from "./AllPosts";
-import SearchPosts from "./SearchPosts";
+import AddPostCard from "./post/AddPostCard";
+import AllPosts from "./post/AllPosts";
+import SearchPosts from "./post/SearchPosts";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import PostDetail from "./PostDetail";
+import PostDetail from "./post/PostDetail";
 import { io } from "socket.io-client";
 import { useFetchUser } from "../custom-hooks/useFetchUser";
 

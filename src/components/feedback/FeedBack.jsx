@@ -1,6 +1,6 @@
-import Header from "./Header";
+import Header from "../navbar/Header";
 import { useSelector } from "react-redux";
-import AddPostCard from "./AddPostCard";
+import AddPostCard from "../post/AddPostCard";
 import { useRef } from "react";
 import { IoSend } from "react-icons/io5";
 import { useState } from "react";
@@ -24,19 +24,16 @@ const FeedBack = () => {
       return;
     }
     const token = localStorage.getItem("token");
-    const data = await fetch(
-      `${apiUrl}/api/user/feedback`,
-      {
-        method: "POST",
-        headers: {
-          "CONTENT-TYPE": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          feedback: feedback.current.value,
-        }),
-      }
-    );
+    const data = await fetch(`${apiUrl}/api/user/feedback`, {
+      method: "POST",
+      headers: {
+        "CONTENT-TYPE": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        feedback: feedback.current.value,
+      }),
+    });
     const json = await data.json();
     console.log(json);
     feedback.current.value = "";

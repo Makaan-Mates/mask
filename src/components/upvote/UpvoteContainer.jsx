@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BiUpvote, BiSolidUpvote } from "react-icons/bi";
-import { useFetchUser } from "../custom-hooks/useFetchUser";
+import { useFetchUser } from "../../custom-hooks/useFetchUser";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 
@@ -34,9 +34,7 @@ const UpvoteContainer = ({
 
   useEffect(() => {
     const getPostDetails = async () => {
-      const data = await fetch(
-        `${apiUrl}/api/${type}/upvote/${id}`
-      );
+      const data = await fetch(`${apiUrl}/api/${type}/upvote/${id}`);
       const json = await data.json();
       // console.log(json);
       setPostDetails(json);

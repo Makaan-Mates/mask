@@ -1,8 +1,8 @@
-import Header from "./Header";
+import Header from "../navbar/Header";
 import { useSelector } from "react-redux";
-import AddPostCard from "./AddPostCard";
-import { useFetchUserPosts } from "../custom-hooks/useFetchUserPosts";
-import PostCard from "./PostCard";
+import AddPostCard from "../post/AddPostCard";
+import { useFetchUserPosts } from "../../custom-hooks/useFetchUserPosts";
+import PostCard from "../post/PostCard";
 import ProfileEdit from "./ProfileEdit";
 const Profile = () => {
   const showAddPostCard = useSelector((state) => state.addPost.isPoppedUp);
@@ -41,7 +41,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      
     </>
   );
 };
