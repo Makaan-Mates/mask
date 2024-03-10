@@ -4,14 +4,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   hideAddPostCard,
   displayEditPostCard,
-} from "../features/addPostCardSlice";
-import { topics } from "../utils/topics";
+} from "../../features/addPostCardSlice";
+import { topics } from "../../utils/topics";
 import { IoSend } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Select from "react-select";
-import { useState,useEffect, useRef } from "react";
-
+import { useState, useEffect, useRef } from "react";
 
 const AddPostCard = ({
   initialTitle,

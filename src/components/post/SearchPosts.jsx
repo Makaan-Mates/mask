@@ -4,9 +4,8 @@ import { ImSpinner9 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 import { useDispatch } from "react-redux";
-import { displaySearchBar } from "../features/addPostCardSlice";
+import { displaySearchBar } from "../../features/addPostCardSlice";
 import { RxCross2 } from "react-icons/rx";
-
 
 const SearchPosts = () => {
   const searchPostsRef = useRef();
@@ -56,11 +55,10 @@ const SearchPosts = () => {
     };
   }, [dispatch]);
 
-  const handleSearchHide = ()=>{
+  const handleSearchHide = () => {
     dispatch(displaySearchBar(false));
-  }
+  };
 
-  
   const handlePostCardClick = (postId) => {
     navigate(`/post/${postId}`);
     dispatch(displaySearchBar(false));
@@ -93,15 +91,15 @@ const SearchPosts = () => {
         />
         <div className="hidden  md:flex items-center border-[1px] border-[#363636] rounded-md text-sm px-1 ">
           <span className="mb-1  text-[#9B9B9B]">esc</span>
-            
         </div>
-        <div onClick={handleSearchHide} className="md:hidden flex items-center px-2 ">
-          <RxCross2  className="text-xl text-[#747474]"/>
+        <div
+          onClick={handleSearchHide}
+          className="md:hidden flex items-center px-2 "
+        >
+          <RxCross2 className="text-xl text-[#747474]" />
         </div>
       </div>
-      <div
-        className="max-h-[450px] overflow-y-auto focus:outline-none scroll-smooth px-2 items-center flex flex-wrap"
-      >
+      <div className="max-h-[450px] overflow-y-auto focus:outline-none scroll-smooth px-2 items-center flex flex-wrap">
         {isLoading ? (
           <div className="  w-full h-24 rounded-full flex items-center justify-center">
             <ImSpinner9 className="animate-spin text-4xl text-[#9B9B9B] " />

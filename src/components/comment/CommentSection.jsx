@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { totalPostComments } from "../features/counterSlice";
+import { totalPostComments } from "../../features/counterSlice";
 import { ImSpinner9 } from "react-icons/im";
 import PropTypes from "prop-types";
 
@@ -18,16 +18,13 @@ const CommentSection = ({ commentPosted, socket, senderName, postData }) => {
   const fetchComments = async () => {
     setIsLoading(true);
     const token = localStorage.getItem("token");
-    const data = await fetch(
-      `${apiUrl}/comments/?postid=${postid}`,
-      {
-        method: "GET",
-        headers: {
-          "CONTENT-TYPE": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+    const data = await fetch(`${apiUrl}/comments/?postid=${postid}`, {
+      method: "GET",
+      headers: {
+        "CONTENT-TYPE": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-    );
+    });
 
     const json = await data.json();
     setComments(json);
@@ -96,7 +93,7 @@ const CommentSection = ({ commentPosted, socket, senderName, postData }) => {
                   postData={postData}
                   receiverName={comment?.user_id?.username}
                 />
-              ),
+              )
           )}
     </div>
   );

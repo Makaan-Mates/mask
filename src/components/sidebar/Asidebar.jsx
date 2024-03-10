@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
-import { displayAddPostCard } from "../features/addPostCardSlice";
-import { useFetchUser } from "../custom-hooks/useFetchUser";
-import { topics } from "../utils/topics";
-import { filterByTopic } from "../features/postSlice";
+import { displayAddPostCard } from "../../features/addPostCardSlice";
+import { useFetchUser } from "../../custom-hooks/useFetchUser";
+import { topics } from "../../utils/topics";
+import { filterByTopic } from "../../features/postSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import PropTypes from "prop-types";
@@ -16,7 +16,6 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
   const dispatch = useDispatch();
   const activeTopic = useSelector((state) => state.posts.data.topic);
   const [selectedTopic, setSelectedTopic] = useState(null);
- 
 
   const handleTopicSelection = (selectedTopic) => {
     dispatch(filterByTopic(selectedTopic));

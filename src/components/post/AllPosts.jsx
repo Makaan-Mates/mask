@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 import { FaFire } from "react-icons/fa";
 import { MdTimer } from "react-icons/md";
 import { BiSolidUpvote } from "react-icons/bi";
-import ShimmerPostCard from "./ShimmerPostCard";
+import ShimmerPostCard from "../shimmer/ShimmerPostCard";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { displayAddPostCard } from "../features/addPostCardSlice";
+import { displayAddPostCard } from "../../features/addPostCardSlice";
 import { FiPlus } from "react-icons/fi";
 import { toast } from "react-toastify";
 

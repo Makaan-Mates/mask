@@ -3,19 +3,17 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import Login from "./Login";
-import Register from "./Register";
+import Login from "./auth/Login";
+import Register from "./auth/Register";
 import Home from "./Home";
-import TopicsSelection from "./TopicsSelection";
-import Profile from "./Profile";
-import BookMarkedPosts from "./BookMarkedPosts";
-import Verification from "./Verification";
-import FeedBack from "./FeedBack";
-import NotFoundPage from "./NotFoundPage";
+import TopicsSelection from "./topic/TopicsSelection";
+import Profile from "./profile/Profile";
+import BookMarkedPosts from "./bookmark/BookMarkedPosts";
+import Verification from "./auth/Verification";
+import FeedBack from "./feedback/FeedBack";
+import NotFoundPage from "./error/NotFoundPage";
 
 const Body = () => {
-
-
   const appRouter = createBrowserRouter([
     {
       path: "/login",
@@ -59,9 +57,8 @@ const Body = () => {
     },
     {
       path: "*",
-      element: <NotFoundPage />
+      element: <NotFoundPage />,
     },
-    
   ]);
   return (
     <div className="min-h-full bg-[#161616]">

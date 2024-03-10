@@ -2,10 +2,10 @@ import { useState } from "react";
 import CommentTextArea from "./CommentTextArea";
 import PropTypes from "prop-types";
 import { FaCircleUser } from "react-icons/fa6";
-import UpvoteContainer from "./UpvoteContainer";
+import UpvoteContainer from "../upvote/UpvoteContainer";
 import { BiComment } from "react-icons/bi";
 import { FaEllipsisV } from "react-icons/fa";
-import { useFetchUser } from "../custom-hooks/useFetchUser";
+import { useFetchUser } from "../../custom-hooks/useFetchUser";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 const CommentCard = ({
   content,
@@ -38,16 +38,13 @@ const CommentCard = ({
   const deleteComment = async () => {
     const token = localStorage.getItem("token");
 
-    const data = await fetch(
-      `${apiUrl}/api/comment/delete/${commentId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const data = await fetch(`${apiUrl}/api/comment/delete/${commentId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
 
     setShowDeleteButton(!showDeleteButton);
     setCommentDeleted(!commentDeleted);

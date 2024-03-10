@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { topics } from "../utils/topics";
+import { topics } from "../../utils/topics";
 
 const TopicsSelection = () => {
   const navigate = useNavigate();
@@ -56,10 +56,12 @@ const TopicsSelection = () => {
 
   return (
     <div className="p-10 bg-[#1c1c1c] min-h-screen flex items-center justify-center ">
-    <div className="w-full  m-auto right-0 left-0 flex flex-col justify-center items-center  ">
+      <div className="w-full  m-auto right-0 left-0 flex flex-col justify-center items-center  ">
         <span className="flex flex-col  mb-4 px-2 text-[#f4f4f4] ">
           <h2 className="text-lg  md:text-3xl font-bold">Topics to Follow</h2>
-          <h3 className="px-1  text-sm sm:text-base text-center">Select any 4</h3>
+          <h3 className="px-1  text-sm sm:text-base text-center">
+            Select any 4
+          </h3>
         </span>
         <div className="cardparent  w-full md:w-[75%] lg:w-[80%] xl:w-[85%]  flex flex-wrap items-center justify-center ">
           {topics.map((topic) => (
@@ -86,7 +88,7 @@ const TopicsSelection = () => {
             Continue
           </button>
         </div>
-    </div>
+      </div>
     </div>
   );
 };

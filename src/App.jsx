@@ -2,7 +2,7 @@ import Body from "./components/Body";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
-import ErrorBoundary from "./components/ErrorBoundary";
+import ErrorBoundary from "./components/error/ErrorBoundary";
 
 const App = () => {
   return (
