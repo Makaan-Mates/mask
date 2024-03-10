@@ -11,7 +11,6 @@ const Register = () => {
   const password = useRef();
   const apiUrl = import.meta.env.VITE_API_URL;
 
-
   useEffect(() => {
     if (errorMessage) {
       const timer = setTimeout(() => {
@@ -71,15 +70,17 @@ const Register = () => {
 
   return (
     <div className="min-h-[100vh] flex justify-center items-center ">
-      <div className="bg-[#f4f4f4] text-[#1c1c1c] p-8 rounded shadow-md 2xs:w-[90%] xs:w-[90%] md:w-3/4 sm:w-2/3 2xl:w-[28%] lg:w-2/6  h-auto mt-10">
-        <h2 className="text-3xl  font-semibold mb-7">Welcome to Mask</h2>
+      <div className="bg-[#f4f4f4]  p-8 rounded shadow-md 2xs:w-[90%] xs:w-[90%] md:w-3/4 sm:w-2/3 2xl:w-[28%] lg:w-2/6  h-auto mt-10  bg-gradient-to-r from-[#141414] to-[#1c1c1c] text-[#ffffff]">
+        <h2 className="text-3xl max-md:text-2xl  font-semibold mb-7">
+          Welcome to Mask
+        </h2>
 
         <div className="my-4">
           <label className="block mb-1" htmlFor="email">
             Username
           </label>
           <input
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:border-black "
+            className="w-full border rounded px-3 py-2 outline-none border-none focus:outline-none focus:border-[#1c1c1c] bg-[#1c1c1c] bg-gradient-to-r to-[#141414] from-[#1c1c1c]"
             type="text"
             id="username"
             ref={username}
@@ -92,7 +93,7 @@ const Register = () => {
             Email
           </label>
           <input
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:border-black"
+            className="w-full border rounded px-3 py-2 outline-none border-none focus:outline-none focus:border-[#1c1c1c] bg-[#1c1c1c] bg-gradient-to-r to-[#141414] from-[#1c1c1c]"
             type="email"
             id="email"
             ref={email}
@@ -105,7 +106,7 @@ const Register = () => {
           </label>
           <div className=" relative flex items-center">
             <input
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:border-[#1c1c1c] pr-10 "
+              className="w-full border rounded px-3 py-2 outline-none border-none focus:outline-none focus:border-[#1c1c1c] bg-[#1c1c1c] bg-gradient-to-r to-[#141414] from-[#1c1c1c] pr-10 "
               type={showPassword ? "text" : "password"}
               id="password"
               ref={password}
@@ -126,13 +127,13 @@ const Register = () => {
         </div>
         <button
           onClick={registerUser}
-          className="w-full mt-4 mb-4 bg-zinc-800 text-white rounded py-2 px-4 hover:bg-zinc-900 transition duration-300"
+          className="w-full mt-4 mb-4 bg-[#1c1c1c] text-white rounded py-2 px-4 hover:bg-[#161616] transition duration-300"
         >
           Sign Up
         </button>
         <button
           onClick={loginGuest}
-          className="w-full bg-blue-800 text-white my-4 rounded py-2 px-4 hover:bg-blue-900 transition duration-300"
+          className="w-full bg-blue-800 text-white my-4 rounded py-2 px-4 hover:bg-blue-600 transition duration-300"
         >
           Login as Guest
         </button>

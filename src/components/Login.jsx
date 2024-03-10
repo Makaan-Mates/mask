@@ -68,14 +68,18 @@ const Login = () => {
 
   return (
     <div className=" h-[100vh] flex justify-center items-center ">
-      <div className=" bg-[#f4f4f4] p-8 2xs:w-[90%] xs:w-[90%] md:w-3/4 sm:w-2/3 2xl:w-[28%] lg:w-2/6 h-auto rounded shadow-md mt-10  text-[#1c1c1c]">
-        <h2 className="text-3xl  font-semibold mb-4">Welcome back to Mask</h2>
+      <div className=" bg-[#1c1c1c] p-8 2xs:w-[90%] xs:w-[90%] md:w-3/4 sm:w-2/3 2xl:w-[28%] lg:w-2/6 h-auto rounded shadow-md mt-10  text-[#ffffff] bg-gradient-to-r from-[#141414] to-[#1c1c1c]">
+        <div className="flex items-center justify-center">
+          <h2 className="text-3xl max-md:text-2xl  font-semibold mb-4">
+            Welcome back to Mask
+          </h2>
+        </div>
         <div className="my-6">
           <label className="block mb-1 " htmlFor="email">
             Email
           </label>
           <input
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:border-[#1c1c1c] "
+            className="w-full border rounded px-3 py-2 outline-none border-none focus:outline-none focus:border-[#1c1c1c] bg-[#1c1c1c] bg-gradient-to-r to-[#141414] from-[#1c1c1c]"
             type="email"
             id="email"
             ref={email}
@@ -88,7 +92,7 @@ const Login = () => {
           </label>
           <div className=" relative flex items-center">
             <input
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:border-[#1c1c1c] pr-10 "
+              className="w-full border rounded px-3 py-2 outline-none border-none focus:outline-none focus:border-[#1c1c1c] pr-10 bg-[#1c1c1c] bg-gradient-to-r to-[#141414] from-[#1c1c1c] "
               type={showPassword ? "text" : "password"}
               id="password"
               ref={password}
@@ -110,8 +114,8 @@ const Login = () => {
 
         <div className="flex my-4 justify-between items-center">
           <div>
-            <input type="checkbox" id="remember" />
-            <label className="ml-2" htmlFor="remember">
+            <input type="checkbox" id="remember" className="" />
+            <label className="ml-2 " htmlFor="remember">
               Remember me
             </label>
           </div>
@@ -121,13 +125,13 @@ const Login = () => {
         </div>
         <button
           onClick={loginUser}
-          className="w-full bg-zinc-800 text-white my-4 rounded py-2 px-4 hover:bg-zinc-900 transition duration-300"
+          className="w-full bg-[#1c1c1c] text-white my-4 rounded py-2 px-4 hover:bg-[#161616] transition duration-300"
         >
           Login
         </button>
         <button
           onClick={loginGuest}
-          className="w-full bg-blue-800 text-white my-4 rounded py-2 px-4 hover:bg-blue-900 transition duration-300"
+          className="w-full bg-blue-800 text-white my-4 rounded py-2 px-4 hover:bg-blue-600 transition duration-300"
         >
           Login as Guest
         </button>
