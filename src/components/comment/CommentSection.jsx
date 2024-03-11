@@ -71,7 +71,8 @@ const CommentSection = ({ commentPosted, socket, senderName, postData }) => {
       {comments &&
         Array.isArray(comments) &&
         comments
-          ?.toReversed()
+          ?.slice()
+          ?.reverse()
           .map(
             (comment) =>
               comment.parentId === null && (
