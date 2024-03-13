@@ -52,6 +52,10 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
 
   const fetchPostDetails = async () => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/login')
+      return
+    }
     const data = await fetch(`${apiUrl}/api/post/${postid}`, {
       method: "GET",
       headers: {
@@ -69,6 +73,10 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
 
   const incrementViewCount = async () => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/login')
+      return
+    }
     await fetch(`${apiUrl}/api/post/${postid}/views`, {
       method: "PUT",
       headers: {

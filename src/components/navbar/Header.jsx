@@ -202,6 +202,7 @@ const Header = ({ socket }) => {
             onClick={() => {
               navigate("/login");
               localStorage.removeItem("isGuest");
+              localStorage.removeItem("token");
             }}
             className="text-lg flex gap-1 items-center cursor-pointer transition-transform transform hover:text-[#FFFFFF] rounded-2xl border-[1px] border-[#d1d1d1] px-2 py-[0.5px] hover:border-[#FFFFFF]"
           >

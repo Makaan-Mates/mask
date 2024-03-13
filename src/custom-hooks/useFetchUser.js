@@ -17,6 +17,11 @@ export const useFetchUser = () => {
 
   const fetchUser = async () => {
     const token = localStorage.getItem('token')
+    if (!token) {
+      navigate('/login');
+      setLoading(false);
+      return;
+    }
     const data = await fetch(`${apiUrl}/api/home`, {
       method: 'GET',
       headers: {

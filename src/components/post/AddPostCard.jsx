@@ -57,6 +57,10 @@ const AddPostCard = ({
 
   const handlePublishPost = async () => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/login');
+      return;
+    }
     const data = await fetch(`${apiUrl}/post`, {
       method: "POST",
       headers: {
@@ -79,6 +83,10 @@ const AddPostCard = ({
 
   const handleUpdatePost = async () => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/login');
+      return;
+    }
     await fetch(`${apiUrl}/api/post/edit/${postid}`, {
       method: "POST",
       headers: {

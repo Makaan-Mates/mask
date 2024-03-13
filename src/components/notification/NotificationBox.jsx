@@ -44,6 +44,10 @@ const NotificationBox = ({ socket }) => {
         return;
       }
       const token = localStorage.getItem("token");
+      if (!token) {
+        navigate('/login');
+        return;
+      }
       try {
         const response = await fetch(`${apiUrl}/api/notification`, {
           method: "GET",
@@ -70,6 +74,10 @@ const NotificationBox = ({ socket }) => {
   const handleClearNotifications = async () => {
     localStorage.setItem("broadcastMessage", "shadev");
     const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/login');
+      return;
+    }
     const data = await fetch(`${apiUrl}/api/notification/clear`, {
       method: "DELETE",
       headers: {

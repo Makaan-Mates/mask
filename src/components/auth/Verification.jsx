@@ -37,6 +37,10 @@ const Verification = () => {
 
   const handleVerifyUser = async () => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/login');
+      return;
+    }
     const data = await fetch(`${apiUrl}/api/verification`, {
       method: "POST",
       headers: {
