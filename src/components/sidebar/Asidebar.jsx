@@ -94,6 +94,7 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
                     onClick={() => {
                       navigate("/login");
                       localStorage.removeItem("isGuest");
+                      localStorage.removeItem("token");
                     }}
                   >
                     Login to follow topics

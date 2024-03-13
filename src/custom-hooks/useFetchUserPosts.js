@@ -3,15 +3,19 @@ import { useFetchUser } from '../custom-hooks/useFetchUser'
 import { useNavigate } from 'react-router-dom'
 
 export const useFetchUserPosts = () => {
-  const {userInfo} = useFetchUser()
+  const { userInfo } = useFetchUser()
   const navigate = useNavigate()
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL
 
   const [userPosts, setUserPosts] = useState([])
   const userId = userInfo?._id
 
   const fetchUserPosts = async () => {
     const token = localStorage.getItem('token')
+    if (!token) {
+      navigate('/login')
+      return
+    }
     const data = await fetch(`${apiUrl}/api/posts/user/${userId}`, {
       method: 'GET',
       headers: {
@@ -42,5 +46,4 @@ export const useFetchUserPosts = () => {
   }, [userId])
 
   return userPosts
-  
 }

@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { displayAddPostCard } from "../../features/addPostCardSlice";
 import { FiPlus } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AllPosts = ({ reloadPosts, page, setPage }) => {
   const dispatch = useDispatch();
@@ -22,9 +23,14 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
   const [selectedFilter, setSelectedFilter] = useState("Sort By");
   const apiUrl = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate()
 
   const fetchAllPosts = async (topicFromStore) => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/login')
+      return
+    }
     const data = await fetch(
       `${apiUrl}/api/posts?_limit=14&_page=${page}&topic=${topicFromStore}&trending=${isTrending}`,
       {
