@@ -13,6 +13,11 @@ import Verification from "./auth/Verification";
 import FeedBack from "./feedback/FeedBack";
 import NotFoundPage from "./error/NotFoundPage";
 
+const RequireVerification = ({ children }) => {
+  let isVerified = localStorage.getItem("isVerified") === "true";
+  return isVerified ? children : <Navigate to="/verification" />;
+};
+
 const Body = () => {
   const appRouter = createBrowserRouter([
     {
@@ -25,7 +30,11 @@ const Body = () => {
     },
     {
       path: "/home",
-      element: <Home />,
+      element: (
+        <RequireVerification>
+          <Home />
+        </RequireVerification>
+      ),
     },
     {
       path: "/",

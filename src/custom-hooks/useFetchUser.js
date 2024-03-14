@@ -6,9 +6,9 @@ export const useFetchUser = () => {
   const navigate = useNavigate()
 
   const [userInfo, setUserInfo] = useState(null)
-  const [loading, setLoading] = useState(true) 
+  const [loading, setLoading] = useState(true)
   const profileEdited = useSelector((state) => state.user.profileEdited)
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL
   // console.log(profileEdited)
 
   useEffect(() => {
@@ -17,10 +17,17 @@ export const useFetchUser = () => {
 
   const fetchUser = async () => {
     const token = localStorage.getItem('token')
+    const isVerified = localStorage.getItem('isVerified') === 'true'
+
     if (!token) {
-      navigate('/login');
-      setLoading(false);
-      return;
+      navigate('/login')
+      setLoading(false)
+      return
+    }
+    if (token && !isVerified) {
+      navigate('/verification')
+      setLoading(false)
+      return
     }
     const data = await fetch(`${apiUrl}/api/home`, {
       method: 'GET',
@@ -30,8 +37,9 @@ export const useFetchUser = () => {
       },
     })
     const json = await data.json()
-    setUserInfo(json) 
-    setLoading(false) 
+    setUserInfo(json)
+    setLoading(false)
+
     if (
       json?.message === 'invalid token' ||
       json?.message === 'token not found'
@@ -40,5 +48,5 @@ export const useFetchUser = () => {
     } 
   }
 
-  return { userInfo, loading } 
+  return { userInfo, loading }
 }
