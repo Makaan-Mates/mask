@@ -40,6 +40,7 @@ const Register = () => {
 
     localStorage.setItem("token", json.token);
     if (json?.message === "account created!") {
+      localStorage.setItem("isVerified", "false");
       navigate("/verification");
     } else {
       setErrorMessage(json?.message);

@@ -55,6 +55,7 @@ const Verification = () => {
     const json = await data.json();
 
     if (json?.message === "user verified") {
+      localStorage.setItem("isVerified", "true");
       navigate("/register/topics-to-follow");
       history.replace("/home");
     } else {
