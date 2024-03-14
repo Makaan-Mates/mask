@@ -35,12 +35,13 @@ export const useFetchUser = () => {
     if (!json.isVerified) {
       navigate('/verification')
     }
+
     if (
       json?.message === 'invalid token' ||
       json?.message === 'token not found'
     ) {
-      navigate('/login')
-    }
+      navigate('/login') 
+    } 
   }
 
   return { userInfo, loading }
