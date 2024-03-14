@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Select from "react-select";
 import { useState, useEffect, useRef } from "react";
+import {useFetchUser} from "../../custom-hooks/useFetchUser";
 
 const AddPostCard = ({
   initialTitle,
@@ -25,10 +26,12 @@ const AddPostCard = ({
   const showEditPostCard = useSelector(
     (state) => state.addPost.displayEditMode
   );
-
+ 
+  const {userInfo} = useFetchUser();
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;
 
+  
   const [selectedTopic, setSelectedTopic] = useState(null);
 
   const { postid } = useParams();
@@ -105,10 +108,17 @@ const AddPostCard = ({
     setPostEdited(!postEdited);
   };
 
+  const topicsFollowing = userInfo?.topicsFollowing || [];
+  const followedTopics = topicsFollowing.map((topic) => topic.name)
+
   const options = topics.map((topic) => ({
     value: topic.id,
     label: topic.name,
   }));
+
+  const sortedOptions = [
+    options.filter((option) => followedTopics.includes(option.label))
+    .concat(options.filter((option) => !followedTopics.includes(option.label)))]
 
   return (
     <>
@@ -124,7 +134,7 @@ const AddPostCard = ({
         </div>
         <Select
           className="rounded-md w-full text-base sm:text-xl   bg-[#1C1C1C] border-[0.5px] border-[#282828] "
-          options={options}
+          options={sortedOptions[0]}
           defaultValue={options.find(
             (option) => option?.label === initialTopic
           )}
