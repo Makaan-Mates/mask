@@ -39,12 +39,13 @@ export const useFetchUser = () => {
     const json = await data.json()
     setUserInfo(json)
     setLoading(false)
+
     if (
       json?.message === 'invalid token' ||
       json?.message === 'token not found'
     ) {
-      navigate('/login')
-    }
+      navigate('/login') 
+    } 
   }
 
   return { userInfo, loading }
