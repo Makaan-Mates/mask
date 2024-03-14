@@ -56,7 +56,7 @@ const Verification = () => {
 
     if (json?.message === "user verified") {
       navigate("/register/topics-to-follow");
-      // history.replace("/home");
+      history.replace("/home");
     } else {
       setErrorMessage(json.message);
     }
