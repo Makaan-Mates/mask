@@ -17,18 +17,11 @@ export const useFetchUser = () => {
 
   const fetchUser = async () => {
     const token = localStorage.getItem('token')
-    const isVerified = localStorage.getItem('isVerified') === 'true'
-
     if (!token) {
       navigate('/login')
       setLoading(false)
       return
-    }
-    if (token && !isVerified) {
-      navigate('/verification')
-      setLoading(false)
-      return
-    }
+    } 
     const data = await fetch(`${apiUrl}/api/home`, {
       method: 'GET',
       headers: {
@@ -39,6 +32,9 @@ export const useFetchUser = () => {
     const json = await data.json()
     setUserInfo(json)
     setLoading(false)
+    if (!json.isVerified) {
+      navigate('/verification')
+    }
     if (
       json?.message === 'invalid token' ||
       json?.message === 'token not found'
