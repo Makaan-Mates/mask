@@ -13,6 +13,7 @@ const NotificationBox = ({ socket }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const notificationRef = useRef(null);
+  // console.log("socket", socket);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -37,45 +38,58 @@ const NotificationBox = ({ socket }) => {
     }
   }, []);
 
-  //socket.io client
+  const fetchNotifications = async () => {
+    if (localStorage.getItem("isGuest") === "true") {
+      console.log("Guest mode, skipping fetch");
+      return;
+    }
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("No token found, redirecting to login");
+      navigate("/login");
+      return;
+    }
+    try {
+      const response = await fetch(`${apiUrl}/api/notification`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const json = await response.json();
+      // console.log("Notifications fetched", json);
+      setNotifications(json);
+    } catch (error) {
+      console.error("Failed to fetch notifications:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchNotifications = async () => {
-      if (localStorage.getItem("isGuest") === "true") {
-        return;
-      }
-      const token = localStorage.getItem("token");
-      if (!token) {
-        navigate('/login');
-        return;
-      }
-      try {
-        const response = await fetch(`${apiUrl}/api/notification`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${token}`,
-          },
-        });
-        const json = await response.json();
-        setNotifications(json);
-      } catch (error) {
-        console.error("Failed to fetch notifications:", error);
-      }
+    if (!socket) {
+      return;
+    }
+
+    const handleNewNotification = () => {
+      fetchNotifications();
     };
 
-    // Initial fetch
-    fetchNotifications();
+    socket.on("getNotification", handleNewNotification);
 
-    const intervalId = setInterval(fetchNotifications, 15000);
-
-    return () => clearInterval(intervalId);
-  }, [apiUrl]);
+    // Cleanup the event listener when the component unmounts or the socket changes
+    return () => {
+      socket.off("getNotification", handleNewNotification);
+    };
+  }, [socket]);
 
   const handleClearNotifications = async () => {
     localStorage.setItem("broadcastMessage", "shadev");
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
     const data = await fetch(`${apiUrl}/api/notification/clear`, {
@@ -86,8 +100,8 @@ const NotificationBox = ({ socket }) => {
       },
     });
 
-    const json = await data.json();
-    console.log(json);
+    await data.json();
+    fetchNotifications();
   };
 
   const handleNavigatePost = (postId) => {

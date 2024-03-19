@@ -157,6 +157,7 @@ const Header = ({ socket }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  // console.log("socket", socket);
 
   return (
     <div className="bg-[#1C1C1C] w-full z-20 sticky top-0 h-[10vh] sm:h-[12vh] py-4 px-6  flex items-center justify-between  border-b-[1px] border-[#282828] text-[#9B9B9B] ">
@@ -250,6 +251,7 @@ const Header = ({ socket }) => {
           </div>
         )}
         <NotificationBox socket={socket} />
+
         <MdFeedback
           onClick={handleFeedback}
           className="text-2xl cursor-pointer transition-transform transform hover:text-[#FFFFFF]"
