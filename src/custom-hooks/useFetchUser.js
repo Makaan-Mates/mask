@@ -17,11 +17,12 @@ export const useFetchUser = () => {
 
   const fetchUser = async () => {
     const token = localStorage.getItem('token')
+
     if (!token) {
       navigate('/login')
       setLoading(false)
       return
-    } 
+    }
     const data = await fetch(`${apiUrl}/api/home`, {
       method: 'GET',
       headers: {
@@ -32,6 +33,9 @@ export const useFetchUser = () => {
     const json = await data.json()
     setUserInfo(json)
     setLoading(false)
+    if (localStorage.getItem('isGuest') === 'true') {
+      return
+    }
     if (!json.isVerified) {
       navigate('/verification')
     }
@@ -40,8 +44,8 @@ export const useFetchUser = () => {
       json?.message === 'invalid token' ||
       json?.message === 'token not found'
     ) {
-      navigate('/login') 
-    } 
+      navigate('/login')
+    }
   }
 
   return { userInfo, loading }
