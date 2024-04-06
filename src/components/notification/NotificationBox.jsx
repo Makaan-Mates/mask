@@ -7,13 +7,13 @@ const NotificationBox = ({ socket }) => {
   const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
   const [openNoti, setOpenNoti] = useState(false);
-  const [broadcastMessage, setBroadcastMessage] = useState(
+  const [broadcastMessage] = useState(
     "🎉 We just shipped notification feature, check it out! "
   );
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const notificationRef = useRef(null);
-  // console.log("socket", socket);
+  // console.log("socket notibox",socket);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -61,7 +61,6 @@ const NotificationBox = ({ socket }) => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const json = await response.json();
-      // console.log("Notifications fetched", json);
       setNotifications(json);
     } catch (error) {
       console.error("Failed to fetch notifications:", error);
@@ -72,6 +71,8 @@ const NotificationBox = ({ socket }) => {
     if (!socket) {
       return;
     }
+
+    fetchNotifications();
 
     const handleNewNotification = () => {
       fetchNotifications();
