@@ -49,6 +49,7 @@ const Home = () => {
     }
     const newSocket = io(`${apiUrl}`);
     setSocket(newSocket);
+    console.log("Socket connected.")
   }, [apiUrl]);
 
   useEffect(() => {

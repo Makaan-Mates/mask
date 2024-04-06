@@ -30,6 +30,8 @@ const Header = ({ socket }) => {
     transform: "translateX(-100%)",
   });
 
+  // console.log("socket header",socket);
+
   const hideProfileref = useRef(null);
 
   const toggleDropdown = () => {

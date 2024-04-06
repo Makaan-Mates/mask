@@ -14,7 +14,6 @@ export const postSlice = createSlice({
     state.data.topic = action.payload;
   }
 
-
   }   
 })
 
