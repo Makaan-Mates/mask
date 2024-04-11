@@ -4,11 +4,12 @@ import { useFetchUser } from "../../custom-hooks/useFetchUser";
 import { topics } from "../../utils/topics";
 import { filterByTopic } from "../../features/postSlice";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState} from "react";
 import PropTypes from "prop-types";
 import { IoIosArrowBack } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+
 
 const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
     const navigate = useNavigate();
@@ -16,7 +17,6 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
     const dispatch = useDispatch();
     const activeTopic = useSelector((state) => state.posts.data.topic);
     const [selectedTopic, setSelectedTopic] = useState(null);
-   
 
     const handleTopicSelection = (selectedTopic) => {
         dispatch(filterByTopic(selectedTopic));
@@ -24,6 +24,7 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
         setSelectedTopic(selectedTopic);
         hideAsideBar();
     };
+
 
     const handleToggleEvent = () => {
         if (localStorage.getItem("isGuest") !== "true") {
@@ -39,6 +40,7 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
 
     const { topicsFollowing = [] } = userInfo || {};
 
+
     const exploreMoreTopics = allTopics?.filter(
         (topic) =>
             !topicsFollowing.some(
@@ -46,10 +48,8 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
             )
     );
 
-   
-    
     const customstyle = customStyleAsidebarMobile
-        ? "w-[65%] h-[100vh] absolute top-0 left-0 px-2 flex flex-col   z-50 "
+        ? "w-[65%] h-[100vh] absolute top-0 left-0 px-2 flex flex-col z-50 "
         : "hidden";
 
     return (

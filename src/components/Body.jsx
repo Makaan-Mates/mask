@@ -47,10 +47,6 @@ const Body = () => {
       element: <TopicsSelection />,
     },
     {
-      path: "/topics-to-follow",
-      element: <TopicsSelection />,
-    },
-    {
       path: "/profile/",
       element: <Profile />,
     },

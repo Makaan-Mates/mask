@@ -12,10 +12,13 @@ import { displayAddPostCard } from "../../features/addPostCardSlice";
 import { FiPlus } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import {useFetchUser} from "../../custom-hooks/useFetchUser";  
+
 
 const AllPosts = ({ reloadPosts, page, setPage }) => {
   const dispatch = useDispatch();
   const topicFromStore = useSelector((state) => state.posts.data.topic);
+  console.log(topicFromStore)
   const [card, setCard] = useState([]);
   const [displayFilterCategory, setDisplayFilterCategory] = useState(false);
   const [isTrending, setIsTrending] = useState(false);
@@ -24,6 +27,7 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
   const [selectedFilter, setSelectedFilter] = useState("Sort By");
   const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate()
+  const {userInfo,setUserInfo} = useFetchUser()
 
   const fetchAllPosts = async (topicFromStore) => {
     const token = localStorage.getItem("token");
@@ -62,7 +66,8 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
     fetchAllPosts(topicFromStore);
   }, [page, topicFromStore, isTrending, reloadPosts]);
 
-  const handelInfiniteScroll = async () => {
+
+  const handelInfiniteScroll = async () => { 
     try {
       const threshold = 200;
       if (
@@ -75,8 +80,34 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
       console.log(error);
     }
   };
+  
+  const topicsFollowing = userInfo?.topicsFollowing || [];
+  console.log(topicsFollowing) 
 
-  const handleShowFilterCategory = () => {
+
+  const handleFollowTopic = async () => {
+    if(topicFromStore && !topicsFollowing.includes(topicFromStore) && topicsFollowing.length < 6){
+      const updateFollowedTopics = [...topicsFollowing, topicFromStore]
+      console.log(updateFollowedTopics) 
+      await setUserInfo({...userInfo,topicsFollowing:updateFollowedTopics}) 
+    } else{
+      toast("Cannot follow more than 6 topics", {
+        className: "bg-[#161616]",
+    });
+    }
+  }
+
+  console.log(topicsFollowing.includes(topicFromStore)? "true":"false") 
+
+  const handleUnfollowTopic = async () => {
+    if(topicFromStore && topicsFollowing.includes(topicFromStore)){
+      const updateFollowedTopics = topicsFollowing.filter((topic) => topic !== topicFromStore)
+      console.log(updateFollowedTopics)
+      await setUserInfo({...userInfo,topicsFollowing:updateFollowedTopics})
+    }
+  }
+
+  const handleShowFilterCategory = () => { 
     setDisplayFilterCategory(!displayFilterCategory);
   };
 
@@ -139,6 +170,12 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
         <h1 className="text-lg sm:text-2xl font-semibold text-[#F6F6F6]">
           {topicFromStore === "home" ? `All Posts` : topicFromStore}
         </h1>
+        {topicFromStore !== "home" && (
+        <div className="">
+        {topicsFollowing.includes(topicFromStore) ?
+        (<button className="hover:text-white bg-[#292929] px-4 py-2 rounded-lg text-white " onClick={handleUnfollowTopic}>Unfollow</button>):(
+          <button className="hover:text-white bg-[#292929] px-4 py-2 rounded-lg text-white " onClick={handleFollowTopic}>Follow</button>)}
+        </div>)}
         <div className="relative">
           <button
             onClick={handleShowFilterCategory}
