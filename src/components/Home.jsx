@@ -43,18 +43,25 @@ const Home = () => {
 
   useEffect(() => {
     // Check if not logged in as a guest
-    if (localStorage.getItem("isGuest") !== "true") {
-      const newSocket = io(`${apiUrl}`);
-      console.log(`Socket connection established`, newSocket);
-      setSocket(newSocket);
+    if (localStorage.getItem("isGuest") === "true") {
+      console.log("Guest mode, skipping socket connection");
+      return;
     }
-  }, []);
+    const newSocket = io(`${apiUrl}`);
+    setSocket(newSocket);
+    console.log("Socket connected.")
+  }, [apiUrl]);
 
   useEffect(() => {
+    if (localStorage.getItem("isGuest") === "true") {
+      return;
+    }
     if (userInfo) {
       socket?.emit("newUser", userInfo?.username);
     }
   }, [socket, userInfo]);
+
+  // console.log("socket", socket);
 
   return (
     <>

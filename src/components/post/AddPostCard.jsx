@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Select from "react-select";
 import { useState, useEffect, useRef } from "react";
-import {useFetchUser} from "../../custom-hooks/useFetchUser";
+import { useFetchUser } from "../../custom-hooks/useFetchUser";
 
 const AddPostCard = ({
   initialTitle,
@@ -26,12 +26,11 @@ const AddPostCard = ({
   const showEditPostCard = useSelector(
     (state) => state.addPost.displayEditMode
   );
- 
-  const {userInfo} = useFetchUser();
+
+  const { userInfo } = useFetchUser();
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  
   const [selectedTopic, setSelectedTopic] = useState(null);
 
   const { postid } = useParams();
@@ -56,12 +55,12 @@ const AddPostCard = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  });
 
   const handlePublishPost = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
     const data = await fetch(`${apiUrl}/post`, {
@@ -87,7 +86,7 @@ const AddPostCard = ({
   const handleUpdatePost = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
     await fetch(`${apiUrl}/api/post/edit/${postid}`, {
@@ -109,7 +108,7 @@ const AddPostCard = ({
   };
 
   const topicsFollowing = userInfo?.topicsFollowing || [];
-  const followedTopics = topicsFollowing.map((topic) => topic.name)
+  const followedTopics = topicsFollowing.map((topic) => topic.name);
 
   const options = topics.map((topic) => ({
     value: topic.id,
@@ -117,8 +116,12 @@ const AddPostCard = ({
   }));
 
   const sortedOptions = [
-    options.filter((option) => followedTopics.includes(option.label))
-    .concat(options.filter((option) => !followedTopics.includes(option.label)))]
+    options
+      .filter((option) => followedTopics.includes(option.label))
+      .concat(
+        options.filter((option) => !followedTopics.includes(option.label))
+      ),
+  ];
 
   return (
     <>

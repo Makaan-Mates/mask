@@ -7,12 +7,13 @@ const NotificationBox = ({ socket }) => {
   const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
   const [openNoti, setOpenNoti] = useState(false);
-  const [broadcastMessage, setBroadcastMessage] = useState(
+  const [broadcastMessage] = useState(
     "🎉 We just shipped notification feature, check it out! "
   );
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const notificationRef = useRef(null);
+  // console.log("socket notibox",socket);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -37,45 +38,59 @@ const NotificationBox = ({ socket }) => {
     }
   }, []);
 
-  //socket.io client
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      if (localStorage.getItem("isGuest") === "true") {
-        return;
+  const fetchNotifications = async () => {
+    if (localStorage.getItem("isGuest") === "true") {
+      console.log("Guest mode, skipping fetch");
+      return;
+    }
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("No token found, redirecting to login");
+      navigate("/login");
+      return;
+    }
+    try {
+      const response = await fetch(`${apiUrl}/api/notification`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const token = localStorage.getItem("token");
-      if (!token) {
-        navigate('/login');
-        return;
-      }
-      try {
-        const response = await fetch(`${apiUrl}/api/notification`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${token}`,
-          },
-        });
-        const json = await response.json();
-        setNotifications(json);
-      } catch (error) {
-        console.error("Failed to fetch notifications:", error);
-      }
-    };
+      const json = await response.json();
+      setNotifications(json);
+    } catch (error) {
+      console.error("Failed to fetch notifications:", error);
+    }
+  };
 
-    // Initial fetch
+  useEffect(() => {
+    if (!socket) {
+      return;
+    }
+
     fetchNotifications();
 
-    const intervalId = setInterval(fetchNotifications, 15000);
+    const handleNewNotification = () => {
+      fetchNotifications();
+    };
 
-    return () => clearInterval(intervalId);
-  }, [apiUrl]);
+    socket.on("getNotification", handleNewNotification);
+
+    // Cleanup the event listener when the component unmounts or the socket changes
+    return () => {
+      socket.off("getNotification", handleNewNotification);
+    };
+  }, [socket]);
 
   const handleClearNotifications = async () => {
     localStorage.setItem("broadcastMessage", "shadev");
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
     const data = await fetch(`${apiUrl}/api/notification/clear`, {
@@ -86,8 +101,8 @@ const NotificationBox = ({ socket }) => {
       },
     });
 
-    const json = await data.json();
-    console.log(json);
+    await data.json();
+    fetchNotifications();
   };
 
   const handleNavigatePost = (postId) => {
