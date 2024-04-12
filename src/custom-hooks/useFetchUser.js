@@ -48,5 +48,6 @@ export const useFetchUser = () => {
     }
   }
 
-  return { userInfo, loading }
+
+  return { userInfo, loading ,setUserInfo}
 }
