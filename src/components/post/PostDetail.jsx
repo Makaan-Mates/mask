@@ -1,6 +1,7 @@
 import { FaRegEye, FaRegClock, FaEllipsisV } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { FiShare } from "react-icons/fi";
 import CommentSection from "../comment/CommentSection";
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -134,6 +135,12 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
     navigate("/home ");
   };
 
+  const postShareHandler = () => {
+    const clientUrl = import.meta.env.VITE_CLIENT_URL;
+    navigator.clipboard.writeText(`${clientUrl}/post/${postid}`);
+    toast.success("Copied");
+  }
+
   // console.log("userInfo", userInfo);
 
   if (!userInfo) {
@@ -205,6 +212,7 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
                   </button>
                 </div>
               )}
+
             </div>
           </div>
         </div>
@@ -214,18 +222,35 @@ const PostDetail = ({ postEdited, socket, senderName }) => {
             __html: renderDescriptionWithLinks(postDetails?.description || ""),
           }}
         ></div>
-        <div className="flex items-center">
-          <UpvoteContainer
-            type="post"
-            id={postid}
-            socket={socket}
-            senderName={senderName}
-            postData={postData}
-            notificationAction="upvote"
-          />
-          <BiComment className="ml-4 mr-2 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
-          <span className="text-[#9B9B9B]">{totalcomments}</span>
+
+        {/* upvote | no. of comments | share */}
+        <div className="w-full flex justify-between items-center">
+          <div className="flex items-center">
+            <UpvoteContainer
+              type="post"
+              id={postid}
+              socket={socket}
+              senderName={senderName}
+              postData={postData}
+              notificationAction="upvote"
+            />
+            <BiComment className="ml-4 mr-2 mt-1 text-2xl text-[#9B9B9B] hover:text-[#d2d2d2] " />
+            <span className="text-[#9B9B9B]">{totalcomments}</span>
+          </div>
+
+          <div>
+            <button onClick={postShareHandler} className="flex justify-center px-5 hover:text-[#d2d2d2] transition-all duration-300 ease-in-out bg-white/[0.05] rounded-full font-medium py-2 items-center gap-1 text-[#aeaeae]">
+              <span className="text-lg">
+                <FiShare />
+              </span>
+              <span>Share</span>
+            </button>
+          </div>
+
         </div>
+
+
+
       </div>
       <CommentTextArea
         isReplySection={false}
