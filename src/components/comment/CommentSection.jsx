@@ -33,7 +33,7 @@ const CommentSection = ({ commentPosted, socket, senderName, postData }) => {
 
   useEffect(() => {
     fetchComments();
-  }, [commentPosted, replyPosted, commentDeleted]);
+  }, [commentPosted, replyPosted, commentDeleted, postid]);
 
   useEffect(() => {
     dispatch(totalPostComments(comments?.length));
