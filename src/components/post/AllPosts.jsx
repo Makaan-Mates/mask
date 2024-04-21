@@ -27,7 +27,7 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const userInfo = useFetchUser();
-  const [isLoading, setIsLoading] = useState(true); // New state to track loading status
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchAllPosts = async (topicFromStore) => {
     if (card.length === 0 || page === 1) {
