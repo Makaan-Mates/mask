@@ -49,7 +49,7 @@ const Asidebar = ({ customStyleAsidebarMobile, hideAsideBar }) => {
 
   return (
     <div
-      className={` bg-[#1C1C1C] md:block   md:w-2/5 lg:w-2/6 xl:w-1/5 md:px-5 md:py-10 border-r-[1px] border-[#282828] min-h-[88vh] self-start md:sticky md:top-[12vh]  ${customstyle}`}
+      className={` bg-[#1C1C1C] md:block   md:w-2/5 lg:w-2/6 xl:w-1/5 md:px-5 md:pt-10 border-r-[1px] border-[#282828] min-h-[88vh] self-start md:sticky md:top-[12vh]  ${customstyle}`}
     >
       <div
         onClick={handleToggleEvent}

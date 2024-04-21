@@ -12,13 +12,12 @@ import { displayAddPostCard } from "../../features/addPostCardSlice";
 import { FiPlus } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import {useFetchUser} from "../../custom-hooks/useFetchUser";  
-
+import { useFetchUser } from "../../custom-hooks/useFetchUser";
 
 const AllPosts = ({ reloadPosts, page, setPage }) => {
   const dispatch = useDispatch();
   const topicFromStore = useSelector((state) => state.posts.data.topic);
-  console.log(topicFromStore)
+  console.log(topicFromStore);
   const [card, setCard] = useState([]);
   const [displayFilterCategory, setDisplayFilterCategory] = useState(false);
   const [isTrending, setIsTrending] = useState(false);
@@ -26,14 +25,18 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
   const [selectedFilter, setSelectedFilter] = useState("Sort By");
   const apiUrl = import.meta.env.VITE_API_URL;
-  const navigate = useNavigate()
-  const {userInfo,setUserInfo} = useFetchUser()
+  const navigate = useNavigate();
+  const userInfo = useFetchUser();
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchAllPosts = async (topicFromStore) => {
+    if (card.length === 0 || page === 1) {
+      setIsLoading(true);
+    } // Start loading
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate('/login')
-      return
+      navigate("/login");
+      return;
     }
     const data = await fetch(
       `${apiUrl}/api/posts?_limit=14&_page=${page}&topic=${topicFromStore}&trending=${isTrending}`,
@@ -55,6 +58,7 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
         setCard((prev) => [...prev, ...json.posts]);
       }
     }
+    setTimeout(() => setIsLoading(false), 500);
   };
 
   useEffect(() => {
@@ -66,8 +70,7 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
     fetchAllPosts(topicFromStore);
   }, [page, topicFromStore, isTrending, reloadPosts]);
 
-
-  const handelInfiniteScroll = async () => { 
+  const handelInfiniteScroll = async () => {
     try {
       const threshold = 200;
       if (
@@ -80,34 +83,33 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
       console.log(error);
     }
   };
-  
+
   const topicsFollowing = userInfo?.topicsFollowing || [];
-  console.log(topicsFollowing) 
+  console.log(topicsFollowing);
 
+  // const handleFollowTopic = async () => {
+  //   if(topicFromStore && !topicsFollowing.includes(topicFromStore) && topicsFollowing.length < 6){
+  //     const updateFollowedTopics = [...topicsFollowing, topicFromStore]
+  //     console.log(updateFollowedTopics)
+  //     await setUserInfo({...userInfo,topicsFollowing:updateFollowedTopics})
+  //   } else{
+  //     toast("Cannot follow more than 6 topics", {
+  //       className: "bg-[#161616]",
+  //   });
+  //   }
+  // }
 
-  const handleFollowTopic = async () => {
-    if(topicFromStore && !topicsFollowing.includes(topicFromStore) && topicsFollowing.length < 6){
-      const updateFollowedTopics = [...topicsFollowing, topicFromStore]
-      console.log(updateFollowedTopics) 
-      await setUserInfo({...userInfo,topicsFollowing:updateFollowedTopics}) 
-    } else{
-      toast("Cannot follow more than 6 topics", {
-        className: "bg-[#161616]",
-    });
-    }
-  }
+  // console.log(topicsFollowing.includes(topicFromStore)? "true":"false")
 
-  console.log(topicsFollowing.includes(topicFromStore)? "true":"false") 
+  // const handleUnfollowTopic = async () => {
+  //   if(topicFromStore && topicsFollowing.includes(topicFromStore)){
+  //     const updateFollowedTopics = topicsFollowing.filter((topic) => topic !== topicFromStore)
+  //     console.log(updateFollowedTopics)
+  //     await setUserInfo({...userInfo,topicsFollowing:updateFollowedTopics})
+  //   }
+  // }
 
-  const handleUnfollowTopic = async () => {
-    if(topicFromStore && topicsFollowing.includes(topicFromStore)){
-      const updateFollowedTopics = topicsFollowing.filter((topic) => topic !== topicFromStore)
-      console.log(updateFollowedTopics)
-      await setUserInfo({...userInfo,topicsFollowing:updateFollowedTopics})
-    }
-  }
-
-  const handleShowFilterCategory = () => { 
+  const handleShowFilterCategory = () => {
     setDisplayFilterCategory(!displayFilterCategory);
   };
 
@@ -170,12 +172,12 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
         <h1 className="text-lg sm:text-2xl font-semibold text-[#F6F6F6]">
           {topicFromStore === "home" ? `All Posts` : topicFromStore}
         </h1>
-        {topicFromStore !== "home" && (
+        {/* {topicFromStore !== "home" && (
         <div className="">
         {topicsFollowing.includes(topicFromStore) ?
         (<button className="hover:text-white bg-[#292929] px-4 py-2 rounded-lg text-white " onClick={handleUnfollowTopic}>Unfollow</button>):(
           <button className="hover:text-white bg-[#292929] px-4 py-2 rounded-lg text-white " onClick={handleFollowTopic}>Follow</button>)}
-        </div>)}
+        </div>)} */}
         <div className="relative">
           <button
             onClick={handleShowFilterCategory}
@@ -211,24 +213,29 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
         </div>
       </div>
       <div className="postcards w-full flex flex-wrap py-5 ">
-        {Array.isArray(card) && card?.length === 0
-          ? Array(10)
-              .fill()
-              .map((_, i) => <ShimmerPostCard key={i} />)
-          : Array.isArray(card) &&
-            card?.map((post) => (
-              <PostCard
-                key={post?._id}
-                postid={post?._id}
-                title={post?.title}
-                description={post?.description}
-                topic={post?.topic}
-                username={post?.user_id?.username}
-                timeSinceCreated={post?.timeSinceCreated}
-                totalUpvotes={post?.upvotes?.length}
-                collegeName={post?.user_id?.college}
-              />
-            ))}
+        {isLoading ? (
+          Array(10)
+            .fill()
+            .map((_, i) => <ShimmerPostCard key={i} />)
+        ) : Array.isArray(card) && card.length === 0 ? (
+          <div className="w-full text-center text-white">
+            No Posts. Be the first to post in this topic!
+          </div>
+        ) : (
+          card.map((post) => (
+            <PostCard
+              key={post?._id}
+              postid={post?._id}
+              title={post?.title}
+              description={post?.description}
+              topic={post?.topic}
+              username={post?.user_id?.username}
+              timeSinceCreated={post?.timeSinceCreated}
+              totalUpvotes={post?.upvotes?.length}
+              collegeName={post?.user_id?.college}
+            />
+          ))
+        )}
       </div>
       {showIcon && (
         <div
