@@ -58,7 +58,6 @@ const AllPosts = ({ reloadPosts, page, setPage }) => {
         setCard((prev) => [...prev, ...json.posts]);
       }
     }
-    // Delay setting isLoading to false to avoid blinking
     setTimeout(() => setIsLoading(false), 500);
   };
 
