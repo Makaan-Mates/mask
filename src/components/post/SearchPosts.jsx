@@ -87,7 +87,7 @@ const SearchPosts = () => {
           value={searchQuery}
           onChange={handleSearch}
           className="w-full h-10 items-center bg-[#1C1C1C] hover:placeholder:text-[#d2d2d2]  focus:outline-none rounded-lg px-2 "
-          placeholder="Search Posts"
+          placeholder="Search for topics, content, colleges . . ."
           autoFocus
         />
         <div className="hidden  md:flex items-center border-[1px] border-[#363636] rounded-md text-sm px-1 ">
