@@ -97,6 +97,7 @@ UpvoteContainer.propTypes = {
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   socket: PropTypes.object,
   senderName: PropTypes.string,
+  receiverName: PropTypes.string,
   postData: PropTypes.object,
   notificationAction: PropTypes.string,
 };

@@ -74,7 +74,7 @@ const SearchPosts = () => {
       setHasSearched(false);
     }
   };
-// console.log(searchResults)
+  // console.log(searchResults)
 
   return (
     <div
@@ -118,11 +118,11 @@ const SearchPosts = () => {
                 description={post?.description}
                 topic={post?.topic}
                 postid={post._id}
-                username={post?.user_id?.username}
-                totalUpvotes={post?.upvotes?.length}
+                username={post?.userDetails?.username}
+                totalUpvotes={post?.totalUpvotes}
                 timeSinceCreated={post?.timeSinceCreated}
                 customStyleSearch={true}
-                collegeName={post?.user_id?.college}
+                collegeName={post?.userDetails?.college}
               />
             </div>
           ))
