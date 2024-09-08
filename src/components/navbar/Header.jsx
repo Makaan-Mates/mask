@@ -176,12 +176,12 @@ const Header = ({ socket }) => {
         >
           Home{" "}
         </div>
-        <div
+        {/* <div
           onClick={() => alert("Exploration coming soon!")}
           className=" hidden md:block text-base px-2 py-1 font-semibold hover:text-[#FFFFFF] cursor-pointer rounded-md "
         >
           Explore
-        </div>
+        </div> */}
         <div className="searchbox hidden sm:flex w-10/12 md:w-64 lg:w-72 px-3 sm:px-4 py-2 mx-4 rounded-full  items-center justify-between bg-[#1C1C1C] border-[1px]  border-[#282828] hover:border-[#363636] ">
           <div className="w-full" onClick={handleToggleSearch}>
             Search
